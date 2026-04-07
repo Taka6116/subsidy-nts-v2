@@ -10,6 +10,13 @@ module.exports = {
         heading: ["var(--font-noto-sans-jp)", "sans-serif"],
         body: ["var(--font-noto-sans-jp)", "sans-serif"],
         display: ["var(--font-sora)", "sans-serif"],
+        headline: [
+          "var(--font-newsreader)",
+          "YuMincho",
+          "Hiragino Mincho ProN",
+          "MS PMincho",
+          "serif",
+        ],
       },
       colors: {
         primary: {

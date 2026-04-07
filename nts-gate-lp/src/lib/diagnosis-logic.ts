@@ -1,6 +1,6 @@
 /** 設問・分岐・結果遷移（設計: docs/設問設計書.md） */
 
-export const DIAGNOSIS_STORAGE_KEY = "nts_diagnosis_v1";
+export const DIAGNOSIS_STORAGE_KEY = "nts_diagnosis_v2";
 
 export type RoleAnswer = "end_user" | "partner_sales" | "hybrid" | "exploring";
 export type EmpAnswer = "emp_1_5" | "emp_6_20" | "emp_21_100" | "emp_101_plus";
@@ -16,11 +16,36 @@ export type PartnerTimingAnswer =
   | "partner_light"
   | "partner_learn";
 
+export type IndustryAnswer =
+  | "ind_manufacturing"
+  | "ind_construction"
+  | "ind_it"
+  | "ind_retail_food"
+  | "ind_service"
+  | "ind_other";
+
+export type InitiativeAnswer =
+  | "ini_laborsaving"
+  | "ini_it_dx"
+  | "ini_new_business"
+  | "ini_overseas"
+  | "ini_hiring"
+  | "ini_unclear";
+
+export type SubsidyExpAnswer =
+  | "exp_selected"
+  | "exp_applied_not_selected"
+  | "exp_never"
+  | "exp_unsure";
+
 export type DiagnosisAnswers = {
   q1: RoleAnswer;
   q2: EmpAnswer;
   q3: ThemeAnswer;
   q4: TimingAnswer | PartnerTimingAnswer;
+  q5: IndustryAnswer;
+  q6: InitiativeAnswer;
+  q7: SubsidyExpAnswer;
 };
 
 export type DiagnosisOption<T extends string = string> = {
@@ -37,8 +62,8 @@ export type DiagnosisQuestion = {
 
 export const Q1_ROLE: DiagnosisQuestion = {
   id: "q1",
-  title: "あなたの会社にとって、いま一番近いのはどれですか？",
-  hint: "補助金の活用イメージを教えてください。",
+  title: "補助金・助成金の活用に、いまいちばん近いのはどちらですか？",
+  hint: "自社利用か、提携先・提案企業（顧客への活用支援）か、近い方をお選びください。",
   options: [
     {
       value: "end_user",
@@ -46,7 +71,8 @@ export const Q1_ROLE: DiagnosisQuestion = {
     },
     {
       value: "partner_sales",
-      label: "取引先や顧客の提案に、補助金情報を組み込みたい",
+      label:
+        "取引先・顧客に補助金を活用してもらい、自社の提案が通りやすくしたい",
     },
     {
       value: "hybrid",
@@ -110,12 +136,67 @@ export const Q4_TIMING_PARTNER: DiagnosisQuestion = {
   ],
 };
 
-export const DIAGNOSIS_TOTAL_STEPS = 4;
+export const Q5_INDUSTRY_END: DiagnosisQuestion = {
+  id: "q5",
+  title: "御社の業種に近いのはどれですか？",
+  hint: "いちばん近いものを1つお選びください。",
+  options: [
+    { value: "ind_manufacturing", label: "製造・ものづくり" },
+    { value: "ind_construction", label: "建設・不動産・設備工事" },
+    { value: "ind_it", label: "IT・ソフトウェア・情報サービス" },
+    { value: "ind_retail_food", label: "小売・飲食・宿泊" },
+    { value: "ind_service", label: "士業・コンサル・その他サービス" },
+    { value: "ind_other", label: "その他・複合" },
+  ],
+};
+
+export const Q5_INDUSTRY_PARTNER: DiagnosisQuestion = {
+  id: "q5",
+  title: "主なお客様の業種に近いのはどれですか？",
+  hint: "提案の中心となる業種を1つお選びください。",
+  options: Q5_INDUSTRY_END.options,
+};
+
+export const Q6_INITIATIVE_END: DiagnosisQuestion = {
+  id: "q6",
+  title: "いま具体的に検討していることに近いのはどれですか？",
+  hint: "複数ある場合は、いちばん手を付けたいものを1つ。",
+  options: [
+    { value: "ini_laborsaving", label: "省力化設備・生産ラインの更新" },
+    { value: "ini_it_dx", label: "IT・DX・業務システムの導入" },
+    { value: "ini_new_business", label: "新規事業・新商品・販路開拓" },
+    { value: "ini_overseas", label: "海外展開・輸出" },
+    { value: "ini_hiring", label: "採用強化・人材育成・処遇改善" },
+    { value: "ini_unclear", label: "まだテーマは決まっていない" },
+  ],
+};
+
+export const Q6_INITIATIVE_PARTNER: DiagnosisQuestion = {
+  id: "q6",
+  title: "お客様が検討していることに近いのはどれですか？",
+  hint: "提案の軸になりそうなテーマを1つお選びください。",
+  options: Q6_INITIATIVE_END.options,
+};
+
+export const Q7_EXPERIENCE: DiagnosisQuestion = {
+  id: "q7",
+  title: "補助金・助成金のご経験に近いのはどれですか？",
+  hint: "御社（またはお客様）の状況に近いものを1つお選びください。",
+  options: [
+    { value: "exp_selected", label: "採択・交付まで進んだ経験がある" },
+    { value: "exp_applied_not_selected", label: "申請したが採択には至らなかった" },
+    { value: "exp_never", label: "申請したことはまだない" },
+    { value: "exp_unsure", label: "よく分からない・これから知りたい" },
+  ],
+};
+
+export const DIAGNOSIS_TOTAL_STEPS = 7;
 
 export function getQuestionForStep(
   stepIndex: number,
   answers: Partial<DiagnosisAnswers>,
 ): DiagnosisQuestion | null {
+  const isPartner = answers.q1 === "partner_sales";
   switch (stepIndex) {
     case 0:
       return Q1_ROLE;
@@ -124,7 +205,13 @@ export function getQuestionForStep(
     case 2:
       return Q3_THEME;
     case 3:
-      return answers.q1 === "partner_sales" ? Q4_TIMING_PARTNER : Q4_TIMING_END;
+      return isPartner ? Q4_TIMING_PARTNER : Q4_TIMING_END;
+    case 4:
+      return isPartner ? Q5_INDUSTRY_PARTNER : Q5_INDUSTRY_END;
+    case 5:
+      return isPartner ? Q6_INITIATIVE_PARTNER : Q6_INITIATIVE_END;
+    case 6:
+      return Q7_EXPERIENCE;
     default:
       return null;
   }
@@ -142,7 +229,7 @@ export function parseStoredDiagnosis(raw: string | null): DiagnosisStoredPayload
   if (!raw) return null;
   try {
     const o = JSON.parse(raw) as DiagnosisStoredPayload;
-    if (!o.q1 || !o.q2 || !o.q3 || !o.q4) return null;
+    if (!o.q1 || !o.q2 || !o.q3 || !o.q4 || !o.q5 || !o.q6 || !o.q7) return null;
     return o;
   } catch {
     return null;
@@ -152,8 +239,10 @@ export function parseStoredDiagnosis(raw: string | null): DiagnosisStoredPayload
 export function summarizeAnswersForDisplay(a: DiagnosisAnswers): {
   lines: { label: string; value: string }[];
 } {
-  const q4Def =
-    a.q1 === "partner_sales" ? Q4_TIMING_PARTNER : Q4_TIMING_END;
+  const isPartner = a.q1 === "partner_sales";
+  const q4Def = isPartner ? Q4_TIMING_PARTNER : Q4_TIMING_END;
+  const q5Def = isPartner ? Q5_INDUSTRY_PARTNER : Q5_INDUSTRY_END;
+  const q6Def = isPartner ? Q6_INITIATIVE_PARTNER : Q6_INITIATIVE_END;
   const pick = (q: DiagnosisQuestion, v: string) =>
     q.options.find((o) => o.value === v)?.label ?? v;
 
@@ -163,6 +252,9 @@ export function summarizeAnswersForDisplay(a: DiagnosisAnswers): {
       { label: "従業員規模", value: pick(Q2_EMP, a.q2) },
       { label: "関心テーマ", value: pick(Q3_THEME, a.q3) },
       { label: q4Def.title.replace(/？$/, ""), value: pick(q4Def, a.q4) },
+      { label: q5Def.title.replace(/？$/, ""), value: pick(q5Def, a.q5) },
+      { label: q6Def.title.replace(/？$/, ""), value: pick(q6Def, a.q6) },
+      { label: Q7_EXPERIENCE.title.replace(/？$/, ""), value: pick(Q7_EXPERIENCE, a.q7) },
     ],
   };
 }

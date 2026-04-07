@@ -9,6 +9,9 @@ const ICON_MAP: Record<StepId, string> = {
   q2: "/diagnosis/q2-building.svg",
   q3: "/diagnosis/q3-document.svg",
   q4: "/diagnosis/q4-screen.svg",
+  q5: "/diagnosis/q2-building.svg",
+  q6: "/diagnosis/q3-document.svg",
+  q7: "/diagnosis/q4-screen.svg",
 };
 
 export default function DiagnosisStepArt({ stepId }: { stepId: StepId }) {
@@ -17,11 +20,11 @@ export default function DiagnosisStepArt({ stepId }: { stepId: StepId }) {
 
   return (
     <div
-      className="mx-auto mb-6 flex h-[108px] w-[108px] shrink-0 items-center justify-center rounded-full bg-primary-50 sm:h-[120px] sm:w-[120px]"
+      className="mx-auto mb-6 flex h-[64px] w-[64px] shrink-0 items-center justify-center sm:h-[72px] sm:w-[72px]"
       aria-hidden="true"
     >
       <div
-        className="h-[56px] w-[56px] sm:h-[64px] sm:w-[64px]"
+        className="h-full w-full"
         style={{
           backgroundColor: "var(--primary-700)",
           WebkitMaskImage: `url(${src})`,

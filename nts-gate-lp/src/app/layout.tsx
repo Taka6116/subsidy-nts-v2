@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Noto_Sans_JP, Sora } from "next/font/google";
+import { Newsreader, Noto_Sans_JP, Sora } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 
@@ -14,6 +14,13 @@ const sora = Sora({
   subsets: ["latin"],
   weight: ["400", "700"],
   variable: "--font-sora",
+  display: "swap",
+});
+
+const newsreader = Newsreader({
+  subsets: ["latin"],
+  weight: ["400", "600", "700"],
+  variable: "--font-newsreader",
   display: "swap",
 });
 
@@ -39,7 +46,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ja" className={`${notoSansJP.variable} ${sora.variable}`}>
+    <html
+      lang="ja"
+      className={`${notoSansJP.variable} ${sora.variable} ${newsreader.variable}`}
+    >
       <head>
         {GA_ID && (
           <>

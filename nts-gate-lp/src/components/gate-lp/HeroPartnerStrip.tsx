@@ -4,10 +4,6 @@ import Image from "next/image";
 import { useReducedMotion } from "framer-motion";
 import { PARTNER_LOGOS, type PartnerLogo } from "@/data/partnerLogos";
 
-/** 22.4px/24px のさらに 0.8 倍（≈17.92px / 19.2px） */
-const PARTNER_TITLE_CLASS =
-  "mb-2 text-center text-[17.92px] font-semibold leading-tight tracking-wide text-neutral-700 sm:mb-2.5 sm:text-[19.2px]";
-
 function logoCells(logos: PartnerLogo[], keySuffix: string) {
   return logos.map((logo, i) => (
     <div
@@ -46,7 +42,6 @@ export default function HeroPartnerStrip() {
 
     return (
       <div className={shellClass} aria-hidden="true">
-        <p className={PARTNER_TITLE_CLASS}>提携企業</p>
         <div className="flex flex-col gap-3 px-4 sm:gap-4">
           <div className="flex flex-wrap items-center justify-center gap-x-7 gap-y-2.5 sm:gap-x-9">
             {logoCells(topLogos, "static-top")}
@@ -61,7 +56,6 @@ export default function HeroPartnerStrip() {
 
   return (
     <div className={shellClass} aria-hidden="true">
-      <p className={PARTNER_TITLE_CLASS}>提携企業</p>
       <div className="flex flex-col gap-2 sm:gap-3">
         <div className="hero-partner-logo-mask relative overflow-hidden">
           {scrollTrack(

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { trackDiagnosisStep, trackDiagnosisResult } from "@/lib/analytics";
 import DiagnosisStepArt from "@/components/diagnosis/DiagnosisStepArt";
@@ -23,6 +23,9 @@ function pickAnswer(
   const next = { ...prev, [key]: value };
   if (key === "q1") {
     delete next.q4;
+    delete next.q5;
+    delete next.q6;
+    delete next.q7;
   }
   return next;
 }
@@ -64,6 +67,7 @@ export default function DiagnosisWizard() {
   const shouldReduceMotion = useReducedMotion();
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<Partial<DiagnosisAnswers>>({});
+  const advancingRef = useRef(false);
 
   const question = useMemo(
     () => getQuestionForStep(step, answers),
@@ -73,45 +77,49 @@ export default function DiagnosisWizard() {
   const currentKey = question?.id;
   const currentValue = currentKey ? answers[currentKey] : undefined;
 
-  const setSelection = useCallback(
+  const selectAndAdvance = useCallback(
     (q: DiagnosisQuestion, value: string) => {
-      setAnswers((prev) => pickAnswer(prev, q.id, value as DiagnosisAnswers[typeof q.id]));
-    },
-    [],
-  );
+      if (advancingRef.current) return;
+      const nextAnswers = pickAnswer(answers, q.id, value as DiagnosisAnswers[typeof q.id]);
+      setAnswers(nextAnswers);
 
-  const canGoNext = Boolean(currentValue);
-  const isLast = step === DIAGNOSIS_TOTAL_STEPS - 1;
+      const isLast = step === DIAGNOSIS_TOTAL_STEPS - 1;
+      advancingRef.current = true;
 
-  const goNext = () => {
-    if (!canGoNext || !question) return;
-    trackDiagnosisStep(step + 1, "complete");
-    if (isLast) {
-      const merged: Partial<DiagnosisAnswers> = {
-        ...answers,
-        ...(currentKey && currentValue
-          ? { [currentKey]: currentValue }
-          : {}),
-      };
-      const full = merged as DiagnosisAnswers;
-      if (!full.q1 || !full.q2 || !full.q3 || !full.q4) return;
-      try {
-        sessionStorage.setItem(
-          DIAGNOSIS_STORAGE_KEY,
-          JSON.stringify({
-            ...full,
-            savedAt: new Date().toISOString(),
-          }),
-        );
-      } catch {
-        /* ignore quota / private mode */
+      trackDiagnosisStep(step + 1, "complete");
+
+      if (isLast) {
+        const full = nextAnswers as DiagnosisAnswers;
+        if (!full.q1 || !full.q2 || !full.q3 || !full.q4 || !full.q5 || !full.q6 || !full.q7) {
+          advancingRef.current = false;
+          return;
+        }
+        try {
+          sessionStorage.setItem(
+            DIAGNOSIS_STORAGE_KEY,
+            JSON.stringify({
+              ...full,
+              savedAt: new Date().toISOString(),
+            }),
+          );
+        } catch {
+          /* ignore quota / private mode */
+        }
+        trackDiagnosisResult(full.q1);
+        router.push(resolveResultPath(full.q1));
+        queueMicrotask(() => {
+          advancingRef.current = false;
+        });
+        return;
       }
-      trackDiagnosisResult(full.q1);
-      router.push(resolveResultPath(full.q1));
-      return;
-    }
-    setStep((s) => s + 1);
-  };
+
+      setStep((s) => s + 1);
+      queueMicrotask(() => {
+        advancingRef.current = false;
+      });
+    },
+    [answers, router, step],
+  );
 
   const goBack = () => {
     if (step <= 0) return;
@@ -178,15 +186,25 @@ export default function DiagnosisWizard() {
             {question.hint}
           </p>
 
-          {/* --- Circular option buttons --- */}
-          <fieldset className="flex w-full flex-wrap items-start justify-center gap-4 border-0 p-0 sm:gap-6">
+          {/* --- Option cards (grid) --- */}
+          <fieldset className="grid w-full max-w-2xl grid-cols-1 gap-3 border-0 p-0 sm:grid-cols-2 sm:gap-4">
             <legend className="sr-only">{question.title}</legend>
             {question.options.map((opt) => {
               const selected = currentValue === opt.value;
               return (
                 <label
                   key={opt.value}
-                  className="group flex w-[130px] cursor-pointer flex-col items-center gap-3 sm:w-[140px]"
+                  className={`group flex min-h-[4.5rem] cursor-pointer rounded-card border-2 px-4 py-4 transition-all duration-200 sm:min-h-[5rem] sm:px-5 ${
+                    selected
+                      ? "border-accent-500 bg-accent-500/[0.08] shadow-sm shadow-accent-500/10"
+                      : "border-neutral-200 bg-white hover:border-primary-300 hover:bg-primary-50/60"
+                  }`}
+                  onClick={(e) => {
+                    if (selected) {
+                      e.preventDefault();
+                      selectAndAdvance(question, opt.value);
+                    }
+                  }}
                 >
                   <input
                     type="radio"
@@ -194,26 +212,11 @@ export default function DiagnosisWizard() {
                     name={question.id}
                     value={opt.value}
                     checked={selected}
-                    onChange={() => setSelection(question, opt.value)}
+                    onChange={() => selectAndAdvance(question, opt.value)}
                   />
                   <span
-                    className={`flex h-[72px] w-[72px] items-center justify-center rounded-full border-2 transition-all duration-200 sm:h-[80px] sm:w-[80px] ${
-                      selected
-                        ? "border-accent-500 bg-accent-500/10 shadow-md shadow-accent-500/15"
-                        : "border-neutral-200 bg-neutral-50 group-hover:border-primary-300 group-hover:bg-primary-50"
-                    }`}
-                  >
-                    <span
-                      className={`block h-3 w-3 rounded-full transition-all duration-200 ${
-                        selected
-                          ? "scale-100 bg-accent-500"
-                          : "scale-0 bg-transparent"
-                      }`}
-                    />
-                  </span>
-                  <span
-                    className={`text-center text-[13px] font-medium leading-snug transition-colors ${
-                      selected ? "text-primary-900" : "text-neutral-600"
+                    className={`flex w-full items-center text-left text-[14px] font-medium leading-snug transition-colors sm:text-[15px] ${
+                      selected ? "text-primary-900" : "text-neutral-700"
                     }`}
                   >
                     {opt.label}
@@ -225,8 +228,8 @@ export default function DiagnosisWizard() {
         </motion.div>
       </AnimatePresence>
 
-      {/* --- Navigation buttons --- */}
-      <div className="mt-8 flex flex-col-reverse gap-3 sm:flex-row sm:justify-between">
+      {/* --- Navigation --- */}
+      <div className="mt-8 flex justify-start sm:justify-start">
         <button
           type="button"
           onClick={goBack}
@@ -234,14 +237,6 @@ export default function DiagnosisWizard() {
           className="rounded-card border-2 border-neutral-200 bg-white px-6 py-3 text-small font-medium text-neutral-600 transition-colors hover:bg-neutral-50 disabled:cursor-not-allowed disabled:opacity-40"
         >
           戻る
-        </button>
-        <button
-          type="button"
-          onClick={goNext}
-          disabled={!canGoNext}
-          className="rounded-card bg-accent-500 px-8 py-3 text-body font-medium text-white shadow-sm transition-all hover:bg-accent-600 hover:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500 disabled:cursor-not-allowed disabled:opacity-50"
-        >
-          {isLast ? "結果を見る" : "次へ"}
         </button>
       </div>
 

@@ -6,7 +6,6 @@ import Hero from "@/components/gate-lp/Hero";
 import ImpactNumber from "@/components/gate-lp/ImpactNumber";
 import HowItWorks from "@/components/gate-lp/HowItWorks";
 import TrustSection from "@/components/gate-lp/TrustSection";
-import FinalCTA from "@/components/gate-lp/FinalCTA";
 
 export default function Home() {
   return (
@@ -18,7 +17,6 @@ export default function Home() {
         <ImpactNumber />
         <HowItWorks />
         <TrustSection />
-        <FinalCTA />
       </main>
       <Footer />
     </HomeEntrance>

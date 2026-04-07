@@ -22,10 +22,6 @@ function applyHeroTextVisibleState(root: HTMLElement) {
     opacity: 1,
     y: 0,
   });
-  gsap.set(root.querySelectorAll(".hero-subtext"), {
-    opacity: 1,
-    y: 0,
-  });
 }
 
 export default function Hero() {
@@ -75,17 +71,6 @@ export default function Hero() {
             ease: "power2.out",
           },
           "-=0.2",
-        )
-        .fromTo(
-          ".hero-subtext",
-          { opacity: 0, y: 16 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.6,
-            ease: "power2.out",
-          },
-          "+=0.5",
         );
     }, root);
 
@@ -163,13 +148,13 @@ export default function Hero() {
                 </svg>
               </Link>
             </div>
-            <p className="hero-subtext mt-3 text-[12px] text-white/40 opacity-0">
-              約1分・4つの質問に答えるだけ。個人情報の入力は不要です。
-            </p>
           </div>
         </div>
       </section>
-      <div className="relative z-[6] -mt-10 shrink-0 sm:-mt-14">
+      <div
+        id="partner-lp"
+        className="relative z-[6] -mt-10 shrink-0 scroll-mt-20 sm:-mt-14 sm:scroll-mt-24"
+      >
         <HeroPartnerStrip />
       </div>
     </div>

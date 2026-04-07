@@ -22,30 +22,25 @@ const CONTENT_IN = 0.55;
 const CONTENT_Y = 14;
 
 const SPLASH_LINES = [
-  "人手不足、設備の老朽化、事業承継——",
-  "その経営課題、国の支援制度で",
-  "動かせるかもしれません。",
+  "多くの経営者は知らない。",
+  "自分の会社が、国の支援を受けられることを。",
 ] as const;
 
-const SPLASH_SUBLINE = "1分の無料診断。個人情報の入力は不要です。";
-
-const FULL_INTRO_ARIA = `${[...SPLASH_LINES, SPLASH_SUBLINE].join(" ")}`;
+const FULL_INTRO_ARIA = SPLASH_LINES.join(" ");
 
 const LINE_FADE_IN_DURATION = 0.8;
 const LINE_STAGGER_IN = 0.8;
-const HOLD_AFTER_LINES = 1.0;
+const HOLD_AFTER_LINES = 0.35;
 const LINE_FADE_OUT_DURATION = 0.8;
 const LINE_STAGGER_OUT = 0.2;
 
 function primeSplashHidden(
   overlay: HTMLElement,
   lines: HTMLParagraphElement[],
-  sub: HTMLElement,
   skipBtn: HTMLElement | null,
 ) {
   gsap.set(overlay, { opacity: 1 });
   lines.forEach((el) => gsap.set(el, { opacity: 0, yPercent: 120 }));
-  gsap.set(sub, { opacity: 0, yPercent: 80 });
   if (skipBtn) gsap.set(skipBtn, { opacity: 0 });
 }
 
@@ -69,7 +64,6 @@ export default function HomeEntrance({ children }: { children: ReactNode }) {
 
   const overlayRef = useRef<HTMLDivElement>(null);
   const lineRefs = useRef<(HTMLParagraphElement | null)[]>([]);
-  const subRef = useRef<HTMLParagraphElement>(null);
   const skipRef = useRef<HTMLButtonElement>(null);
 
   const finishIntro = useCallback((fromSkip: boolean) => {
@@ -109,12 +103,11 @@ export default function HomeEntrance({ children }: { children: ReactNode }) {
     if (phase !== "splash") return;
 
     const overlay = overlayRef.current;
-    const sub = subRef.current;
     const skipBtn = skipRef.current;
     const lines = collectLineRefs(lineRefs.current);
-    if (!overlay || !sub || lines.length !== SPLASH_LINES.length) return;
+    if (!overlay || lines.length !== SPLASH_LINES.length) return;
 
-    primeSplashHidden(overlay, lines, sub, skipBtn);
+    primeSplashHidden(overlay, lines, skipBtn);
   }, [phase, systemReduceMotion]);
 
   useEffect(() => {
@@ -135,11 +128,10 @@ export default function HomeEntrance({ children }: { children: ReactNode }) {
     const run = () => {
       if (cancelled) return;
       const overlay = overlayRef.current;
-      const sub = subRef.current;
       const skipBtn = skipRef.current;
       const lines = collectLineRefs(lineRefs.current);
 
-      if (!overlay || !sub || lines.length !== SPLASH_LINES.length) {
+      if (!overlay || lines.length !== SPLASH_LINES.length) {
         raf = requestAnimationFrame(run);
         return;
       }
@@ -149,12 +141,10 @@ export default function HomeEntrance({ children }: { children: ReactNode }) {
 
       gsapCtxRef.current?.revert();
       gsapCtxRef.current = gsap.context(() => {
-        primeSplashHidden(overlay, lines, sub, skipBtn);
+        primeSplashHidden(overlay, lines, skipBtn);
 
         const tl = gsap.timeline();
         timelineRef.current = tl;
-
-        const exitTargets = [...lines, sub];
 
         tl.fromTo(
           lines,
@@ -167,19 +157,8 @@ export default function HomeEntrance({ children }: { children: ReactNode }) {
             ease: "power3.out",
           },
         )
-          .fromTo(
-            sub,
-            { opacity: 0, yPercent: 80 },
-            {
-              opacity: 1,
-              yPercent: 0,
-              duration: 0.8,
-              ease: "power3.out",
-            },
-            "+=0.2",
-          )
           .to({}, { duration: HOLD_AFTER_LINES })
-          .to(exitTargets, {
+          .to(lines, {
             opacity: 0,
             yPercent: -120,
             duration: LINE_FADE_OUT_DURATION,
@@ -251,29 +230,25 @@ export default function HomeEntrance({ children }: { children: ReactNode }) {
             aria-label={FULL_INTRO_ARIA}
             className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#F2F2F2] px-4"
           >
-            <div className="w-full max-w-xl text-center font-heading will-change-transform">
-              {SPLASH_LINES.map((line, i) => (
-                <p
-                  key={i}
-                  ref={(el) => {
-                    lineRefs.current[i] = el;
-                  }}
-                  aria-hidden="true"
-                  className={`opacity-0 will-change-transform ${
-                    i === 0
-                      ? "text-[clamp(1.05rem,3.6vw,1.5rem)] font-bold leading-snug text-neutral-700"
-                      : "mt-3 text-[clamp(1.2rem,4vw,1.85rem)] font-bold leading-snug text-primary-900"
-                  }`}
-                >
-                  {line}
-                </p>
-              ))}
+            <div className="w-full max-w-[min(100%,40rem)] text-center font-heading will-change-transform">
               <p
-                ref={subRef}
+                ref={(el) => {
+                  lineRefs.current[0] = el;
+                }}
                 aria-hidden="true"
-                className="intro-splash-sub mt-8 opacity-0 text-small font-medium text-neutral-600 sm:text-body will-change-transform"
+                className="opacity-0 will-change-transform text-[clamp(1.05rem,3.6vw,1.5rem)] font-bold leading-snug text-neutral-700"
               >
-                {SPLASH_SUBLINE}
+                {SPLASH_LINES[0]}
+              </p>
+              <p
+                ref={(el) => {
+                  lineRefs.current[1] = el;
+                }}
+                aria-hidden="true"
+                className="opacity-0 will-change-transform mt-3 text-[clamp(1.2rem,4vw,1.85rem)] font-bold leading-snug text-primary-900"
+              >
+                自分の会社が、国の支援を受けられる
+                <span className="whitespace-nowrap">ことを。</span>
               </p>
             </div>
 

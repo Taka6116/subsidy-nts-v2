@@ -1,6 +1,9 @@
 import Link from "next/link";
 import FooterPartnerLink from "./FooterPartnerLink";
 
+/** 診断前LPフッター（添付スウォッチ #0e357e 相当） */
+const FOOTER_NAVY = "#0e357e";
+
 const footerLinks = [
   { label: "サービス", href: "#" },
   { label: "会社情報", href: "#" },
@@ -9,18 +12,26 @@ const footerLinks = [
 
 export default function Footer() {
   return (
-    <footer className="bg-neutral-900 text-neutral-500">
+    <footer
+      className="text-white"
+      style={{ backgroundColor: FOOTER_NAVY }}
+    >
       <div className="mx-auto max-w-container px-6 py-16">
-        <div className="mb-8">
-          <p className="text-lg font-bold text-white font-heading tracking-tight">
-            日本提携支援
+        <div className="mb-8 space-y-4 text-small leading-relaxed text-white">
+          <p className="text-base font-bold font-heading tracking-tight">
+            株式会社日本提携支援
           </p>
-        </div>
-
-        <div className="mb-8 space-y-1">
-          <p className="text-small">株式会社日本提携支援</p>
-          <p className="text-small">
-            〒000-0000 東京都○○区○○ 0-0-0
+          <p className="text-white/95">〒103-0006</p>
+          <p className="text-white/95">
+            東京都中央区日本橋富沢町10-11TWG 日本橋イーストⅡ10階
+          </p>
+          <p>
+            <a
+              href="tel:0366670221"
+              className="text-white/95 underline-offset-4 transition-colors hover:text-white hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white rounded-sm"
+            >
+              TEL: 03-6667-0221
+            </a>
           </p>
         </div>
 
@@ -31,9 +42,9 @@ export default function Footer() {
               id={link.label === "お問い合わせ" ? "footer-contact" : undefined}
               href={link.href}
               className="
-                text-small text-neutral-500 transition-colors duration-200
+                text-small text-white/85 transition-colors duration-200
                 hover:text-white
-                focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500 rounded-sm
+                focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white rounded-sm
               "
             >
               {link.label}
@@ -41,8 +52,8 @@ export default function Footer() {
           ))}
         </nav>
 
-        <div className="flex flex-col gap-4 border-t border-neutral-700 pt-8 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-caption">
+        <div className="flex flex-col gap-4 border-t border-white/20 pt-8 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-caption text-white/80">
             &copy; 2026 NTS Inc. All rights reserved.
           </p>
           <FooterPartnerLink />

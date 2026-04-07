@@ -9,9 +9,9 @@ export default function FooterPartnerLink() {
       href="https://partner.firstgate.jp"
       onClick={() => trackPartnerLinkClick("footer")}
       className="
-        text-small text-neutral-500 transition-colors duration-200
+        text-small text-white/85 transition-colors duration-200
         hover:text-white
-        focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500 rounded-sm
+        focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white rounded-sm
       "
     >
       パートナー企業の方はこちら
