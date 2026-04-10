@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { trackPartnerLinkClick } from "@/lib/analytics";
+import { getPartnerUrl } from "@/lib/partnerUrl";
 
 export default function Header() {
   const pathname = usePathname();
@@ -19,6 +20,16 @@ export default function Header() {
   }, []);
 
   const heroStyle = isHome && !scrolled;
+  const partnerHref = getPartnerUrl();
+  /** トップ以外は常に視認性のあるヘッダー帯（ロゴ反転のため） */
+  const barClass =
+    heroStyle
+      ? "border-transparent bg-transparent"
+      : !isHome
+        ? "border-b border-neutral-200 bg-neutral-50/95 backdrop-blur-[12px]"
+        : scrolled
+          ? "border-b border-neutral-200 bg-neutral-50/90 backdrop-blur-[12px]"
+          : "border-transparent bg-transparent";
 
   return (
     <header
@@ -26,18 +37,12 @@ export default function Header() {
         absolute left-0 right-0 top-4 z-[10]
     flex h-16 items-center justify-between
     px-6 transition-all duration-300
-        ${
-          heroStyle
-            ? "border-transparent bg-transparent"
-            : scrolled
-              ? "border-b border-neutral-200 bg-neutral-50/90 backdrop-blur-[12px]"
-              : "border-transparent bg-transparent"
-        }
+        ${barClass}
       `}
     >
       <Link
         href="/"
-        className="flex shrink-0 items-center rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500 brightness-0 invert"
+        className={`flex shrink-0 items-center rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500 ${heroStyle ? "brightness-0 invert" : ""}`}
       >
         <img
           src="/nts-logo.svg"
@@ -49,7 +54,7 @@ export default function Header() {
       </Link>
 
       <Link
-        href="https://partner.firstgate.jp"
+        href={partnerHref}
         onClick={() => trackPartnerLinkClick("header")}
         className={`
           text-small transition-colors duration-200

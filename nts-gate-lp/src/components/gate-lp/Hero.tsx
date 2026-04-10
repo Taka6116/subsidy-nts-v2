@@ -10,9 +10,9 @@ import { trackCTAClick } from "@/lib/analytics";
 import HeroPartnerStrip from "@/components/gate-lp/HeroPartnerStrip";
 
 const GRADIENT_A =
-  "linear-gradient(105deg, rgba(10,22,46,0.82) 0%, rgba(10,22,46,0.55) 42%, rgba(10,22,46,0.15) 65%, transparent 100%)";
+  "linear-gradient(105deg, rgba(10,22,46,0.68) 0%, rgba(10,22,46,0.44) 42%, rgba(10,22,46,0.12) 65%, transparent 100%)";
 const GRADIENT_B =
-  "linear-gradient(to left, rgba(10,22,46,0.50) 0%, transparent 45%)";
+  "linear-gradient(to left, rgba(10,22,46,0.38) 0%, transparent 45%)";
 
 const HERO_PICTURE_SRC = "/images/hero_picture.png";
 
@@ -117,22 +117,24 @@ export default function Hero() {
         </div>
 
         <div className="pointer-events-none absolute inset-0 z-[5] flex flex-col justify-center pl-6 sm:pl-10 md:w-[62%] md:pl-16">
-          <div className="pointer-events-auto max-w-xl">
-            <p className="hero-text-item mb-5 text-[13px] font-medium leading-snug tracking-normal text-white/75 opacity-0">
+          <div className="pointer-events-auto">
+            <p className="hero-text-item mb-5 text-[13px] font-medium leading-snug tracking-normal text-white/90 opacity-0">
               その経営課題、補助金で動かせるかもしれません
             </p>
-            <h1 className="hero-text-item mb-8 font-heading text-[clamp(24px,2.4vw,36px)] font-bold leading-[1.55] text-white opacity-0">
-              人手不足、設備の老朽化、事業承継
-              <br />
-              それでも、前に進む方法がある。
+            <h1 className="hero-text-item mb-8 font-heading text-[clamp(20px,2.6vw,36px)] font-bold leading-[1.6] text-white opacity-0">
+              <span className="block whitespace-nowrap">人手不足、設備の老朽化、事業承継</span>
+              <span className="block whitespace-nowrap">あなたの経営課題に使える補助金があるか、1分で分かります。</span>
             </h1>
+            <p className="hero-text-item mb-4 text-[13px] font-medium leading-snug tracking-normal text-white/90 opacity-0">
+              会社名を入力するだけで対象制度がわかります
+            </p>
             <div className="hero-text-item opacity-0">
               <Link
-                href="/diagnosis"
+                href="/check"
                 onClick={() => trackCTAClick("hero")}
                 className="inline-flex items-center gap-2 rounded border-0 bg-[#d05a28] px-8 py-4 text-[15px] font-medium text-white transition-transform hover:-translate-y-px hover:bg-[#b84e22] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
               >
-                1分で無料診断する
+                対象の補助金を確認する
                 <svg
                   width="18"
                   height="18"

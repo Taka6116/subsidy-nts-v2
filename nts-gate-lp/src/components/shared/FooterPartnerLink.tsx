@@ -2,11 +2,12 @@
 
 import Link from "next/link";
 import { trackPartnerLinkClick } from "@/lib/analytics";
+import { getPartnerUrl } from "@/lib/partnerUrl";
 
 export default function FooterPartnerLink() {
   return (
     <Link
-      href="https://partner.firstgate.jp"
+      href={getPartnerUrl()}
       onClick={() => trackPartnerLinkClick("footer")}
       className="
         text-small text-white/85 transition-colors duration-200

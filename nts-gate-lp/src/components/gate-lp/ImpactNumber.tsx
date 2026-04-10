@@ -103,8 +103,8 @@ export default function ImpactNumber() {
           className="w-full sm:w-auto"
         >
           <CTAButton
-            text="対象か確認する（無料・1分）"
-            href="/diagnosis"
+            text="補助金を照会する（無料）"
+            href="/check"
             variant="primary"
             size="large"
             onClick={() => trackCTAClick("impact")}

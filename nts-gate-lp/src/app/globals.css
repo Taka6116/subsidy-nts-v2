@@ -64,6 +64,38 @@
   --section-gap: clamp(4rem, 8vw, 8rem);
 }
 
+/* === /check ポータル（LP の青トーンと分離・モック HTML と同期） === */
+.check-portal {
+  --portal-bg: #f9f9f6;
+  --portal-surface: #f9f9f6;
+  --portal-on-surface: #1a1c1b;
+  --portal-on-surface-variant: #424843;
+  --portal-primary: #082717;
+  --portal-primary-container: #1f3d2b;
+  --portal-on-primary: #ffffff;
+  --portal-surface-lowest: #ffffff;
+  --portal-surface-low: #f4f4f1;
+  --portal-surface-container: #eeeeeb;
+  --portal-secondary-container: #e2e0d7;
+  --portal-on-secondary-container: #64635c;
+  --portal-outline: #c2c8c1;
+  --portal-tertiary-fixed-dim: #e3c281;
+  --portal-tertiary-container: #483400;
+  --portal-on-tertiary-container: #bb9c5f;
+  --portal-error: #ba1a1a;
+  --portal-secondary: #5f5f58;
+}
+
+.check-portal-editorial-gradient {
+  background: linear-gradient(135deg, #082717 0%, #1f3d2b 100%);
+}
+
+.check-portal-glass-nav {
+  background: rgba(249, 249, 246, 0.8);
+  -webkit-backdrop-filter: blur(24px);
+  backdrop-filter: blur(24px);
+}
+
 body {
   background: var(--neutral-100);
   color: var(--neutral-900);

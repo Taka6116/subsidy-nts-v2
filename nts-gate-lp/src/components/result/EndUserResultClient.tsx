@@ -107,18 +107,26 @@ function Inner() {
             aria-hidden
           />
 
-          <div className="relative z-10 mx-auto grid max-w-[1536px] items-center gap-12 px-6 md:grid-cols-2 md:gap-16 md:px-8">
+          <Link
+            href="/"
+            className="absolute right-4 top-4 z-30 rounded-md border border-white/25 bg-slate-950/45 px-3 py-2 text-sm font-medium text-white shadow-sm backdrop-blur-sm transition-colors hover:border-white/40 hover:bg-slate-950/60 sm:right-6 sm:top-5 md:right-8 md:top-6"
+          >
+            トップに戻る
+          </Link>
+
+          <div className="relative z-10 mx-auto max-w-[1536px] px-6 md:px-8">
+            <div className="grid items-center gap-12 md:grid-cols-2 md:gap-16">
             <div>
               <span
-                className="mb-6 inline-block rounded-sm px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-white/90"
+                className="mb-6 inline-block rounded-sm px-4 py-1.5 text-xs font-bold tracking-wide text-white/90"
                 style={{ backgroundColor: TEAL_PRIMARY }}
               >
-                DIAGNOSIS COMPLETE｜診断完了
+                診断完了
               </span>
               <h1 className="mb-8 font-heading text-h1 font-bold leading-tight text-white">
-                御社の{heroProgressPhrase}
+                御社の{heroProgressPhrase}、
                 <br />
-                前に進める手段が、見つかりました。
+                補助金で動かせます。
               </h1>
               <p className="mb-10 max-w-lg text-lg leading-loose text-white/75">
                 ご回答いただいた経営課題をもとに、活用できる可能性のある制度と、具体的な次の一手をご提案します。
@@ -129,14 +137,14 @@ function Inner() {
                   className="flex items-center gap-2 rounded px-8 py-4 text-base font-bold text-white shadow-sm transition-all hover:shadow-lg active:scale-[0.98]"
                   style={{ backgroundColor: TEAL_PRIMARY }}
                 >
-                  無料相談を予約する
+                  提携プログラムを見る
                   <ArrowRight className="h-5 w-5" aria-hidden />
                 </Link>
                 <Link
-                  href="/diagnosis"
+                  href="/check"
                   className="rounded border border-white/30 bg-white/10 px-8 py-4 text-base font-bold text-white backdrop-blur-sm transition-all hover:bg-white/20 active:scale-[0.98]"
                 >
-                  補助金制度の詳細を見る
+                  制度の詳細を確認する
                 </Link>
               </div>
             </div>
@@ -159,6 +167,7 @@ function Inner() {
                 />
               )}
             </div>
+            </div>
           </div>
         </motion.section>
 
@@ -168,7 +177,7 @@ function Inner() {
               <p className="py-6 text-sm text-slate-600">
                 診断の回答が見つかりませんでした。
                 <Link
-                  href="/diagnosis"
+                  href="/check"
                   className="ml-1 font-bold text-[#008081] underline underline-offset-4 hover:text-[#005252]"
                 >
                   診断からやり直す
@@ -201,9 +210,11 @@ function Inner() {
           <div className="mx-auto max-w-[1536px] px-6 md:px-8">
             <div className="mx-auto max-w-3xl text-center">
               <p className="font-heading text-h2 font-bold italic leading-snug text-[#134e4a]">
-                「制度を知ることより、使い切ることの方が難しい。
-                <br className="hidden sm:block" />
-                だからこそ、経営課題から一緒に考えます。」
+                「ただの申請代行ではありません。
+                <br />
+                <span className="inline-block whitespace-nowrap">
+                  経営課題から一緒に考えます。」
+                </span>
               </p>
               <p className="mt-8 text-base leading-[1.75] text-slate-600 md:text-lg">
                 補助金はゴールではなく、経営課題を前進させるための手段です。
@@ -233,7 +244,7 @@ function Inner() {
           className="relative overflow-hidden py-24 md:py-32"
         >
           <Image
-            src="/images/hero-sub1.webp"
+            src="/images/subsidy-footer.jpg"
             alt=""
             fill
             className="object-cover"
@@ -242,7 +253,7 @@ function Inner() {
             className="pointer-events-none absolute inset-0"
             style={{
               background:
-                "linear-gradient(180deg, rgba(10,30,40,0.82) 0%, rgba(10,30,40,0.68) 50%, rgba(10,30,40,0.82) 100%)",
+                "linear-gradient(180deg, rgba(10,30,40,0.55) 0%, rgba(10,30,40,0.42) 50%, rgba(10,30,40,0.52) 100%)",
             }}
             aria-hidden
           />
@@ -262,13 +273,13 @@ function Inner() {
                 className="rounded px-10 py-5 text-base font-bold text-[#134e4a] shadow-lg transition-all hover:bg-teal-50 active:scale-[0.98]"
                 style={{ backgroundColor: "#ffffff" }}
               >
-                無料相談を予約する
+                提携プログラムを見る
               </Link>
               <Link
-                href="/diagnosis"
+                href="/check"
                 className="rounded border-2 border-white/40 px-10 py-5 text-base font-bold text-white backdrop-blur-sm transition-all hover:bg-white/15 active:scale-[0.98]"
               >
-                補助金制度の詳細を見る
+                制度の詳細を確認する
               </Link>
             </div>
           </div>

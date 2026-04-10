@@ -4,7 +4,7 @@ import ScrollDepthTracker from "@/components/shared/ScrollDepthTracker";
 import HomeEntrance from "@/components/gate-lp/HomeEntrance";
 import Hero from "@/components/gate-lp/Hero";
 import ImpactNumber from "@/components/gate-lp/ImpactNumber";
-import HowItWorks from "@/components/gate-lp/HowItWorks";
+import ProfessionalPartnerSection from "@/components/gate-lp/ProfessionalPartnerSection";
 import TrustSection from "@/components/gate-lp/TrustSection";
 
 export default function Home() {
@@ -15,7 +15,7 @@ export default function Home() {
       <main>
         <Hero />
         <ImpactNumber />
-        <HowItWorks />
+        <ProfessionalPartnerSection />
         <TrustSection />
       </main>
       <Footer />

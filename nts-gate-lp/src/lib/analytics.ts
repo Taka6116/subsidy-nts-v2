@@ -26,7 +26,7 @@ export function trackCTAClick(location: CTALocation) {
 
 // ---- Partner link click ----
 
-type PartnerLinkLocation = "header" | "footer";
+type PartnerLinkLocation = "header" | "footer" | "professional_section";
 
 export function trackPartnerLinkClick(location: PartnerLinkLocation) {
   sendEvent("partner_link_click", { location });

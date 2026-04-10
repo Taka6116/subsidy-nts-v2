@@ -32,13 +32,13 @@ const CHALLENGE_LABELS: Record<string, string> = {
   other: "その他の経営課題",
 };
 
-/** FV見出し: `御社の{これ}前に進める手段が、見つかりました。` */
+/** FV見出し: `御社の{これ}、補助金で動かせます。` */
 const CHALLENGE_HERO_PROGRESS_PHRASE: Record<string, string> = {
-  labor_shortage: "人手不足の解消を",
-  equipment: "設備投資・生産性向上を",
-  dx: "IT・DX推進を",
-  succession: "事業承継を",
-  other: "経営課題を",
+  labor_shortage: "人手不足の解消",
+  equipment: "設備投資・生産性向上",
+  dx: "IT・DX推進",
+  succession: "事業承継",
+  other: "経営課題",
 };
 
 /** 制度カード上部: `{これ} に使える制度` */
@@ -50,7 +50,7 @@ const CHALLENGE_CARD_CONTEXT_LABEL: Record<string, string> = {
   other: "御社の課題に使える制度",
 };
 
-export const END_USER_HERO_FALLBACK_PHRASE = "経営課題を";
+export const END_USER_HERO_FALLBACK_PHRASE = "経営課題";
 export const SUBSIDY_CARD_CONTEXT_FALLBACK = "御社の課題に使える制度";
 
 const EMP_LABELS: Record<string, string> = {
@@ -185,13 +185,6 @@ export function computeResult(answers: DiagnosisAnswers): DiagnosisResult {
                 ? "あり（1制度に該当）"
                 : "要確認",
         },
-        {
-          label: "想定紹介フィー",
-          value:
-            matched.length > 0
-              ? "補助額の5〜8%（採択確定後にお支払い）"
-              : "—",
-        },
       ]
     : [
         {
@@ -227,7 +220,7 @@ export function computeResult(answers: DiagnosisAnswers): DiagnosisResult {
         {
           title: "採択確定で紹介フィーをお支払い",
           description:
-            "補助額の5〜8%を紹介フィーとしてご提供。御社の新たな収益源になります",
+            "採択後の流れとタイミングに沿って、個別にご案内いたします。",
         },
       ]
     : [
@@ -266,10 +259,6 @@ export function computeResult(answers: DiagnosisAnswers): DiagnosisResult {
     matchedSubsidies: matched,
     summaryItems,
     nextSteps,
-    feeEstimate:
-      isPartner && matched.length > 0
-        ? "補助額の5〜8%（採択確定後にお支払い）"
-        : undefined,
     endUserHeroProgressPhrase,
     subsidyCardContextLabel,
   };

@@ -3,7 +3,7 @@
 import Image from "next/image";
 import SectionWrapper from "@/components/shared/SectionWrapper";
 
-const HERO_BG = "/images/hero-main.webp";
+const HERO_BG = "/images/subsidy-footer.jpg";
 
 export default function TrustSection() {
   return (
