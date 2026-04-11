@@ -143,50 +143,6 @@
   transform: translateX(4px);
 }
 
-/* ── 下部ステータス ──────────────────────────── */
-.badge {
-  position: absolute;
-  bottom: 44px;
-  left: 52px;
-  z-index: 5;
-  display: flex;
-  align-items: center;
-  gap: 28px;
-  opacity: 0;
-  animation: fadeUp 0.8s 1.1s ease forwards;
-}
-
-.stat {
-  text-align: left;
-}
-
-.statNum {
-  font-size: clamp(18px, 2vw, 28px);
-  font-weight: 800;
-  color: #fff;
-  line-height: 1;
-}
-.statNum span {
-  font-size: 0.5em;
-  font-weight: 500;
-  color: rgba(180, 230, 255, 0.7);
-  margin-left: 2px;
-}
-
-.statLabel {
-  font-size: 11px;
-  color: rgba(180, 220, 255, 0.45);
-  margin-top: 5px;
-  letter-spacing: 0.5px;
-}
-
-.dividerV {
-  width: 1px;
-  height: 32px;
-  background: rgba(100, 180, 255, 0.18);
-  flex-shrink: 0;
-}
-
 /* ── スクロールヒント ──────────────────────────── */
 .scrollHint {
   position: absolute;
@@ -198,7 +154,7 @@
   align-items: center;
   gap: 6px;
   opacity: 0;
-  animation: fadeUp 0.8s 1.3s ease forwards;
+  animation: fadeUp 0.8s 1.05s ease forwards;
 }
 
 .scrollLine {
@@ -255,7 +211,6 @@
   .headline,
   .sub,
   .cta,
-  .badge,
   .scrollHint {
     animation: none;
     opacity: 1;
@@ -274,23 +229,7 @@
   .content {
     padding: 80px 24px 80px;
   }
-  .badge {
-    left: 24px;
-    bottom: 36px;
-    gap: 20px;
-  }
   .scrollHint {
     right: 24px;
-  }
-}
-
-@media (max-width: 480px) {
-  .badge {
-    flex-direction: column;
-    gap: 16px;
-    align-items: flex-start;
-  }
-  .dividerV {
-    display: none;
   }
 }

@@ -148,9 +148,11 @@ export default function HeroSection() {
     const particles: Particle[] = [];
 
     KEYWORDS.forEach((kw, i) => {
-      const x = (Math.random() - 0.35) * 95;
-      const y = (Math.random() - 0.5) * 62;
-      const z = (Math.random() - 0.5) * 38 - 4;
+      // 左右にまんべんなくばらけるよう、インデックスで横位置の基準をずらしつつジッター
+      const t = (i + Math.random() * 0.9) / KEYWORDS.length;
+      const x = (t - 0.5) * 132 + (Math.random() - 0.5) * 28;
+      const y = (Math.random() - 0.5) * 68;
+      const z = (Math.random() - 0.5) * 42 - 4;
 
       const bright = 200 + Math.floor(Math.random() * 55);
       const targetA = 0.28 + Math.random() * 0.38;
@@ -335,29 +337,6 @@ export default function HeroSection() {
             →
           </span>
         </Link>
-      </div>
-
-      <div className={styles.badge} aria-label="サービス実績">
-        <div className={styles.stat}>
-          <div className={styles.statNum}>
-            1,500<span>万円</span>
-          </div>
-          <div className={styles.statLabel}>最大活用可能額</div>
-        </div>
-        <div className={styles.dividerV} aria-hidden="true" />
-        <div className={styles.stat}>
-          <div className={styles.statNum}>
-            30<span>社以上</span>
-          </div>
-          <div className={styles.statLabel}>提携アドバイザリー</div>
-        </div>
-        <div className={styles.dividerV} aria-hidden="true" />
-        <div className={styles.stat}>
-          <div className={styles.statNum}>
-            0<span>円</span>
-          </div>
-          <div className={styles.statLabel}>照会・相談費用</div>
-        </div>
       </div>
 
       <div className={styles.scrollHint} aria-hidden="true">
