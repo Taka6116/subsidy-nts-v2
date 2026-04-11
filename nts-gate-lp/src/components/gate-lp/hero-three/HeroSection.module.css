@@ -1,0 +1,296 @@
+/* ─────────────────────────────────────────────
+   HeroSection.module.css
+   ※ nav は Header.tsx に任せるため削除済み
+───────────────────────────────────────────── */
+
+.hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 640px;
+  overflow: hidden;
+  /* prefers-reduced-motion 時の静止背景色 */
+  background: #0d2660;
+  font-family: "Inter", "Noto Sans JP", sans-serif;
+}
+
+.canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    110deg,
+    rgba(8, 24, 68, 0.78) 0%,
+    rgba(8, 24, 68, 0.5) 45%,
+    rgba(0, 60, 120, 0.2) 100%
+  );
+  pointer-events: none;
+}
+
+/* ── メインコンテンツ ──────────────────────────
+   Header が absolute z-[10] で被さるため
+   padding-top で eyebrow / 見出しが被らないよう確保
+─────────────────────────────────────────── */
+.content {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  /* Header 分（top-4 + h-16 ≈ 80px）＋余白 */
+  padding: 80px 52px 80px;
+  box-sizing: border-box;
+}
+
+/* eyebrow */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  margin-bottom: 24px;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.3s ease forwards;
+}
+
+.eyebrowDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #00c4ff;
+  animation: pulse 2s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+.eyebrowText {
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(180, 230, 255, 0.85);
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+}
+
+/* メイン見出し（中央） */
+.headline {
+  max-width: min(100%, 40rem);
+  margin: 0 0 20px;
+  font-size: clamp(18px, 2.8vw, 34px);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.55;
+  letter-spacing: -0.02em;
+  opacity: 0;
+  animation: fadeUp 0.9s 0.45s ease forwards;
+}
+
+/* サブコピー */
+.sub {
+  max-width: min(100%, 36rem);
+  margin: 0 auto 36px;
+  font-size: clamp(12px, 1.2vw, 14px);
+  color: rgba(180, 220, 255, 0.65);
+  line-height: 2;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.65s ease forwards;
+}
+
+/* CTA */
+.cta {
+  display: inline-flex;
+  align-items: center;
+  align-self: center;
+  gap: 10px;
+  padding: 15px 34px;
+  background: #e8880a;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  text-decoration: none;
+  transition: background 0.25s, transform 0.25s, box-shadow 0.25s;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.85s ease forwards;
+  width: fit-content;
+  outline-offset: 3px;
+}
+.cta:hover {
+  background: #d07a08;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(232, 136, 10, 0.35);
+}
+.cta:focus-visible {
+  outline: 2px solid #00c4ff;
+}
+
+.ctaArrow {
+  font-size: 16px;
+  transition: transform 0.2s;
+}
+.cta:hover .ctaArrow {
+  transform: translateX(4px);
+}
+
+/* ── 下部ステータス ──────────────────────────── */
+.badge {
+  position: absolute;
+  bottom: 44px;
+  left: 52px;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  opacity: 0;
+  animation: fadeUp 0.8s 1.1s ease forwards;
+}
+
+.stat {
+  text-align: left;
+}
+
+.statNum {
+  font-size: clamp(18px, 2vw, 28px);
+  font-weight: 800;
+  color: #fff;
+  line-height: 1;
+}
+.statNum span {
+  font-size: 0.5em;
+  font-weight: 500;
+  color: rgba(180, 230, 255, 0.7);
+  margin-left: 2px;
+}
+
+.statLabel {
+  font-size: 11px;
+  color: rgba(180, 220, 255, 0.45);
+  margin-top: 5px;
+  letter-spacing: 0.5px;
+}
+
+.dividerV {
+  width: 1px;
+  height: 32px;
+  background: rgba(100, 180, 255, 0.18);
+  flex-shrink: 0;
+}
+
+/* ── スクロールヒント ──────────────────────────── */
+.scrollHint {
+  position: absolute;
+  bottom: 28px;
+  right: 48px;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  opacity: 0;
+  animation: fadeUp 0.8s 1.3s ease forwards;
+}
+
+.scrollLine {
+  width: 1px;
+  height: 32px;
+  background: linear-gradient(to bottom, transparent, rgba(0, 196, 255, 0.5));
+  animation: scrollLine 1.8s ease-in-out infinite;
+}
+
+.scrollText {
+  font-size: 9px;
+  color: rgba(180, 220, 255, 0.35);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  writing-mode: vertical-rl;
+}
+
+/* ── キーフレーム ──────────────────────────────── */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(1.5);
+  }
+}
+
+@keyframes scrollLine {
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .eyebrow,
+  .headline,
+  .sub,
+  .cta,
+  .badge,
+  .scrollHint {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  .eyebrowDot {
+    animation: none;
+  }
+  .scrollLine {
+    animation: none;
+    opacity: 0.5;
+  }
+}
+
+@media (max-width: 768px) {
+  .content {
+    padding: 80px 24px 80px;
+  }
+  .badge {
+    left: 24px;
+    bottom: 36px;
+    gap: 20px;
+  }
+  .scrollHint {
+    right: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .badge {
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .dividerV {
+    display: none;
+  }
+}
