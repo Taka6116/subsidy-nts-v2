@@ -96,7 +96,7 @@ export default function SubsidyCheckResultTabs({
           ) : null}
         </div>
         <div className="flex flex-wrap gap-3 md:gap-4">
-          <div className="min-w-[140px] rounded-xl border-l-4 border-[var(--rd-primary)] bg-[var(--rd-surface-high)] p-4">
+          <div className="min-w-[140px] rounded-xl bg-[var(--rd-surface-high)] p-4">
             <p className="mb-1 text-[10px] font-semibold uppercase tracking-wide text-[var(--rd-on-surface-dim)]">
               最大補助（参照）
             </p>
@@ -104,7 +104,7 @@ export default function SubsidyCheckResultTabs({
               {item.maxAmountLabel}
             </p>
           </div>
-          <div className="min-w-[140px] rounded-xl border-l-4 border-[#abc7ff] bg-[var(--rd-surface-high)] p-4">
+          <div className="min-w-[140px] rounded-xl bg-[var(--rd-surface-high)] p-4">
             <p className="mb-1 text-[10px] font-semibold uppercase tracking-wide text-[var(--rd-on-surface-dim)]">
               公募期限
             </p>
@@ -114,17 +114,6 @@ export default function SubsidyCheckResultTabs({
                 : "要確認"}
             </p>
           </div>
-          {d?.matchScore != null ? (
-            <div className="min-w-[100px] rounded-xl border border-[var(--rd-border)] bg-[var(--rd-surface)] p-4">
-              <p className="mb-1 text-[10px] font-semibold text-[var(--rd-on-surface-dim)]">
-                マッチ度
-              </p>
-              <p className="font-display text-2xl font-bold tabular-nums text-[var(--rd-on-surface)]">
-                {d.matchScore}
-                <span className="text-lg">%</span>
-              </p>
-            </div>
-          ) : null}
         </div>
       </header>
 
@@ -172,7 +161,7 @@ export default function SubsidyCheckResultTabs({
           >
             <section
               className="relative min-h-[280px] overflow-hidden rounded-3xl bg-[var(--rd-surface-high)] md:min-h-[320px]"
-              aria-labelledby={`${baseId}-featured-heading`}
+              aria-label="制度概要"
             >
               <div className="absolute inset-0">
                 <Image
@@ -192,16 +181,11 @@ export default function SubsidyCheckResultTabs({
                 <span className="mb-3 inline-block w-fit rounded-full border border-[var(--rd-border-strong)] bg-[var(--rd-primary-muted)] px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-[var(--rd-primary)]">
                   概要
                 </span>
-                <h2
-                  id={`${baseId}-featured-heading`}
-                  className="mb-4 max-w-3xl font-heading text-2xl font-extrabold leading-tight text-white md:text-3xl"
-                >
-                  {d?.summary
-                    ? "照合に基づく要点"
-                    : "制度の概要（掲載情報ベース）"}
-                </h2>
                 {d?.summary ? (
-                  <p className="mb-4 max-w-2xl text-sm leading-relaxed text-[var(--rd-on-surface-variant)] md:text-base">
+                  <p
+                    id={`${baseId}-featured-heading`}
+                    className="mb-4 max-w-2xl text-sm font-medium leading-relaxed text-[var(--rd-on-surface-variant)] md:text-base"
+                  >
                     {d.summary}
                   </p>
                 ) : null}
@@ -297,12 +281,12 @@ export default function SubsidyCheckResultTabs({
               </section>
             ) : null}
 
-            <section aria-labelledby={`${baseId}-reasons-heading`}>
+            <section aria-labelledby={`${baseId}-target-reasons-heading`}>
               <h2
-                id={`${baseId}-reasons-heading`}
+                id={`${baseId}-target-reasons-heading`}
                 className="mb-3 font-heading text-lg font-bold text-[var(--rd-on-surface)]"
               >
-                マッチ理由（自動評価）
+                対象理由
               </h2>
               {reasons.length > 0 ? (
                 <ul className="space-y-3">
@@ -403,7 +387,7 @@ export default function SubsidyCheckResultTabs({
 
       <p className="mt-10 flex items-start gap-2 text-xs leading-relaxed text-[var(--rd-on-surface-dim)]">
         <FileText className="mt-0.5 h-4 w-4 shrink-0 text-[var(--rd-on-surface-dim)]" aria-hidden />
-        要約・理由は参考用の自動評価です。採択条件・手続きは公募要領および担当窓口の情報を優先してください。
+        補助金採択を確約するものではありません。
       </p>
     </div>
   );

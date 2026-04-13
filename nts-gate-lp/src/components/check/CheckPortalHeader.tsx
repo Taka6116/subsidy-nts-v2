@@ -26,7 +26,7 @@ export default function CheckPortalHeader({ audience }: Props) {
         <div className="flex shrink-0 items-center gap-3">
           <Link
             href="/"
-            className="text-sm font-medium text-portal-on-surface-variant underline-offset-4 hover:text-portal-primary hover:underline"
+            className="text-sm font-medium text-white underline-offset-4 drop-shadow-[0_1px_2px_rgba(0,0,0,0.35)] hover:text-white/90 hover:underline"
           >
             トップへ
           </Link>

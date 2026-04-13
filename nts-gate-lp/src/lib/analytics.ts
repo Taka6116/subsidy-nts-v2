@@ -18,7 +18,13 @@ function sendEvent(eventName: string, params: GtagEventParams) {
 
 // ---- CTA click ----
 
-type CTALocation = "hero" | "impact" | "steps" | "final";
+export type CTALocation =
+  | "hero"
+  | "impact"
+  | "steps"
+  | "final"
+  /** トップ LP — 照会導線セクション（Section C 等） */
+  | "home_check_lead";
 
 export function trackCTAClick(location: CTALocation) {
   sendEvent("cta_click", { location });

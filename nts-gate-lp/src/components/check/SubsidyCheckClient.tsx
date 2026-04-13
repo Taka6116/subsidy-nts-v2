@@ -211,11 +211,11 @@ export default function SubsidyCheckClient({ audience }: Props) {
           <section className="mb-10" aria-labelledby="check-intro-heading">
             <h1
               id="check-intro-heading"
-              className="font-heading text-h1 font-bold leading-tight text-portal-primary"
+              className="font-heading text-h1 font-bold leading-tight text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.35)]"
             >
               {formTitle}
             </h1>
-            <p className="mt-4 max-w-2xl text-body leading-loose text-portal-on-surface-variant">
+            <p className="mt-4 max-w-2xl text-body leading-loose text-white/90 drop-shadow-[0_1px_2px_rgba(0,0,0,0.25)]">
               {formLead}
             </p>
           </section>
@@ -294,13 +294,15 @@ export default function SubsidyCheckClient({ audience }: Props) {
               {formError ? (
                 <p className="text-sm font-medium text-portal-error">{formError}</p>
               ) : null}
-              <button
-                type="submit"
-                disabled={searchLoading}
-                className="w-full rounded-full bg-[#00c6ff] px-6 py-4 text-base font-bold text-[#0b1a22] shadow-sm transition-all hover:bg-[#00b0e6] hover:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#00c6ff] disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
-              >
-                {searchLoading ? "照合中…" : "補助金を照合する"}
-              </button>
+              <div className="flex w-full justify-center pt-1">
+                <button
+                  type="submit"
+                  disabled={searchLoading}
+                  className="w-full rounded-full bg-[#00c6ff] px-6 py-4 text-base font-bold text-[#0b1a22] shadow-sm transition-all hover:bg-[#00b0e6] hover:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#00c6ff] disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto sm:min-w-[240px]"
+                >
+                  {searchLoading ? "照合中…" : "補助金を照合する"}
+                </button>
+              </div>
             </form>
           </div>
         </>
@@ -311,11 +313,11 @@ export default function SubsidyCheckClient({ audience }: Props) {
       {step === "results" && confirmed && (
         <div className="space-y-12">
           <div>
-            <p className="text-xs font-bold uppercase tracking-widest text-portal-primary-container">
-              照合結果（デモ）
+            <p className="text-xs font-bold uppercase tracking-widest text-white/85 drop-shadow-[0_1px_2px_rgba(0,0,0,0.25)]">
+              照合結果
             </p>
-            <p className="mt-2 text-sm text-portal-on-surface-variant">
-              <span className="font-semibold text-portal-on-surface">{confirmed.name}</span>
+            <p className="mt-2 text-sm text-white/90 drop-shadow-[0_1px_2px_rgba(0,0,0,0.2)]">
+              <span className="font-semibold text-white">{confirmed.name}</span>
               {locationLine}
               <span className="mx-1">・</span>
               {INDUSTRY_OPTIONS.find((o) => o.id === industryId)?.label ?? industryId}
@@ -324,7 +326,9 @@ export default function SubsidyCheckClient({ audience }: Props) {
 
           {results.length === 0 ? (
             <>
-              <h1 className="font-heading text-h1 font-bold text-portal-primary">照合結果（デモ）</h1>
+              <h1 className="font-heading text-h1 font-bold text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.35)]">
+                照合結果
+              </h1>
               <div className="mt-6 max-w-2xl space-y-4 rounded-xl border border-white/10 bg-white p-6 text-sm leading-relaxed text-[#0F2027] shadow-[0_8px_32px_rgba(0,0,0,0.35)] sm:p-8">
                 <p className="font-medium text-[#1a3a4a]">
                   現在、御社の条件に完全に合致する公募中の補助金が見つかりませんでした。
@@ -363,9 +367,6 @@ export default function SubsidyCheckClient({ audience }: Props) {
             </>
           )}
 
-          <p className="text-xs leading-relaxed text-portal-on-surface-variant">
-            本画面は開発用のイメージです。採択可否・金額は公募要領および最新の情報で必ずご確認ください。
-          </p>
           <button
             type="button"
             onClick={reset}

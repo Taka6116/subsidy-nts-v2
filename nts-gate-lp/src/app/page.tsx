@@ -4,9 +4,15 @@ import ScrollDepthTracker from "@/components/shared/ScrollDepthTracker";
 import HomeEntrance from "@/components/gate-lp/HomeEntrance";
 import HeroSection from "@/components/gate-lp/hero-three/HeroSection";
 import HeroPartnerStrip from "@/components/gate-lp/HeroPartnerStrip";
-import ImpactNumber from "@/components/gate-lp/ImpactNumber";
-import ProfessionalPartnerSection from "@/components/gate-lp/ProfessionalPartnerSection";
-import TrustSection from "@/components/gate-lp/TrustSection";
+import AwarenessSection from "@/components/sections/AwarenessSection";
+import SubsidyKindsSection from "@/components/sections/SubsidyKindsSection";
+import CheckLeadSection from "@/components/sections/CheckLeadSection";
+import HowItWorksSection from "@/components/sections/HowItWorksSection";
+import NewSubsidySection from "@/components/sections/NewSubsidySection";
+import PartnerNarrowSection from "@/components/sections/PartnerNarrowSection";
+import NtsAboutSection from "@/components/sections/NtsAboutSection";
+import FaqSection from "@/components/sections/FaqSection";
+import FinalCtaSection from "@/components/sections/FinalCtaSection";
 
 export default function Home() {
   return (
@@ -25,9 +31,15 @@ export default function Home() {
             <HeroPartnerStrip />
           </div>
         </div>
-        <ImpactNumber />
-        <ProfessionalPartnerSection />
-        <TrustSection />
+        <AwarenessSection />
+        <SubsidyKindsSection />
+        <CheckLeadSection />
+        <HowItWorksSection />
+        <NewSubsidySection />
+        <PartnerNarrowSection />
+        <NtsAboutSection />
+        <FaqSection />
+        <FinalCtaSection />
       </main>
       <Footer />
     </HomeEntrance>

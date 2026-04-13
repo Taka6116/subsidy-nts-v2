@@ -39,15 +39,16 @@ export default function Header() {
     px-6 transition-all duration-300
         ${barClass}
       `}
+      data-hero-transparent={heroStyle ? "true" : undefined}
     >
       <Link
         href="/"
-        className={`flex shrink-0 items-center rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500 ${heroStyle ? "brightness-0 invert" : ""}`}
+        className={`flex shrink-0 items-center rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500 ${heroStyle ? "drop-shadow-[0_1px_3px_rgba(0,0,0,0.45)]" : ""}`}
       >
         <img
           src="/nts-logo.svg"
           alt="日本提携支援"
-          className="h-7 w-auto sm:h-8"
+          className={`h-7 w-auto sm:h-8 ${heroStyle ? "brightness-0 invert contrast-[1.05]" : ""}`}
           width={200}
           height={29}
         />
@@ -58,11 +59,11 @@ export default function Header() {
         onClick={() => trackPartnerLinkClick("header")}
         className={`
           text-small transition-colors duration-200
-          hover:text-primary-700 rounded-sm
+          rounded-sm
           focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500
           ${
             heroStyle
-              ? "text-white/85 hover:text-white"
+              ? "text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.4)] hover:text-white/95"
               : "text-neutral-600 hover:text-primary-700"
           }
         `}
