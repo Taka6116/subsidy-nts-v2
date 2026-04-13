@@ -313,12 +313,9 @@ body {
 @media (min-width: 1024px) {
   .subsidy-match-loading-message {
     font-size: clamp(1.35rem, 1.45vw, 1.65rem);
-    width: max-content;
-    max-width: min(100%, calc(100vw - 3rem));
-    white-space: nowrap;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: thin;
+    max-width: min(100%, 42rem);
+    white-space: normal;
+    overflow-x: visible;
   }
 }
 

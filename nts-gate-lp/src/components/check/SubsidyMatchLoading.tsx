@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const PROGRESS_CAP = 76;
@@ -48,27 +47,6 @@ export default function SubsidyMatchLoading() {
       aria-busy="true"
       aria-label="補助金を照合しています"
     >
-      <div className="mx-auto mb-10 flex w-full max-w-5xl items-center justify-between gap-4">
-        <Link
-          href="/"
-          className="shrink-0 rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#00c6ff]"
-        >
-          <img
-            src="/nts-logo.svg"
-            alt="日本提携支援"
-            className="h-7 w-auto brightness-0 invert contrast-[1.05] drop-shadow-[0_1px_3px_rgba(0,0,0,0.4)] sm:h-8"
-            width={200}
-            height={29}
-          />
-        </Link>
-        <Link
-          href="/"
-          className="shrink-0 text-sm font-medium text-white underline-offset-4 drop-shadow-[0_1px_2px_rgba(0,0,0,0.35)] hover:text-white/90 hover:underline"
-        >
-          トップへ
-        </Link>
-      </div>
-
       <div className="flex flex-1 flex-col items-center justify-center px-2">
       <div className="relative mx-auto aspect-square w-[min(56vw,200px)] max-w-[200px]">
         {/* 固定トラックリング */}
