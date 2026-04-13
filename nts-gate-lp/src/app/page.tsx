@@ -1,5 +1,5 @@
 import Header from "@/components/shared/Header";
-import Footer from "@/components/shared/Footer";
+import LpFooter from "@/components/gate-lp/LpFooter";
 import ScrollDepthTracker from "@/components/shared/ScrollDepthTracker";
 import HomeEntrance from "@/components/gate-lp/HomeEntrance";
 import HeroSection from "@/components/gate-lp/hero-three/HeroSection";
@@ -8,6 +8,7 @@ import AwarenessSection from "@/components/sections/AwarenessSection";
 import SubsidyKindsSection from "@/components/sections/SubsidyKindsSection";
 import CheckLeadSection from "@/components/sections/CheckLeadSection";
 import HowItWorksSection from "@/components/sections/HowItWorksSection";
+import NtsServicesSection from "@/components/sections/NtsServicesSection";
 import NewSubsidySection from "@/components/sections/NewSubsidySection";
 import PartnerNarrowSection from "@/components/sections/PartnerNarrowSection";
 import NtsAboutSection from "@/components/sections/NtsAboutSection";
@@ -35,13 +36,14 @@ export default function Home() {
         <SubsidyKindsSection />
         <CheckLeadSection />
         <HowItWorksSection />
+        <NtsServicesSection />
         <NewSubsidySection />
         <PartnerNarrowSection />
         <NtsAboutSection />
         <FaqSection />
         <FinalCtaSection />
       </main>
-      <Footer />
+      <LpFooter />
     </HomeEntrance>
   );
 }
