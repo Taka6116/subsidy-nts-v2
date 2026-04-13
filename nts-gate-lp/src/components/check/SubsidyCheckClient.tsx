@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { INDUSTRY_OPTIONS } from "@/data/industryOptions";
 import { JAPAN_PREFECTURES } from "@/data/japanPrefectures";
 
@@ -130,9 +130,14 @@ export default function SubsidyCheckClient({ audience }: Props) {
   const [formError, setFormError] = useState<string | null>(null);
   const [confirmed, setConfirmed] = useState<CorporateCandidate | null>(null);
   const [results, setResults] = useState<MatchedSubsidyPreview[]>([]);
+  const [activeResultIndex, setActiveResultIndex] = useState(0);
   const [searchLoading, setSearchLoading] = useState(false);
 
   const isPartner = audience === "partner";
+
+  useEffect(() => {
+    setActiveResultIndex(0);
+  }, [results]);
 
   const reset = useCallback(() => {
     setStep("form");
@@ -145,6 +150,7 @@ export default function SubsidyCheckClient({ audience }: Props) {
     setFormError(null);
     setConfirmed(null);
     setResults([]);
+    setActiveResultIndex(0);
     setSearchLoading(false);
   }, []);
 
@@ -467,7 +473,7 @@ export default function SubsidyCheckClient({ audience }: Props) {
             </>
           ) : (
             <>
-              <SubsidyResultHero item={results[0]} />
+              <SubsidyResultHero item={results[activeResultIndex] ?? results[0]} />
               {results.length > 1 ? (
                 <section className="mt-16 md:mt-20" aria-labelledby="check-related-heading">
                   <h2
@@ -477,9 +483,33 @@ export default function SubsidyCheckClient({ audience }: Props) {
                     関連する候補
                   </h2>
                   <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-                    {results.slice(1).map((r) => (
-                      <SubsidyResultCard key={r.id} item={r} />
-                    ))}
+                    {results.slice(1).map((r, sliceIdx) => {
+                      const globalIndex = sliceIdx + 1;
+                      const selected = activeResultIndex === globalIndex;
+                      return (
+                        <div
+                          key={r.id}
+                          role="button"
+                          tabIndex={0}
+                          aria-pressed={selected}
+                          aria-label={`${r.name}の詳細を上部に表示`}
+                          className="rounded-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00c6ff] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a1921]"
+                          onClick={() => {
+                            setActiveResultIndex(globalIndex);
+                            window.scrollTo({ top: 0, behavior: "smooth" });
+                          }}
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter" || e.key === " ") {
+                              e.preventDefault();
+                              setActiveResultIndex(globalIndex);
+                              window.scrollTo({ top: 0, behavior: "smooth" });
+                            }
+                          }}
+                        >
+                          <SubsidyResultCard item={r} selected={selected} />
+                        </div>
+                      );
+                    })}
                   </div>
                 </section>
               ) : null}
