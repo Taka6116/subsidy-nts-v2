@@ -98,6 +98,10 @@ interface Particle {
   yP2: number;
   breathF: number;
   breathP: number;
+  /** 毎フレームのフェード後アルファ（ホバー前） */
+  lastAlpha: number;
+  baseScale: THREE.Vector3;
+  baseColor: THREE.Color;
 }
 
 export default function HeroSection() {
@@ -172,6 +176,7 @@ export default function HeroSection() {
 
       const freqScale = 0.00018 + Math.random() * 0.00014;
 
+      const mat0 = sp.material as THREE.SpriteMaterial;
       particles.push({
         sp,
         cx: x,
@@ -193,8 +198,29 @@ export default function HeroSection() {
         yP2: Math.random() * Math.PI * 2,
         breathF: 0.00022 + Math.random() * 0.00018,
         breathP: Math.random() * Math.PI * 2,
+        lastAlpha: 0,
+        baseScale: sp.scale.clone(),
+        baseColor: mat0.color.clone(),
       });
     });
+
+    const spriteMeshes = particles.map((p) => p.sp);
+    const raycaster = new THREE.Raycaster();
+    const pointerNdc = new THREE.Vector2(0, 0);
+    let pointerInHero = false;
+
+    const handlePointerMove = (e: PointerEvent) => {
+      const rect = canvas.getBoundingClientRect();
+      pointerNdc.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+      pointerNdc.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+      pointerInHero = true;
+    };
+    const handlePointerLeave = () => {
+      pointerInHero = false;
+    };
+
+    wrap.addEventListener("pointermove", handlePointerMove);
+    wrap.addEventListener("pointerleave", handlePointerLeave);
 
     const DOT_N = 2400;
     const dPos = new Float32Array(DOT_N * 3);
@@ -253,7 +279,6 @@ export default function HeroSection() {
       const now = performance.now();
 
       particles.forEach((p) => {
-        const mat = p.sp.material as THREE.SpriteMaterial;
         const elapsed = now - p.fadeStart;
         let alpha: number;
         if (elapsed <= 0) {
@@ -265,7 +290,7 @@ export default function HeroSection() {
             0.88 + 0.12 * Math.sin(now * p.breathF + p.breathP);
           alpha = p.targetA * breath;
         }
-        mat.opacity = alpha;
+        p.lastAlpha = alpha;
         p.sp.position.x =
           p.cx +
           p.xA1 * Math.sin(now * p.xF1 + p.xP1) +
@@ -275,6 +300,37 @@ export default function HeroSection() {
           p.yA1 * Math.sin(now * p.yF1 + p.yP1) +
           p.yA2 * Math.sin(now * p.yF2 + p.yP2);
       });
+
+      let hitSprite: THREE.Sprite | null = null;
+      if (pointerInHero) {
+        raycaster.setFromCamera(pointerNdc, camera);
+        const hits = raycaster.intersectObjects(spriteMeshes, false);
+        for (const h of hits) {
+          const spr = h.object as THREE.Sprite;
+          const part = particles.find((p) => p.sp === spr);
+          if (part && part.lastAlpha > 0.06) {
+            hitSprite = spr;
+            break;
+          }
+        }
+      }
+
+      particles.forEach((p) => {
+        const mat = p.sp.material as THREE.SpriteMaterial;
+        const isHit = hitSprite === p.sp;
+        let a = p.lastAlpha;
+        if (isHit && a > 0.02) {
+          a = Math.min(1, a * 1.28);
+          mat.color.setRGB(1.45, 1.48, 1.55);
+          p.sp.scale.copy(p.baseScale).multiplyScalar(1.09);
+        } else {
+          mat.color.copy(p.baseColor);
+          p.sp.scale.copy(p.baseScale);
+        }
+        mat.opacity = a;
+      });
+
+      wrap.style.cursor = hitSprite ? "pointer" : "";
 
       camera.position.x += (mx * 2.5 - camera.position.x) * 0.04;
       camera.position.y += (my * 1.8 - camera.position.y) * 0.04;
@@ -288,6 +344,9 @@ export default function HeroSection() {
       window.cancelAnimationFrame(rafId);
       window.removeEventListener("resize", handleResize);
       document.removeEventListener("mousemove", handleMouse);
+      wrap.removeEventListener("pointermove", handlePointerMove);
+      wrap.removeEventListener("pointerleave", handlePointerLeave);
+      wrap.style.cursor = "";
       renderer.dispose();
       particles.forEach((p) => {
         const m = p.sp.material as THREE.SpriteMaterial;

@@ -2,49 +2,11 @@ import Link from "next/link";
 import { Lightbulb, ListChecks, TrendingUp } from "lucide-react";
 import type { SubsidyInsightCard } from "@/lib/ai/bedrockSubsidyMatch";
 import type { MatchedSubsidyPreview } from "@/lib/subsidyCheckMocks";
+import { eligibilityPair } from "@/lib/subsidyCheckResultHelpers";
 
 type Props = {
   item: MatchedSubsidyPreview;
 };
-
-function eligibilityPair(item: MatchedSubsidyPreview): { label: string; text: string }[] {
-  const industries =
-    item.targetIndustries && item.targetIndustries.length > 0
-      ? item.targetIndustries.slice(0, 4).join("、")
-      : "";
-  const regionLine = item.targetArea
-    ? item.targetArea.split(" / ")[0] + (item.targetArea.includes(" / ") ? " ほか" : "")
-    : "";
-  const rate = item.subsidyRate?.trim() ?? "";
-
-  const cards: { label: string; text: string }[] = [];
-  if (industries) {
-    cards.push({ label: "対象業種（参考）", text: industries });
-  }
-  const secondParts: string[] = [];
-  if (rate) secondParts.push(`補助率: ${rate}`);
-  if (regionLine) secondParts.push(`対象地域: ${regionLine}`);
-  if (secondParts.length > 0) {
-    cards.push({ label: "条件・地域", text: secondParts.join(" / ") });
-  } else if (item.deadlineLabel && item.deadlineLabel !== "—") {
-    cards.push({ label: "申請期限", text: item.deadlineLabel });
-  }
-
-  const fallback =
-    "詳細は公募要領および jGrants の掲載内容でご確認ください。";
-  if (cards.length === 0) {
-    cards.push(
-      {
-        label: "対象業種（参考）",
-        text: "一覧に業種の明示がない場合があります。公募要領でご確認ください。",
-      },
-      { label: "補足", text: fallback },
-    );
-  } else if (cards.length === 1) {
-    cards.push({ label: "補足", text: fallback });
-  }
-  return cards.slice(0, 2);
-}
 
 export default function SubsidyResultHero({ item }: Props) {
   const d = item.decision;
@@ -53,6 +15,7 @@ export default function SubsidyResultHero({ item }: Props) {
   const insightCards = d?.insightCards ?? [];
   const hasInsightCards = insightCards.length > 0;
 
+  const detailUrl = item.detailUrl?.trim();
   const resultCtaBlock = (
     <div className="w-full space-y-4">
       <Link
@@ -61,16 +24,25 @@ export default function SubsidyResultHero({ item }: Props) {
       >
         無料相談を申し込む
       </Link>
-      <Link
-        href="#"
-        scroll={false}
-        className="inline-flex w-full items-center justify-center rounded-full border-2 border-[#00c6ff] bg-transparent px-5 py-3 text-center text-sm font-semibold text-[#00c6ff] transition-colors hover:bg-[#00c6ff]/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#00c6ff]"
-      >
-        この補助金の詳細を見る
-      </Link>
-      <p className="text-center text-xs leading-snug text-[#00c6ff]/80">
-        ※詳細ページは準備中です
-      </p>
+      {detailUrl ? (
+        <a
+          href={detailUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex w-full items-center justify-center rounded-full border-2 border-[#00c6ff] bg-transparent px-5 py-3 text-center text-sm font-semibold text-[#00c6ff] transition-colors hover:bg-[#00c6ff]/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#00c6ff]"
+        >
+          この補助金の詳細を見る（外部サイト）
+        </a>
+      ) : (
+        <>
+          <span className="inline-flex w-full cursor-not-allowed items-center justify-center rounded-full border-2 border-[#00c6ff]/40 bg-transparent px-5 py-3 text-center text-sm font-semibold text-[#00c6ff]/60">
+            この補助金の詳細を見る
+          </span>
+          <p className="text-center text-xs leading-snug text-[#00c6ff]/80">
+            ※公式詳細URLが取得できませんでした。jGrants 等で制度名を検索してください。
+          </p>
+        </>
+      )}
     </div>
   );
 

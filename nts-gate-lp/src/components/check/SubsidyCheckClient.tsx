@@ -24,8 +24,7 @@ const REVENUE_BAND_OPTIONS = [
 import type { MatchedSubsidyPreview } from "@/lib/subsidyCheckMocks";
 import type { CorporateCandidate } from "@/types/corporateSearch";
 import SubsidyMatchLoading from "@/components/check/SubsidyMatchLoading";
-import SubsidyResultCard from "@/components/check/SubsidyResultCard";
-import SubsidyResultHero from "@/components/check/SubsidyResultHero";
+import SubsidyCheckResultTabs from "@/components/check/SubsidyCheckResultTabs";
 
 function parseStringArray(v: unknown): string[] {
   if (!Array.isArray(v)) return [];
@@ -457,46 +456,14 @@ export default function SubsidyCheckClient({ audience }: Props) {
             </>
           ) : (
             <>
-              <SubsidyResultHero item={results[activeResultIndex] ?? results[0]} />
-              {results.length > 1 ? (
-                <section className="mt-16 md:mt-20" aria-labelledby="check-related-heading">
-                  <h2
-                    id="check-related-heading"
-                    className="mb-8 font-heading text-2xl font-bold text-portal-primary-container"
-                  >
-                    関連する候補
-                  </h2>
-                  <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-                    {results.slice(1).map((r, sliceIdx) => {
-                      const globalIndex = sliceIdx + 1;
-                      const selected = activeResultIndex === globalIndex;
-                      return (
-                        <div
-                          key={r.id}
-                          role="button"
-                          tabIndex={0}
-                          aria-pressed={selected}
-                          aria-label={`${r.name}の詳細を上部に表示`}
-                          className="rounded-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00c6ff] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a1921]"
-                          onClick={() => {
-                            setActiveResultIndex(globalIndex);
-                            window.scrollTo({ top: 0, behavior: "smooth" });
-                          }}
-                          onKeyDown={(e) => {
-                            if (e.key === "Enter" || e.key === " ") {
-                              e.preventDefault();
-                              setActiveResultIndex(globalIndex);
-                              window.scrollTo({ top: 0, behavior: "smooth" });
-                            }
-                          }}
-                        >
-                          <SubsidyResultCard item={r} selected={selected} />
-                        </div>
-                      );
-                    })}
-                  </div>
-                </section>
-              ) : null}
+              <SubsidyCheckResultTabs
+                item={results[activeResultIndex] ?? results[0]}
+                results={results}
+                activeResultIndex={activeResultIndex}
+                onChangeActiveIndex={(index) => {
+                  setActiveResultIndex(index);
+                }}
+              />
             </>
           )}
 

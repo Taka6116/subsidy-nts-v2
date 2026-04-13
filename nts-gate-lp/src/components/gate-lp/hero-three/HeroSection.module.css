@@ -50,6 +50,8 @@
   /* Header 分（top-4 + h-16 ≈ 80px）＋余白 */
   padding: 72px 52px 72px;
   box-sizing: border-box;
+  /* 背面の Three.js キャンバスで制度名ホバーを検出するためクリックは CTA のみ通す */
+  pointer-events: none;
 }
 
 /* メイン見出し（中央） */
@@ -97,6 +99,7 @@
   animation: fadeUp 0.8s 0.68s ease forwards;
   width: fit-content;
   outline-offset: 3px;
+  pointer-events: auto;
 }
 .cta:hover {
   background: #d07a08;
@@ -121,6 +124,7 @@
   bottom: 28px;
   right: 48px;
   z-index: 5;
+  pointer-events: none;
   display: flex;
   flex-direction: column;
   align-items: center;

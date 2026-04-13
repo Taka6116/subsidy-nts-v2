@@ -113,6 +113,23 @@
   background: var(--gradient-brand);
 }
 
+/* ===== /check 照合結果 — ダッシュボード用（#00132c 系・check-portal と独立） ===== */
+.results-dashboard {
+  --rd-bg: #00132c;
+  --rd-bg-elevated: #001c3b;
+  --rd-surface: #032040;
+  --rd-surface-high: #102a4b;
+  --rd-primary: #00daf3;
+  --rd-primary-muted: rgba(0, 218, 243, 0.22);
+  --rd-on-surface: #d5e3ff;
+  --rd-on-surface-variant: rgba(213, 227, 255, 0.72);
+  --rd-on-surface-dim: rgba(213, 227, 255, 0.5);
+  --rd-border: rgba(255, 255, 255, 0.08);
+  --rd-border-strong: rgba(0, 218, 243, 0.28);
+  --rd-warning: #fbbf24;
+  --rd-on-primary: #00363d;
+}
+
 /* トップ Hero ベース（画像・オーバーレイの下層） */
 .hero-gradient-bg {
   background: linear-gradient(
