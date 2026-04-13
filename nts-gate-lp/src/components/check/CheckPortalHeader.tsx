@@ -34,9 +34,6 @@ export default function CheckPortalHeader({ audience }: Props) {
           >
             トップへ
           </Link>
-          <span className="rounded-full bg-portal-primary-container px-3 py-1.5 text-xs font-bold text-portal-on-primary">
-            AI 分析（デモ）
-          </span>
         </div>
       </div>
     </header>

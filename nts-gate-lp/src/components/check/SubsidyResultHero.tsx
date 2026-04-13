@@ -54,25 +54,23 @@ export default function SubsidyResultHero({ item }: Props) {
   const hasInsightCards = insightCards.length > 0;
 
   const resultCtaBlock = (
-    <div className="mt-8 w-full space-y-4 border-t border-[#d0dde5] pt-8">
+    <div className="w-full space-y-4">
       <Link
         href="/consult"
-        className="inline-flex w-full items-center justify-center rounded-full bg-[#00c6ff] px-6 py-4 text-base font-bold text-[#0b1a22] shadow-sm transition-all hover:bg-[#00b0e6] hover:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#00c6ff] sm:w-auto"
+        className="inline-flex w-full items-center justify-center rounded-full bg-[#00c6ff] px-6 py-4 text-base font-bold text-[#0b1a22] shadow-sm transition-all hover:bg-[#00b0e6] hover:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#00c6ff]"
       >
         無料相談を申し込む
       </Link>
-      <div className="flex w-full flex-col items-stretch gap-1 sm:max-w-md">
-        <Link
-          href="#"
-          scroll={false}
-          className="inline-flex w-full items-center justify-center rounded-full border-2 border-[#00c6ff] bg-transparent px-5 py-3 text-center text-sm font-semibold text-[#00c6ff] transition-colors hover:bg-[#00c6ff]/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#00c6ff]"
-        >
-          この補助金の詳細を見る
-        </Link>
-        <p className="text-center text-xs leading-snug text-[#00c6ff]/80 sm:text-left">
-          ※詳細ページは準備中です
-        </p>
-      </div>
+      <Link
+        href="#"
+        scroll={false}
+        className="inline-flex w-full items-center justify-center rounded-full border-2 border-[#00c6ff] bg-transparent px-5 py-3 text-center text-sm font-semibold text-[#00c6ff] transition-colors hover:bg-[#00c6ff]/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#00c6ff]"
+      >
+        この補助金の詳細を見る
+      </Link>
+      <p className="text-center text-xs leading-snug text-[#00c6ff]/80">
+        ※詳細ページは準備中です
+      </p>
     </div>
   );
 
@@ -83,7 +81,7 @@ export default function SubsidyResultHero({ item }: Props) {
         <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <div className="max-w-3xl">
             <span className="mb-4 inline-block rounded-full border border-[rgba(0,198,255,0.3)] bg-[rgba(0,198,255,0.12)] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.2em] text-[#00a0cc]">
-              優先候補（デモ）
+              対象補助金
             </span>
             <h1
               id="check-hero-heading"
@@ -103,7 +101,7 @@ export default function SubsidyResultHero({ item }: Props) {
               className="pointer-events-none absolute right-0 top-0 opacity-[0.06]"
               aria-hidden
             >
-              <span className="font-heading text-[7rem] font-bold text-portal-primary">¥</span>
+              <span className="font-display text-[7rem] font-bold text-portal-primary">¥</span>
             </div>
 
             <div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
@@ -111,7 +109,7 @@ export default function SubsidyResultHero({ item }: Props) {
                 <h2 className="mb-2 text-xs font-semibold uppercase tracking-widest text-portal-on-surface-card-sub">
                   補助上限（参照）
                 </h2>
-                <p className="max-w-md font-heading text-3xl font-bold leading-tight text-portal-primary sm:text-4xl md:text-5xl">
+                <p className="max-w-md font-display text-3xl font-bold tabular-nums leading-tight text-portal-primary sm:text-4xl md:text-5xl">
                   {item.maxAmountLabel}
                 </p>
               </div>
@@ -154,7 +152,6 @@ export default function SubsidyResultHero({ item }: Props) {
                   </div>
                 ))}
               </div>
-              {resultCtaBlock}
             </div>
           ) : d?.summary ? (
             <div className="flex flex-col gap-4 rounded-xl border border-white/10 bg-white p-6 shadow-[0_8px_32px_rgba(0,0,0,0.35)] sm:p-8">
@@ -167,11 +164,8 @@ export default function SubsidyResultHero({ item }: Props) {
                   {d.summary}
                 </p>
               </div>
-              {resultCtaBlock}
             </div>
-          ) : (
-            resultCtaBlock
-          )}
+          ) : null}
 
           {/* ── 3. 条件・裏付けゾーン（スコアの根拠） ── */}
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
@@ -236,8 +230,7 @@ export default function SubsidyResultHero({ item }: Props) {
         {/* ── サイドバー ── */}
         <aside className="space-y-6 lg:col-span-4" aria-label="評価サマリー">
           <div className="check-portal-editorial-gradient rounded-xl p-8 text-white shadow-xl">
-            <h3 className="mb-6 font-heading text-xl font-bold">評価サマリー</h3>
-            <div className="space-y-5 border-b border-white/15 pb-5">
+            <div className="space-y-5">
               <div className="flex items-end justify-between gap-2">
                 <span className="text-sm opacity-80">公募期限</span>
                 <span className="text-sm font-medium">
@@ -247,19 +240,6 @@ export default function SubsidyResultHero({ item }: Props) {
                 </span>
               </div>
             </div>
-            {item.detailUrl ? (
-              <p className="mt-6 text-xs leading-relaxed opacity-90">
-                公式情報:{" "}
-                <a
-                  href={item.detailUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="break-all underline underline-offset-2 hover:opacity-100"
-                >
-                  {item.detailUrl}
-                </a>
-              </p>
-            ) : null}
           </div>
 
           {item.institutionName ? (
@@ -270,6 +250,8 @@ export default function SubsidyResultHero({ item }: Props) {
               <p className="font-semibold text-portal-primary-container">{item.institutionName}</p>
             </div>
           ) : null}
+
+          {resultCtaBlock}
         </aside>
       </div>
 
