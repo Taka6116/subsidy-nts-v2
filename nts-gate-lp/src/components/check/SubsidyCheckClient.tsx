@@ -23,6 +23,7 @@ const REVENUE_BAND_OPTIONS = [
 ] as const;
 import type { MatchedSubsidyPreview } from "@/lib/subsidyCheckMocks";
 import type { CorporateCandidate } from "@/types/corporateSearch";
+import SubsidyMatchLoading from "@/components/check/SubsidyMatchLoading";
 import SubsidyResultCard from "@/components/check/SubsidyResultCard";
 import SubsidyResultHero from "@/components/check/SubsidyResultHero";
 
@@ -223,26 +224,20 @@ export default function SubsidyCheckClient({ audience }: Props) {
       : "";
 
   const formTitle = isPartner
-    ? "顧客企業の対象補助金イメージ（デモ）"
-    : "御社の対象補助金イメージ（デモ）";
+    ? "顧客企業の対象補助金が把握できます"
+    : "対象補助金が把握できます";
 
   const formLead =
-    "個人の氏名・連絡先は不要です。ご入力の会社名と業種をもとに、対象になり得る制度のイメージを表示します（法人の正式な特定は行いません）。表示は参考例です。制度DB・AIの設定に応じて内容が変わります。";
+    "個人の氏名・連絡先は不要です。ご入力の会社名と業種をもとに、対象になり得る制度のイメージを表示します（法人の正式な特定は行いません）。";
 
   return (
     <div className="mx-auto w-full max-w-5xl">
       {step === "form" && (
         <>
           <section className="mb-10" aria-labelledby="check-intro-heading">
-            <span className="mb-4 inline-block rounded-full border border-[rgba(0,198,255,0.3)] bg-[rgba(0,198,255,0.12)] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.2em] text-[#00a0cc]">
-              デモ・参考表示
-            </span>
-            <p className="text-xs font-bold uppercase tracking-widest text-portal-primary-container">
-              {isPartner ? "Partner check" : "Subsidy check"}
-            </p>
             <h1
               id="check-intro-heading"
-              className="mt-3 font-heading text-h1 font-bold leading-tight text-portal-primary"
+              className="font-heading text-h1 font-bold leading-tight text-portal-primary"
             >
               {formTitle}
             </h1>
@@ -416,18 +411,7 @@ export default function SubsidyCheckClient({ audience }: Props) {
         </>
       )}
 
-      {step === "loading" && (
-        <div className="flex min-h-[280px] flex-col items-center justify-center rounded-xl border border-white/10 bg-white p-10 shadow-[0_8px_32px_rgba(0,0,0,0.4)]">
-          <div
-            className="h-10 w-10 animate-spin rounded-full border-4 border-[#e0e8ed] border-t-[#00a0cc]"
-            aria-hidden
-          />
-          <p className="mt-6 text-center font-medium text-[#0F2027]">対象制度を照合しています…</p>
-          <p className="mt-2 text-center text-sm text-[#5a7080]">
-            制度データを取得し、適合度を評価しています…
-          </p>
-        </div>
-      )}
+      {step === "loading" && <SubsidyMatchLoading />}
 
       {step === "results" && confirmed && (
         <div className="space-y-12">

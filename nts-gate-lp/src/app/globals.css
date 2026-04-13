@@ -234,3 +234,50 @@ body {
     animation: none !important;
   }
 }
+
+/* ===== Subsidy match loading (/check) ===== */
+@keyframes subsidy-match-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes subsidy-match-message-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.subsidy-match-loading-spin-overlay {
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg 250deg,
+    rgba(155, 248, 244, 0.35) 300deg,
+    rgba(111, 123, 247, 0.25) 330deg,
+    transparent 360deg
+  );
+  animation: subsidy-match-spin 2.6s linear infinite;
+}
+
+.subsidy-match-loading-message {
+  opacity: 0;
+}
+
+.subsidy-match-loading-message--visible {
+  animation: subsidy-match-message-fade 0.85s ease forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .subsidy-match-loading-spin-overlay {
+    animation: none;
+    opacity: 0.12;
+  }
+
+  .subsidy-match-loading-message--visible {
+    animation: none;
+    opacity: 1;
+  }
+}
