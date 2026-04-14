@@ -43,8 +43,8 @@ const FRAMES = [
   },
 ];
 
-const FRAME_DURATION = 3800;
-const FADE_DURATION = 600;
+const FRAME_DURATION = 5000;
+const FADE_DURATION = 700;
 /** API 完了後、最終フレームを見せてから結果へ遷移するまで（ms） */
 const FINAL_HOLD_MS = 1600;
 
@@ -168,7 +168,7 @@ export default function SubsidyMatchLoading({
       >
         <Link
           href="/"
-          className="flex shrink-0 items-center gap-3 rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+          className="flex shrink-0 items-center rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
         >
           <img
             src="/nts-logo.svg"
@@ -177,9 +177,6 @@ export default function SubsidyMatchLoading({
             width={200}
             height={29}
           />
-          <span className="hidden text-base font-bold tracking-wide text-white sm:inline">
-            NTS 日本提携支援
-          </span>
         </Link>
         <Link
           href="/"
@@ -212,8 +209,8 @@ export default function SubsidyMatchLoading({
                 }
                 animate={{ opacity: 1, y: 0 }}
                 transition={{
-                  duration: shouldReduceMotion ? 0 : 0.55,
-                  delay: shouldReduceMotion ? 0 : i * 0.22,
+                  duration: shouldReduceMotion ? 0 : 0.65,
+                  delay: shouldReduceMotion ? 0 : i * 0.45,
                   ease: [0.22, 1, 0.36, 1] as const,
                 }}
               >
@@ -223,7 +220,7 @@ export default function SubsidyMatchLoading({
           </motion.div>
         </AnimatePresence>
 
-        <div className="mb-10 flex items-center gap-2 sm:mb-12">
+        <div className="flex items-center gap-2">
           {FRAMES.map((_, i) => (
             <motion.div
               key={i}
@@ -237,19 +234,22 @@ export default function SubsidyMatchLoading({
             />
           ))}
         </div>
-      </main>
 
-      <div className="fixed bottom-0 left-0 right-0 z-40 h-[2px] bg-white/10">
-        <motion.div
-          className="h-full"
-          style={{
-            background:
-              "linear-gradient(to right, rgba(232,136,10,0.6), rgba(232,136,10,1))",
-          }}
-          animate={{ width: `${progress}%` }}
-          transition={{ duration: 0.25, ease: "linear" }}
-        />
-      </div>
+        <div
+          className="mt-6 w-48 overflow-hidden rounded-full bg-white/10 md:w-64"
+          style={{ height: 3 }}
+        >
+          <motion.div
+            className="h-full rounded-full"
+            style={{
+              background:
+                "linear-gradient(to right, rgba(232,136,10,0.7), rgba(232,136,10,1))",
+            }}
+            animate={{ width: `${progress}%` }}
+            transition={{ duration: 0.3, ease: "linear" }}
+          />
+        </div>
+      </main>
     </div>
   );
 }
