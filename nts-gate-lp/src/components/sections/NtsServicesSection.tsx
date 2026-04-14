@@ -52,14 +52,14 @@ export default function NtsServicesSection() {
 
   return (
     <section
-      className="relative py-28 md:py-36"
+      className="relative py-28 md:py-36 text-white"
       style={{ zIndex: 10 }}
       aria-labelledby="home-nts-services-heading"
     >
       <div className="mx-auto max-w-6xl px-6 md:px-8">
         {/* ヘッダー */}
         <motion.div className="mb-16 text-center" {...fadeUp(0)}>
-          <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.25em] text-white/40">
+          <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.25em] text-white/70">
             NTS の サポート 内 容
           </p>
           <h2
@@ -70,7 +70,7 @@ export default function NtsServicesSection() {
             <br />
             NTSがすべて対応します。
           </h2>
-          <p className="mt-5 text-base leading-relaxed text-white/55">
+          <p className="mt-5 text-base leading-relaxed text-white">
             「申請してみたいけど、何から始めればいいかわからない」
             <br className="hidden sm:block" />
             そのまま相談してください。最初の一歩からご一緒します。
@@ -110,7 +110,7 @@ export default function NtsServicesSection() {
               <motion.div
                 key={step.number}
                 {...fadeUp(i * 0.08)}
-                className="group relative flex lg:flex-col items-start gap-5 rounded-2xl border border-white/[0.08] bg-white/[0.05] p-6 backdrop-blur-[14px] [-webkit-backdrop-filter:blur(14px)] transition-all duration-300 hover:border-white/[0.16] hover:bg-white/[0.08]"
+                className="group relative flex lg:flex-col items-start gap-5 rounded-2xl border border-white/[0.08] bg-white/[0.05] p-6 text-white backdrop-blur-[14px] [-webkit-backdrop-filter:blur(14px)] transition-all duration-300 hover:border-white/[0.16] hover:bg-white/[0.08]"
               >
                 {/* 番号バッジ */}
                 <div className="relative flex-none">
@@ -124,16 +124,16 @@ export default function NtsServicesSection() {
 
                 {/* テキスト */}
                 <div className="flex-1 lg:pt-4">
-                  <span className="mb-2 inline-block rounded-full border border-white/12 bg-white/[0.06] px-2.5 py-0.5 text-[10px] font-medium tracking-wide text-white/45">
+                  <span className="mb-2 inline-block rounded-full border border-white/12 bg-white/[0.06] px-2.5 py-0.5 text-[10px] font-medium tracking-wide text-white/90">
                     {step.accent}
                   </span>
                   <h3 className="mb-1 text-[1rem] font-bold leading-snug text-white">
                     {step.title}
                   </h3>
-                  <p className="mb-2 text-[0.75rem] font-medium text-white/38">
+                  <p className="mb-2 text-[0.75rem] font-medium text-white/90">
                     {step.subtitle}
                   </p>
-                  <p className="text-sm leading-relaxed text-white/62">
+                  <p className="text-sm leading-relaxed text-white">
                     {step.body}
                   </p>
                 </div>
@@ -144,7 +144,7 @@ export default function NtsServicesSection() {
 
         {/* 下部注記 */}
         <motion.p
-          className="mt-10 text-center text-xs text-white/30"
+          className="mt-10 text-center text-xs text-white/90"
           {...fadeUp(0.45)}
         >
           ※

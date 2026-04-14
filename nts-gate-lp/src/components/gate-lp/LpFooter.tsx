@@ -7,7 +7,7 @@ export default function LpFooter() {
       className="relative z-[20] border-t border-white/8 text-white"
       style={{
         background:
-          "linear-gradient(to bottom, rgba(6,14,28,0.95), rgba(4,10,20,0.98))",
+          "linear-gradient(to bottom, #081844 0%, #0d2660 45%, #143478 100%)",
       }}
     >
       <div className="mx-auto max-w-5xl px-6 py-12 md:px-8">

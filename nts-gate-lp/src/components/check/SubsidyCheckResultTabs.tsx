@@ -77,7 +77,8 @@ export default function SubsidyCheckResultTabs({
   const insightCards = d?.insightCards ?? [];
   const risks = d?.riskFlags ?? [];
   const reasons = d?.matchReason ?? [];
-  const related = results.length > 1 ? results.slice(1) : [];
+  /** メイン切替後も元の候補へ戻せるよう、全件を一覧に含める（index 0 も表示） */
+  const relatedCandidates = results;
 
   return (
     <div className="results-dashboard rounded-2xl border border-[var(--rd-border)] bg-[var(--rd-bg)] p-4 shadow-[0_24px_80px_rgba(0,0,0,0.35)] sm:p-6 md:p-8">
@@ -342,14 +343,13 @@ export default function SubsidyCheckResultTabs({
             id={`${baseId}-panel-related`}
             aria-labelledby={`${baseId}-tab-related`}
           >
-            {related.length === 0 ? (
+            {relatedCandidates.length === 0 ? (
               <p className="rounded-2xl border border-dashed border-[var(--rd-border)] bg-[var(--rd-surface)]/60 p-8 text-center text-sm text-[var(--rd-on-surface-variant)]">
-                他の候補はありません。
+                候補がありません。
               </p>
             ) : (
               <ul className="grid grid-cols-1 gap-4 md:grid-cols-3">
-                {related.map((r, sliceIdx) => {
-                  const globalIndex = sliceIdx + 1;
+                {relatedCandidates.map((r, globalIndex) => {
                   const selected = activeResultIndex === globalIndex;
                   return (
                     <li key={r.id}>
@@ -363,7 +363,7 @@ export default function SubsidyCheckResultTabs({
                         }`}
                       >
                         <span className="mb-3 inline-block w-fit rounded-full bg-[var(--rd-primary-muted)] px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-[var(--rd-primary)]">
-                          候補
+                          {selected ? "表示中" : "候補"}
                         </span>
                         <span className="font-heading text-base font-semibold text-[var(--rd-on-surface)]">
                           {r.name}
