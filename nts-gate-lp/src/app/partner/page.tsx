@@ -24,14 +24,7 @@ export default function PartnerPage() {
     >
       <PartnerLpWebGLBackground />
 
-      <header
-        className="fixed left-0 right-0 top-0 z-50 flex items-center justify-between border-b border-white/[0.08] px-6 py-5 sm:px-8"
-        style={{
-          background: "rgba(5, 20, 40, 0.85)",
-          backdropFilter: "blur(12px)",
-          WebkitBackdropFilter: "blur(12px)",
-        }}
-      >
+      <header className="fixed left-0 right-0 top-0 z-50 flex items-center justify-between bg-transparent px-6 py-5 sm:px-8">
         <Link
           href="/"
           className="flex shrink-0 items-center rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
@@ -46,7 +39,7 @@ export default function PartnerPage() {
         </Link>
         <Link
           href="/"
-          className="text-sm text-white/50 transition hover:text-white/80"
+          className="text-sm font-medium text-white transition hover:text-white/90"
         >
           ← エンドユーザー向けはこちら
         </Link>

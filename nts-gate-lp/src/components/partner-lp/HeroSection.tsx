@@ -15,7 +15,6 @@ export default function HeroSection() {
   const s3Ref = useRef<HTMLDivElement>(null);
   const a3Ref = useRef<HTMLDivElement>(null);
   const s4Ref = useRef<HTMLDivElement>(null);
-  const bdgRef = useRef<HTMLDivElement>(null);
   const ctRef = useRef<HTMLDivElement>(null);
   const stepIconRefs = useRef<(HTMLDivElement | null)[]>([]);
 
@@ -35,7 +34,6 @@ export default function HeroSection() {
       s3Ref.current,
       a3Ref.current,
       s4Ref.current,
-      bdgRef.current,
       ctRef.current,
     ].filter(Boolean) as HTMLElement[];
 
@@ -55,8 +53,7 @@ export default function HeroSection() {
       .to(s3Ref.current, { opacity: 1, y: 0, duration: 0.7 }, 1.4)
       .to(a3Ref.current, { opacity: 1, duration: 0.5 }, 1.65)
       .to(s4Ref.current, { opacity: 1, y: 0, duration: 0.7 }, 1.75)
-      .to(bdgRef.current, { opacity: 1, duration: 0.7 }, 2.1)
-      .to(ctRef.current, { opacity: 1, y: 0, duration: 0.7 }, 2.35);
+      .to(ctRef.current, { opacity: 1, y: 0, duration: 0.7 }, 1.95);
 
     const icons = stepIconRefs.current.filter(Boolean) as HTMLDivElement[];
     const bindings = icons.map((el) => {
@@ -173,21 +170,6 @@ export default function HeroSection() {
             <br />
             一定割合をお支払
           </div>
-        </div>
-      </div>
-
-      <div ref={bdgRef} className={styles.badges}>
-        <div className={styles.badge}>
-          御社負担 <b>0円</b>
-        </div>
-        <div className={styles.badge}>
-          最大補助額 <b>1,500万円</b>
-        </div>
-        <div className={styles.badge}>
-          提携実績 <b>30社以上</b>
-        </div>
-        <div className={styles.badge}>
-          申請対応 <b>省力化・IT・事業承継</b>
         </div>
       </div>
 
