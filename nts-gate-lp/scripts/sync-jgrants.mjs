@@ -48,13 +48,7 @@ function resolveExternalId(grant) {
 }
 
 function resolveName(grant) {
-  return (
-    grant?.name ??
-    grant?.title ??
-    grant?.subsidyName ??
-    grant?.subsidy_name ??
-    "不明"
-  );
+  return grant?.title ?? "不明";
 }
 
 function resolveDescription(grant) {
@@ -62,27 +56,16 @@ function resolveDescription(grant) {
 }
 
 function resolveDeadlineRaw(grant) {
-  return (
-    grant?.deadline ??
-    grant?.acceptance_end ??
-    grant?.acceptanceEnd ??
-    grant?.acceptance_end_datetime ??
-    null
-  );
+  return grant?.acceptance_end_datetime ?? null;
 }
 
 function resolveMaxAmountLabel(grant) {
-  const numericCandidate =
-    grant?.maxAmount ??
-    grant?.max_amount ??
-    grant?.subsidyAmount ??
-    grant?.subsidy_amount ??
-    grant?.upper_limit;
+  const numericCandidate = grant?.subsidy_max_limit;
   const asNumber = Number(numericCandidate);
   if (!Number.isNaN(asNumber) && Number.isFinite(asNumber) && asNumber > 0) {
     return `最大${asNumber.toLocaleString("ja-JP")}円`;
   }
-  return grant?.upperLimit ?? grant?.upper_limit_label ?? null;
+  return null;
 }
 
 function resolveTargetIndustries(grant) {
@@ -191,15 +174,16 @@ async function upsertGrant(grant) {
   const deadlineRaw = resolveDeadlineRaw(grant);
   const deadline = parseDeadline(deadlineRaw);
   const targetIndustries = resolveTargetIndustries(grant);
+  const targetIndustryNote = grant?.target_area_search ?? null;
 
   const query = `
     INSERT INTO "SubsidyGrant" (
       id, "externalId", name, description,
       "maxAmountLabel", "deadlineLabel",
       deadline, status, source,
-      "targetIndustries", "rawPayload", "updatedAt", "syncedAt"
+      "targetIndustries", "targetIndustryNote", "rawPayload", "updatedAt", "syncedAt"
     )
-    VALUES ($1,$2,$3,$4,$5,$6,$7,'open','jgrants',$8,$9::jsonb,NOW(),NOW())
+    VALUES ($1,$2,$3,$4,$5,$6,$7,'open','jgrants',$8,$9,$10::jsonb,NOW(),NOW())
     ON CONFLICT ("externalId") DO UPDATE SET
       name = EXCLUDED.name,
       description = EXCLUDED.description,
@@ -207,6 +191,7 @@ async function upsertGrant(grant) {
       "deadlineLabel" = EXCLUDED."deadlineLabel",
       deadline = EXCLUDED.deadline,
       "targetIndustries" = EXCLUDED."targetIndustries",
+      "targetIndustryNote" = EXCLUDED."targetIndustryNote",
       "rawPayload" = EXCLUDED."rawPayload",
       source = 'jgrants',
       status = 'open',
@@ -223,6 +208,7 @@ async function upsertGrant(grant) {
     deadlineRaw ? String(deadlineRaw) : null,
     deadline,
     targetIndustries,
+    targetIndustryNote,
     JSON.stringify(grant),
   ];
 

@@ -1,6 +1,9 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db/prisma";
 
+export const revalidate = 3600;
+export const dynamic = "force-dynamic";
+
 const DEFAULT_LIMIT = 20;
 const MAX_LIMIT = 100;
 
@@ -22,59 +25,99 @@ function parseSource(raw: string | null): "jgrants" | "manual" | undefined {
 }
 
 export async function GET(req: Request) {
-  const { searchParams } = new URL(req.url);
-  const limit = parseLimit(searchParams.get("limit"));
-  const offset = parseOffset(searchParams.get("offset"));
-  const source = parseSource(searchParams.get("source"));
-  const sourceRaw = searchParams.get("source");
+  try {
+    const { searchParams } = new URL(req.url);
+    const limit = parseLimit(searchParams.get("limit"));
+    const offset = parseOffset(searchParams.get("offset"));
+    const source = parseSource(searchParams.get("source"));
+    const sourceRaw = searchParams.get("source");
 
-  if (sourceRaw && !source) {
+    if (sourceRaw && !source) {
+      return NextResponse.json(
+        { error: "Invalid source. Use 'jgrants' or 'manual'." },
+        { status: 400 },
+      );
+    }
+
+    const now = new Date();
+    // 締切超過分を closed に寄せる（null deadline は対象外）
+    await prisma.subsidyGrant.updateMany({
+      where: {
+        status: "open",
+        deadline: { lt: now },
+      },
+      data: { status: "closed" },
+    });
+
+    const where = source
+      ? {
+          status: "open" as const,
+          source,
+          NOT: [
+            { name: { contains: "練習" } },
+            { name: { contains: "テスト" } },
+            { name: { contains: "サンプル" } },
+            { name: { contains: "申請練習" } },
+            { rawPayload: { path: ["title"], string_contains: "練習" } },
+            { rawPayload: { path: ["title"], string_contains: "テスト" } },
+            { rawPayload: { path: ["title"], string_contains: "サンプル" } },
+            { rawPayload: { path: ["title"], string_contains: "申請練習" } },
+          ],
+        }
+      : {
+          status: "open" as const,
+          NOT: [
+            { name: { contains: "練習" } },
+            { name: { contains: "テスト" } },
+            { name: { contains: "サンプル" } },
+            { name: { contains: "申請練習" } },
+            { rawPayload: { path: ["title"], string_contains: "練習" } },
+            { rawPayload: { path: ["title"], string_contains: "テスト" } },
+            { rawPayload: { path: ["title"], string_contains: "サンプル" } },
+            { rawPayload: { path: ["title"], string_contains: "申請練習" } },
+          ],
+        };
+
+    const [grants, total] = await Promise.all([
+      prisma.subsidyGrant.findMany({
+        where,
+        orderBy: { updatedAt: "desc" },
+        skip: offset,
+        take: limit,
+        select: {
+          id: true,
+          name: true,
+          description: true,
+          maxAmountLabel: true,
+          rawPayload: true,
+          deadlineLabel: true,
+          deadline: true,
+          targetIndustries: true,
+          status: true,
+          source: true,
+          updatedAt: true,
+        },
+      }),
+      prisma.subsidyGrant.count({ where }),
+    ]);
+
+    return NextResponse.json({
+      grants,
+      total,
+      limit,
+      offset,
+    });
+  } catch (error) {
+    console.error("[api/subsidies] failed to query database:", error);
     return NextResponse.json(
-      { error: "Invalid source. Use 'jgrants' or 'manual'." },
-      { status: 400 },
+      {
+        grants: [],
+        total: 0,
+        limit: DEFAULT_LIMIT,
+        offset: 0,
+        warning: "Database is currently unavailable.",
+      },
+      { status: 200 },
     );
   }
-
-  const now = new Date();
-  // 締切超過分を closed に寄せる（null deadline は対象外）
-  await prisma.subsidyGrant.updateMany({
-    where: {
-      status: "open",
-      deadline: { lt: now },
-    },
-    data: { status: "closed" },
-  });
-
-  const where = source
-    ? { status: "open" as const, source }
-    : { status: "open" as const };
-
-  const [grants, total] = await Promise.all([
-    prisma.subsidyGrant.findMany({
-      where,
-      orderBy: { updatedAt: "desc" },
-      skip: offset,
-      take: limit,
-      select: {
-        id: true,
-        name: true,
-        description: true,
-        maxAmountLabel: true,
-        deadlineLabel: true,
-        deadline: true,
-        targetIndustries: true,
-        status: true,
-        source: true,
-        updatedAt: true,
-      },
-    }),
-    prisma.subsidyGrant.count({ where }),
-  ]);
-
-  return NextResponse.json({
-    grants,
-    total,
-    limit,
-    offset,
-  });
 }

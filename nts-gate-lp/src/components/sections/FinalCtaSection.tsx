@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import HeroCheckCtaLink from "@/components/shared/HeroCheckCtaLink";
+import Link from "next/link";
 import {
   fadeInUpInitial,
   fadeInUpInView,
@@ -32,16 +32,26 @@ export default function FinalCtaSection() {
             id="home-final-cta-heading"
             className="font-heading text-3xl font-bold leading-snug md:text-4xl"
           >
-            まず、対象かどうかを確認してみてください。
+            まず、話を聞かせてください。
           </h2>
           <p className="mt-6 text-base leading-relaxed text-white/75 md:text-lg">
-            照会は1分。相談は無料。
+            補助金が使えるかどうか、
             <br />
-            あなたの会社に使える制度が、あるかもしれません。
+            あなたの会社の状況から一緒に確認します。
+            <br />
+            無料相談、30分から。
           </p>
           <div className="mt-10 flex justify-center">
-            <HeroCheckCtaLink location="final" />
+            <Link
+              href="/consult"
+              className="inline-flex items-center gap-2 rounded bg-[#F5A623] px-10 py-4 text-base font-bold text-white transition hover:bg-[#d4920f]"
+            >
+              無料で相談する
+            </Link>
           </div>
+          <p className="mt-6 text-xs text-white/55">
+            建設業・運送業の経営者からのご相談、歓迎します。
+          </p>
         </motion.div>
       </div>
     </section>

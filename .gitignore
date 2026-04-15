@@ -8,3 +8,5 @@ next-env.d.ts
 *.pem
 npm-debug.log*
 skills/
+
+.vercel

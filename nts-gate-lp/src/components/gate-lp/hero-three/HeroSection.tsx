@@ -15,34 +15,21 @@ export default function HeroSection() {
 
       <div className={styles.content}>
         <h1 className={`${styles.headline} font-heading font-normal`}>
-          <span className={styles.headlineLine}>人手不足・設備老朽化・事業承継 ―</span>
-          <span className={styles.headlineLine}>
-            あなたの課題に使える補助金が、1分でわかります。
-          </span>
+          <span className={styles.headlineLine}>補助金は、取るだけがゴールじゃない。</span>
+          <span className={styles.headlineLine}>採択後の1年間もあなたの経営に寄り添います。</span>
         </h1>
 
         <p className={`${styles.sub} font-body`}>
-          <span className={styles.subLine}>あなたの会社の対象制度を即時照会。</span>
-          <span className={styles.subLine}>照会・相談は完全無料です。</span>
+          <span className={styles.subLine}>経営者のための補助金活用戦略まで担当します。</span>
         </p>
 
         <div className={`${styles.ctaRow} font-body`}>
           <Link
-            href="/check"
+            href="/consult"
             className={styles.cta}
             onClick={() => trackCTAClick("hero")}
           >
-            対象の補助金を確認する
-            <span className={styles.ctaArrow} aria-hidden="true">
-              →
-            </span>
-          </Link>
-          <Link
-            href="/consult"
-            className={styles.ctaSecondary}
-            onClick={() => trackCTAClick("hero_consult")}
-          >
-            無料相談申し込み
+            まず話を聞かせてください（無料相談）
             <span className={styles.ctaArrow} aria-hidden="true">
               →
             </span>

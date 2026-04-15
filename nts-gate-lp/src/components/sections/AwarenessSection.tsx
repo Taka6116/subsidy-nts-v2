@@ -25,29 +25,53 @@ export default function AwarenessSection() {
           transition={fadeInUpTransition}
           className={`${glassShellClass} text-center`}
         >
-          <p className="mb-6 text-xs font-bold uppercase tracking-[0.2em] text-white/60">
-            多くの経営者が見落としていること
-          </p>
+          <p className="mb-6 text-xs font-bold uppercase tracking-[0.2em] text-white/60">課題共感</p>
           <h2
             id="home-awareness-heading"
             className="font-heading text-3xl font-bold leading-snug text-white md:text-5xl"
           >
-            設備投資も、人材採用も、
+            その「とりあえず申請」が、
             <br />
-            事業承継も——
-            <br />
-            国が費用を負担してくれる制度が、
-            <br />
-            すでにあります。
+            会社の機会損失になっていませんか。
           </h2>
-          <div className="mt-10 space-y-5 text-left text-base leading-loose text-white/70 md:text-center md:text-lg">
-            <p>補助金は「知っている人だけが得をする制度」です。</p>
-            <p>申請しなければ、対象であっても受け取れません。</p>
-            <p>
-              気づいていないだけで、
-              <br className="hidden sm:inline" />
-              あなたの会社が対象になっているかもしれません。
-            </p>
+          <div className="mt-8 space-y-3 text-base leading-loose text-white/80 md:text-lg">
+            <p>補助金を取った後、何も変わらなかった——そういう会社が、実はたくさんあります。</p>
+            <p>採択はスタートです。使い切って、初めて意味がある。</p>
+          </div>
+
+          <div className="mt-10 grid grid-cols-1 gap-4 text-left md:grid-cols-3">
+            {[
+              {
+                label: "建設業の現場では",
+                title: "「職人が\nいない」",
+                body: "省力化補助金を使えば、IoT機器・ロボット導入の費用を最大半額以下に抑えられます。ただし申請して終わりでは、設備が現場に定着しません。",
+              },
+              {
+                label: "運送業の経営では",
+                title: "「ドライバーが\n足りない」",
+                body: "2024年問題で人件費と採用コストが増し続けています。補助金を活用して設備投資に踏み切れても、定着・活用まで伴走する人間が必要です。",
+              },
+              {
+                label: "両業種で共通して",
+                title: "「後継者に\nどう引き継ぐか」",
+                body: "事業承継補助金を使って設備を整え、引き継ぎやすい会社にする。その設計から一緒に考えます。",
+              },
+            ].map((card) => (
+              <div
+                key={card.label}
+                className="rounded-2xl border border-white/10 bg-white/[0.05] p-6 backdrop-blur-[12px] [-webkit-backdrop-filter:blur(12px)]"
+              >
+                <p className="text-xs font-bold tracking-wide text-white/60">{card.label}</p>
+                <h3 className="font-heading mt-3 whitespace-pre-line text-2xl font-bold leading-tight text-white">
+                  {card.title}
+                </h3>
+                <p className="mt-4 text-sm leading-relaxed text-white/75">{card.body}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-8 rounded-xl border border-[#1A7B6F]/50 bg-[#1A7B6F]/20 px-5 py-4 text-sm font-medium leading-relaxed text-white md:text-base">
+            「補助金が使えます」——その一言の先に、1年間の伴走があります。
           </div>
         </motion.div>
       </div>

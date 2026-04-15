@@ -9,12 +9,12 @@ const HERO_BG = "/images/subsidy-footer.jpg";
  */
 export default function NtsAboutSection() {
   return (
-    <section className="relative z-10 overflow-hidden py-16 md:py-24 lg:py-28">
+    <section className="relative z-10 overflow-hidden py-20 md:py-28 lg:py-32">
       <Image
         src={HERO_BG}
         alt=""
         fill
-        className="object-cover"
+        className="object-cover object-[35%_center]"
         sizes="100vw"
         priority={false}
       />
@@ -29,28 +29,30 @@ export default function NtsAboutSection() {
 
       <div className="relative z-10 mx-auto max-w-container px-6">
         <h2 className="font-heading text-h1 font-bold leading-tight text-white drop-shadow-sm">
-          日本提携支援について
+          補助金活用の専門チームが、
+          <br />
+          あなたの経営とともに動きます。
         </h2>
 
-        <div className="mt-10 max-w-3xl space-y-6 text-body leading-loose text-white/95 drop-shadow-sm md:mt-12 md:text-lg md:leading-loose">
-          <p className="font-heading text-h2 font-bold leading-snug text-white md:text-[1.65rem]">
-            <span className="text-white">&ldquo;相談先がない&rdquo;</span>
-          </p>
-          <p className="text-lg font-medium text-white/95 md:text-xl">
-            ――それが私たちの出発点。
-          </p>
-          <p>
-            「相談先がない」「もっと早く相談すればよかった」という経営者の切実な声に応え、
-            私たちは独立した相談窓口を創設しました。
-          </p>
-          <p>
-            そして、豊富な専門家ネットワークを駆使し、各企業、各経営者が納得できる最適な選択肢を提供し続けてまいりました。
-            廃業の危機や将来の不安を共に乗り越えることで、企業の未来を守り、地域や従業員が持続的に継続、
-            発展していくと信じているからです。
-          </p>
-          <p>
-            私たちはこれからも経営者の伴走者として、全力で未来への一歩を支援いたします。
-          </p>
+        <div className="mt-10 grid max-w-5xl grid-cols-1 gap-4 text-body leading-loose text-white/95 drop-shadow-sm md:mt-12 md:grid-cols-3 md:text-lg md:leading-loose">
+          <div className="rounded-xl border border-white/20 bg-white/[0.08] p-5">
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-white/70">戦略設計</p>
+            <p className="mt-2 text-sm leading-relaxed text-white/95 md:text-base">
+              補助金を使う目的と順序を、経営計画と照らし合わせながら設計します。
+            </p>
+          </div>
+          <div className="rounded-xl border border-white/20 bg-white/[0.08] p-5">
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-white/70">申請サポート</p>
+            <p className="mt-2 text-sm leading-relaxed text-white/95 md:text-base">
+              提携行政書士と連携し、書類準備から採択まで伴走します。
+            </p>
+          </div>
+          <div className="rounded-xl border border-white/20 bg-white/[0.08] p-5">
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-white/70">採択後の伴走</p>
+            <p className="mt-2 text-sm leading-relaxed text-white/95 md:text-base">
+              設備の導入定着・効果検証・次の一手の設計まで、1年間関わり続けます。
+            </p>
+          </div>
         </div>
       </div>
     </section>

@@ -8,6 +8,7 @@ import AwarenessSection from "@/components/sections/AwarenessSection";
 import SubsidyKindsSection from "@/components/sections/SubsidyKindsSection";
 import CheckLeadSection from "@/components/sections/CheckLeadSection";
 import NtsServicesSection from "@/components/sections/NtsServicesSection";
+import FeeStructureSection from "@/components/sections/FeeStructureSection";
 import NewSubsidySection from "@/components/sections/NewSubsidySection";
 import PartnerNarrowSection from "@/components/sections/PartnerNarrowSection";
 import NtsAboutSection from "@/components/sections/NtsAboutSection";
@@ -35,6 +36,7 @@ export default function Home() {
         <SubsidyKindsSection />
         <CheckLeadSection />
         <NtsServicesSection />
+        <FeeStructureSection />
         <NewSubsidySection />
         <PartnerNarrowSection />
         <NtsAboutSection />
