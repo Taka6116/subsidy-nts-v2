@@ -229,7 +229,7 @@ export default function HomeEntrance({ children }: { children: ReactNode }) {
             aria-label={FULL_INTRO_ARIA}
             className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#F2F2F2] px-2 sm:px-6"
           >
-            <div className="mx-auto inline-block max-w-[min(100%,calc(100vw-1rem))] text-center font-heading">
+            <div className="mx-auto inline-block max-w-[min(100%,calc(100vw-1rem))] overflow-x-hidden text-center font-heading">
               <p
                 ref={(el) => {
                   lineRefs.current[0] = el;
@@ -244,7 +244,7 @@ export default function HomeEntrance({ children }: { children: ReactNode }) {
                   lineRefs.current[1] = el;
                 }}
                 aria-hidden="true"
-                className="opacity-0 will-change-[opacity] mt-[1.40625rem] whitespace-nowrap text-[clamp(2.25rem,7.5vw,3.46875rem)] font-bold leading-snug text-primary-900"
+                className="opacity-0 will-change-[opacity] mt-[1.40625rem] text-[clamp(2.25rem,7.5vw,3.46875rem)] font-bold leading-snug text-primary-900"
               >
                 {SPLASH_LINES[1]}
               </p>

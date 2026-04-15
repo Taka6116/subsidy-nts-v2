@@ -49,33 +49,22 @@ export async function GET(req: Request) {
       data: { status: "closed" },
     });
 
+    const exclusionAnd = [
+      { name: { not: { contains: "練習" } } },
+      { name: { not: { contains: "テスト" } } },
+      { name: { not: { contains: "サンプル" } } },
+      { name: { not: { contains: "支払いはありません" } } },
+    ];
+
     const where = source
       ? {
           status: "open" as const,
           source,
-          NOT: [
-            { name: { contains: "練習" } },
-            { name: { contains: "テスト" } },
-            { name: { contains: "サンプル" } },
-            { name: { contains: "申請練習" } },
-            { rawPayload: { path: ["title"], string_contains: "練習" } },
-            { rawPayload: { path: ["title"], string_contains: "テスト" } },
-            { rawPayload: { path: ["title"], string_contains: "サンプル" } },
-            { rawPayload: { path: ["title"], string_contains: "申請練習" } },
-          ],
+          AND: exclusionAnd,
         }
       : {
           status: "open" as const,
-          NOT: [
-            { name: { contains: "練習" } },
-            { name: { contains: "テスト" } },
-            { name: { contains: "サンプル" } },
-            { name: { contains: "申請練習" } },
-            { rawPayload: { path: ["title"], string_contains: "練習" } },
-            { rawPayload: { path: ["title"], string_contains: "テスト" } },
-            { rawPayload: { path: ["title"], string_contains: "サンプル" } },
-            { rawPayload: { path: ["title"], string_contains: "申請練習" } },
-          ],
+          AND: exclusionAnd,
         };
 
     const [grants, total] = await Promise.all([

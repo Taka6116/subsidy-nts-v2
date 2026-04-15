@@ -39,6 +39,27 @@ function formatAmountLabel(maxAmountLabel: string | null, rawPayload: RawPayload
   return "-";
 }
 
+function parseAmount(maxAmountLabel: string | null, rawPayload: RawPayloadLike): number | null {
+  const raw = Number(rawPayload?.subsidy_max_limit ?? 0);
+  if (Number.isFinite(raw) && raw > 0) return raw;
+  const m = (maxAmountLabel ?? "").replace(/[^\d]/g, "");
+  const n = Number(m);
+  if (Number.isFinite(n) && n > 0) return n;
+  return null;
+}
+
+function formatJPY(amount: number): string {
+  if (amount >= 100000000) {
+    const oku = amount / 100000000;
+    return oku % 1 === 0 ? `${oku}億円` : `${oku.toFixed(1)}億円`;
+  }
+  if (amount >= 10000) {
+    const man = amount / 10000;
+    return man % 1 === 0 ? `${man.toLocaleString()}万円` : `${man.toFixed(0)}万円`;
+  }
+  return `${amount.toLocaleString()}円`;
+}
+
 function formatRate(rawPayload: RawPayloadLike): string {
   const rateRaw = rawPayload?.subsidy_rate;
   if (typeof rateRaw === "number" && rateRaw > 0) return `${Math.round(rateRaw * 100)}%`;
@@ -50,7 +71,7 @@ function formatRate(rawPayload: RawPayloadLike): string {
     }
     return rateRaw;
   }
-  return "未設定";
+  return "要確認";
 }
 
 function classifyGrantContext(text: string): {
@@ -149,9 +170,9 @@ export default async function SubsidyDetailPage({ params }: DetailPageProps) {
       },
     }),
     prisma.generatedContent.findMany({
-      where: { subsidyId: id, contentType: "article" },
+      where: { subsidyId: id, contentType: "article", status: "published" },
       orderBy: { createdAt: "desc" },
-      take: 4,
+      take: 3,
       select: { id: true, title: true, status: true, publishedAt: true },
     }),
   ]);
@@ -165,6 +186,7 @@ export default async function SubsidyDetailPage({ params }: DetailPageProps) {
   const displayName = grant?.name ?? titleFromRaw ?? "名称未設定";
   const context = classifyGrantContext(displayName);
   const amountLabel = grant ? formatAmountLabel(grant.maxAmountLabel, raw) : "-";
+  const amountValue = grant ? parseAmount(grant.maxAmountLabel, raw) : null;
   const subsidyRate = formatRate(raw);
   const remaining = grant ? remainingDays(grant.deadlineLabel, grant.deadline) : null;
   const remainingText = remaining === null ? "-" : remaining < 0 ? "締切済み" : `残り${remaining}日`;
@@ -180,7 +202,7 @@ export default async function SubsidyDetailPage({ params }: DetailPageProps) {
       <Header />
       <main className="relative z-[2] min-h-[100svh] pb-44 font-body md:pb-40">
         <SubsidiesGalaxyBackdrop />
-        <div className="relative z-10 mx-auto max-w-4xl px-6 py-24">
+        <div className="relative z-10 mx-auto max-w-6xl px-6 py-24 lg:grid lg:grid-cols-[1fr_320px] lg:gap-8">
           <div className="rounded-2xl border border-white/20 bg-white/90 p-8 shadow-sm backdrop-blur-sm md:p-10">
             <Link
               href="/subsidies/list?page=1"
@@ -233,15 +255,37 @@ export default async function SubsidyDetailPage({ params }: DetailPageProps) {
                 <section className="grid grid-cols-1 gap-4 md:grid-cols-3">
                   <div className="rounded-xl border border-neutral-200 bg-white p-5 shadow-sm">
                     <p className="text-xs text-[#6d6961]">補助される可能性</p>
-                    <p className="mt-2 text-4xl font-bold text-[#0d2640]">{amountLabel.replace(" ", "")}</p>
+                    <p className="mt-1 text-xs text-[#6d6961]">最大</p>
+                    <p className="mt-2 whitespace-nowrap text-3xl font-bold text-[#0d2640]">
+                      {amountValue ? formatJPY(amountValue) : amountLabel.replace(" ", "")}
+                    </p>
                   </div>
                   <div className="rounded-xl border border-neutral-200 bg-white p-5 shadow-sm">
                     <p className="text-xs text-[#6d6961]">補助率（自己負担の軽減）</p>
-                    <p className="mt-2 text-4xl font-bold text-[#0d2640]">{subsidyRate}</p>
+                    <p
+                      className={`mt-2 text-4xl font-bold ${
+                        subsidyRate === "要確認" ? "italic text-gray-400" : "text-[#0d2640]"
+                      }`}
+                    >
+                      {subsidyRate}
+                    </p>
+                    {subsidyRate === "要確認" ? (
+                      <p className="mt-1 text-xs text-gray-400">申請時に確認が必要です</p>
+                    ) : null}
                   </div>
                   <div className="rounded-xl border border-neutral-200 bg-white p-5 shadow-sm">
                     <p className="text-xs text-[#6d6961]">締切まで</p>
-                    <p className={`mt-2 text-4xl font-bold ${remainingTone}`}>{remainingText}</p>
+                    <p className="mt-1 text-xs text-[#6d6961]">残り</p>
+                    <p className={`mt-2 whitespace-nowrap text-4xl font-bold ${remainingTone}`}>
+                      {remaining !== null && remaining >= 0 ? (
+                        <>
+                          {remaining}
+                          <span className="ml-1 text-xl">日</span>
+                        </>
+                      ) : (
+                        remainingText
+                      )}
+                    </p>
                   </div>
                 </section>
 
@@ -313,17 +357,18 @@ export default async function SubsidyDetailPage({ params }: DetailPageProps) {
                   ) : (
                     <ul className="mt-4 space-y-2">
                       {relatedArticles.map((article) => (
-                        <li
-                          key={article.id}
-                          className="rounded-lg border border-neutral-200 bg-[#faf9f6] px-4 py-3 text-sm"
-                        >
-                          <p className="font-medium text-[#2f2e2b]">{article.title ?? "無題の記事"}</p>
-                          <p className="mt-1 text-xs text-[#6b685f]">
-                            {article.status}
-                            {article.publishedAt
-                              ? ` / ${new Date(article.publishedAt).toLocaleDateString("ja-JP")}`
-                              : ""}
-                          </p>
+                        <li key={article.id}>
+                          <Link
+                            href={`/subsidies/articles`}
+                            className="block rounded-lg border border-neutral-200 bg-[#faf9f6] px-4 py-3 text-sm transition hover:border-[#cfd6d3]"
+                          >
+                            <p className="font-medium text-[#2f2e2b]">{article.title ?? "無題の記事"}</p>
+                            <p className="mt-1 text-xs text-[#6b685f]">
+                              {article.publishedAt
+                                ? `${new Date(article.publishedAt).toLocaleDateString("ja-JP")}`
+                                : ""}
+                            </p>
+                          </Link>
                         </li>
                       ))}
                     </ul>
@@ -332,9 +377,34 @@ export default async function SubsidyDetailPage({ params }: DetailPageProps) {
               </div>
             )}
           </div>
+          <aside className="hidden lg:block">
+            <div className="subsidy-detail-side-panel sticky top-24 rounded-2xl border border-[#e5e7eb] bg-white p-6 shadow-[0_4px_24px_rgba(0,0,0,0.08)]">
+              <p className="text-base font-bold text-[#0d2640]">🔔 無料で相談できます</p>
+              <p className="mt-3 text-sm leading-relaxed text-[#4f4b44]">
+                この補助金に申請できるか、対象経費は何か。専門家が無料でお答えします。
+              </p>
+              <Link
+                href="/consult"
+                className="mt-5 inline-flex w-full items-center justify-center rounded-full bg-[#1a7b6f] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#16665c]"
+              >
+                無料相談を予約する →
+              </Link>
+              <Link
+                href="/check"
+                className="mt-3 inline-block text-sm text-[#1a7b6f] underline underline-offset-2"
+              >
+                まず補助金診断を受ける
+              </Link>
+              <div className="mt-5 border-t border-[#eceff1] pt-4 text-sm text-[#4f4b44]">
+                <p>✓ 完全無料</p>
+                <p className="mt-1">✓ 最短翌日対応</p>
+                <p className="mt-1">✓ 申請まで一貫サポート</p>
+              </div>
+            </div>
+          </aside>
         </div>
 
-        <aside className="sticky bottom-0 z-50 border-t border-white/15 bg-[#0d2640] px-4 py-4 text-white shadow-[0_-6px_24px_rgba(0,0,0,0.22)]">
+        <aside className="sticky bottom-0 z-50 border-t border-white/15 bg-[#0d2640] px-4 py-4 text-white shadow-[0_-6px_24px_rgba(0,0,0,0.22)] lg:hidden">
           <div className="mx-auto flex max-w-5xl flex-col items-start gap-3 md:flex-row md:items-center md:justify-between">
             <div>
               <p className="text-sm font-semibold">この補助金について、無料で相談できます。</p>
