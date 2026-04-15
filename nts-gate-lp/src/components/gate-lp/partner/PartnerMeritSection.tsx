@@ -46,10 +46,9 @@ export default function PartnerMeritSection() {
               成約率が上がる
             </h3>
             <p className="mt-4 text-base leading-relaxed text-white/60">
-              「補助金が使えるので、自己負担を抑えて導入できます」——
-              この一言が、価格交渉を不要にします。
-              値下げではなく、制度の活用として話が進むため、
-              あなたの提案の質が根本から変わります。
+              「補助金が使えるので、自己負担を抑えて導入できます」——この一言が、価格交渉を不要にします。
+              値下げではなく、制度の活用として話が進むため、あなたの提案の質が根本から変わります。
+              NTSが採択後も1年間伴走するので、顧客への責任も果たせます。
             </p>
             <div className="mt-6 rounded-xl border border-white/[0.08] bg-white/[0.04] p-5">
               <p className="mb-2 text-[11px] font-bold uppercase tracking-wider text-white/30">
@@ -57,8 +56,8 @@ export default function PartnerMeritSection() {
               </p>
               <p className="text-sm leading-relaxed text-white/[0.65]">
                 600万円の省力化設備 → 補助金で最大300万円をカバー。
-                顧客の自己負担は半額以下に。
-                「費用がネック」で止まっていた商談が動き始めます。
+                <br />
+                顧客の自己負担は半額以下に。「費用がネック」で止まっていた商談が動き始めます。
               </p>
             </div>
           </motion.div>
@@ -84,9 +83,9 @@ export default function PartnerMeritSection() {
               新しい収益が生まれる
             </h3>
             <p className="mt-4 text-base leading-relaxed text-white/60">
-              紹介いただいた案件が採択された場合、NTSから紹介フィー（キックバック）をお支払いします。
-              申請業務はすべてNTSが担当するため、御社の工数はほぼゼロ。
-              「紹介するだけ」で、新しい収益の柱が生まれます。
+              紹介いただいた案件が採択された場合、NTSから紹介フィーをお支払いします。
+              申請サポートから採択後の1年間の伴走まで、すべてNTSが担当します。
+              御社の工数はほぼゼロ。「紹介するだけ」で、新しい収益の柱が生まれます。
             </p>
             <div
               className="mt-6 rounded-xl p-5"
@@ -99,9 +98,9 @@ export default function PartnerMeritSection() {
                 フィーの仕組み
               </p>
               <p className="text-sm leading-relaxed text-white/[0.65]">
-                顧客を紹介 → NTSが申請サポート → 採択 → 紹介フィーをお支払い。
-                申請業務はすべてNTSが担当するため、
-                御社の工数はほぼゼロです。
+                顧客を紹介 → NTSが戦略設計・申請サポート・採択後1年伴走 → 採択で紹介フィーをお支払い。
+                <br />
+                申請から効果検証まですべてNTSが担当するため、御社の工数はほぼゼロです。
               </p>
             </div>
           </motion.div>

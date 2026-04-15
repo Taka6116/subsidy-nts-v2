@@ -26,25 +26,25 @@ const steps = [
   {
     step: "01",
     title: "顧客を紹介",
-    body: "御社→NTSへ。1分で完了",
+    body: "御社 → NTSへ。1分で完了",
     Icon: UserPlus,
   },
   {
     step: "02",
-    title: "NTSが診断・マッチング",
-    body: "最適な補助金を選定",
+    title: "NTSが戦略設計・申請サポート",
+    body: "補助金の選定から書類準備まで対応",
     Icon: Search,
   },
   {
     step: "03",
-    title: "申請〜採択まで全対応",
-    body: "御社の工数はゼロ",
+    title: "採択後も1年間伴走",
+    body: "設備定着・効果検証までNTSが継続関与",
     Icon: FileText,
   },
   {
     step: "04",
     title: "紹介フィー受取",
-    body: "採択額の10%",
+    body: "採択額の10%を御社にお支払い",
     Icon: DollarSign,
   },
 ] as const;
@@ -82,7 +82,7 @@ export default function PartnerFeeSection() {
             variants={itemVariants}
             className="mx-auto max-w-2xl text-base leading-relaxed text-white/70 md:text-lg"
           >
-            補助金の申請・採択はすべてNTSが対応します。
+            申請・採択から採択後の1年間まで、すべてNTSが対応します。
             <br className="hidden sm:block" />
             採択が決まったとき、御社に紹介フィーをお支払いします。
           </motion.p>
@@ -166,7 +166,7 @@ export default function PartnerFeeSection() {
               活用例
             </p>
             <p className="text-sm font-medium text-white/90 md:text-base">
-              省力化補助金で600万円の設備が採択された場合
+              省力化補助金で600万円の設備投資が採択された場合
             </p>
             <div className="mt-5 space-y-3 text-sm text-white/80 md:text-base">
               <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:gap-3">
@@ -174,7 +174,7 @@ export default function PartnerFeeSection() {
                 <span className="hidden text-[#1A7B6F] sm:inline" aria-hidden>
                   →
                 </span>
-                <span>最大300万円以下に（半額以下）</span>
+                <span>最大 300万円以下（半額以下）</span>
               </div>
               <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-3">
                 <span className="shrink-0 text-white/55">御社の紹介フィー</span>
@@ -188,7 +188,9 @@ export default function PartnerFeeSection() {
               </div>
             </div>
             <p className="mt-4 text-xs leading-relaxed text-white/50 md:text-sm">
-              ※紹介フィーは成功報酬型のため、採択されなかった場合は発生しません。
+              ※採択されなかった場合、紹介フィーは発生しません。
+              <br />
+              御社はゼロリスクで、新しい収益の柱を持てます。
             </p>
           </div>
         </motion.div>

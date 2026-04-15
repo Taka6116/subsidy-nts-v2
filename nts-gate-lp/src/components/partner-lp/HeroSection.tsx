@@ -87,15 +87,19 @@ export default function HeroSection() {
       <div className={styles.heroMain}>
       <div className={styles.content}>
       <p ref={eyebrowRef} className={`${styles.eyebrow} font-body`}>
-        Partner Program — NTS
+        PARTNER PROGRAM — NTS
       </p>
       <h1 ref={headlineRef} className={`${styles.headline} font-heading`}>
-        「顧客の「できない」を、
+        顧客の『できない』を、
         <br />
-        「できる」に変える一言がある。」
+        『できる』に変える一言がある。
       </h1>
       <p ref={subRef} className={`${styles.sub} font-body`}>
-        「「費用がネックで」「予算がなくて」——その言葉が出たとき、あなたには渡せる切り札があります。「補助金を使えるか、専門家に確認してみましょう」と。」
+        御社の顧客に、補助金という選択肢を渡してください。
+        <br />
+        採択後も1年間、NTSがお客様に寄り添います。
+        <br />
+        紹介フィーは成功報酬制です。
       </p>
 
       <div className={`${styles.flow} font-body`}>

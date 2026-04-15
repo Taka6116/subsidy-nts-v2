@@ -21,7 +21,7 @@ export default function PartnerAboutSection() {
               About NTS
             </p>
             <h2 className="font-heading text-3xl font-bold leading-snug text-white md:text-4xl">
-              補助金申請の専門チームが、
+              補助金活用の専門チームが、
               <br />
               提携先とともに動きます。
             </h2>
@@ -31,9 +31,8 @@ export default function PartnerAboutSection() {
             className="mt-6 text-base leading-relaxed text-white/60"
             {...fadeUp(0.1)}
           >
-            日本提携支援は、M&A仲介を本業としながら補助金サポート事業を展開しています。
-            経営課題を多角的に理解した専門チームが、対象制度の選定から採択後の報告まで一貫して対応します。
-            提携先の皆様には「紹介する」だけで、複雑な申請業務は私たちが担います。
+            申請サポートにとどまらず、採択後の1年間もお客様の経営に寄り添います。
+            御社が紹介してくださった顧客に、NTSが責任を持って伴走します。
           </motion.p>
 
           <motion.div
@@ -41,16 +40,25 @@ export default function PartnerAboutSection() {
             {...fadeUp(0.2)}
           >
             {[
-              { label: "対応補助金", value: "3種類" },
-              { label: "申請サポート", value: "完全代行" },
-              { label: "相談・照会", value: "完全無料" },
+              {
+                title: "3種類",
+                body: "NTSが対応する補助金は現在3種類。顧客の課題に合わせて最適な制度を選定します。",
+              },
+              {
+                title: "全対応",
+                body: "戦略設計から申請サポート・採択後の1年伴走まで、NTSが一貫して担当します。",
+              },
+              {
+                title: "完全成果報酬",
+                body: "採択されなければ紹介フィーは発生しません。御社のリスクはゼロです。",
+              },
             ].map((item) => (
               <div
-                key={item.label}
+                key={item.title}
                 className="rounded-xl border border-white/[0.08] bg-white/[0.04] px-6 py-5 text-center"
               >
-                <p className="mb-1 text-[11px] text-white/35">{item.label}</p>
-                <p className="text-xl font-bold text-white">{item.value}</p>
+                <p className="mb-2 text-xl font-bold text-white">{item.title}</p>
+                <p className="text-sm leading-relaxed text-white/60">{item.body}</p>
               </div>
             ))}
           </motion.div>

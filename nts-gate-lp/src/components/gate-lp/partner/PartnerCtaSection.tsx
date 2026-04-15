@@ -26,11 +26,9 @@ export default function PartnerCtaSection() {
             まず、話を聞かせてください。
           </h2>
           <p className="mt-6 text-lg leading-relaxed text-white/[0.58]">
-            補助金の知識は不要です。
+            提携のご相談、御社の商材が補助金の対象になるかの確認など、
             <br />
-            「紹介できる顧客がいるかもしれない」と思ったら、それだけで十分です。
-            <br />
-            まず、30分だけ話を聞かせてください。
+            まずは気軽にお声がけください。
           </p>
         </motion.div>
 
@@ -55,7 +53,7 @@ export default function PartnerCtaSection() {
               e.currentTarget.style.background = "#F5A623";
             }}
           >
-            提携について相談する（無料）→
+            提携について相談する
           </a>
 
           <Link
@@ -73,7 +71,7 @@ export default function PartnerCtaSection() {
           viewport={{ once: true }}
           transition={{ delay: 0.4 }}
         >
-          ※ 提携に関するご相談・情報提供は無料です。契約を強制するものではありません。
+          紹介フィーの詳細・提携条件は個別にご案内します。
         </motion.p>
       </div>
     </section>

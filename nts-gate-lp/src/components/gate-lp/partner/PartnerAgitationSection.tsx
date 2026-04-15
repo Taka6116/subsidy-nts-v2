@@ -22,9 +22,11 @@ const CARDS: {
     pain: "「費用が\nネックで…」",
     note: (
       <>
-        省力化補助金を活用すれば、
-        <strong className="font-semibold text-white/75">自己負担が半額以下</strong>
-        になるケースがあります。「高くて無理」が「これなら動ける」に変わります。
+        省力化補助金を活用すれば、自己負担が半額以下になるケースがあります。
+        <br />
+        「高くて無理」が「補助金があるなら動ける」に変わります。
+        <br />
+        NTSが採択後も1年間伴走するので、紹介した後も顧客に責任を果たせます。
       </>
     ),
   },
@@ -33,9 +35,9 @@ const CARDS: {
     pain: "「今期の\n予算がない」",
     note: (
       <>
-        補助金の公募スケジュールと合わせれば、
-        <strong className="font-semibold text-white/75">「来期でいい」を「今動く」</strong>
-        に変えられます。タイミングが鍵です。
+        補助金の公募スケジュールに合わせれば、「来期でいい」を「今動く」に変えられます。
+        <br />
+        NTSが採択後も継続的に関わるので、紹介した後のフォローも安心です。
       </>
     ),
   },
@@ -44,8 +46,9 @@ const CARDS: {
     pain: "「やっぱり\n見送ります」",
     note: (
       <>
-        <strong className="font-semibold text-white/75">「補助金が使える」</strong>
-        という一言が、止まっていた意思決定を動かします。背中を押す武器が、あなたにはまだあります。
+        「補助金が使える」という一言が、止まっていた意思決定を動かします。
+        <br />
+        採択後も1年間伴走する体制があることが、顧客の背中を押す武器になります。
       </>
     ),
   },
@@ -102,10 +105,7 @@ export default function PartnerAgitationSection() {
           <p className="font-heading text-xl font-bold text-white md:text-2xl">
             「補助金が使えます」——
             <br />
-            <span style={{ color: "#F5A623" }}>その一言で、商談が動き始めます。</span>
-          </p>
-          <p className="mt-4 text-sm leading-relaxed text-white/55">
-            NTSと提携することで、あなたの提案にこの一言を加えることができます。
+            <span style={{ color: "#F5A623" }}>その一言の先に、NTSの1年間の伴走があります。</span>
           </p>
         </motion.div>
       </div>
