@@ -29,6 +29,8 @@ export default function PartnerCtaSection() {
             提携のご相談、御社の商材が補助金の対象になるかの確認など、
             <br />
             まずは気軽にお声がけください。
+            <br />
+            補助金活用の専門チームが採択まで一貫してサポートします。
           </p>
         </motion.div>
 

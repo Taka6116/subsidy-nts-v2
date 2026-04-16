@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import ImagePlaceholder from "@/components/ui/ImagePlaceholder";
+import HeroCheckCtaLink from "@/components/shared/HeroCheckCtaLink";
 import { trackCTAClick } from "@/lib/analytics";
 import styles from "./HeroSection.module.css";
 
@@ -32,13 +33,14 @@ export default function HeroSection() {
               <Link
                 href="/consult"
                 className={styles.ctaConsult}
-                onClick={() => trackCTAClick("hero")}
+                onClick={() => trackCTAClick("hero_consult")}
               >
                 無料相談申し込み
                 <span className={styles.ctaArrow} aria-hidden="true">
                   →
                 </span>
               </Link>
+              <HeroCheckCtaLink location="home_subsidy_check" className={styles.cta} />
             </div>
           </div>
 

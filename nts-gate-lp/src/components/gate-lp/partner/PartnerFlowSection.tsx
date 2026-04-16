@@ -4,8 +4,8 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import isometric13 from "../../../../icon-assets/isometric_13.webp";
 import isometric16 from "../../../../icon-assets/isometric_16.webp";
-import isometric20 from "../../../../icon-assets/isometric_20.png";
 import isometric21 from "../../../../icon-assets/isometric_21.png";
+import isometric14 from "../../../../icon-assets/isometric_14.webp";
 
 const steps = [
   {
@@ -33,7 +33,7 @@ const steps = [
     number: "04",
     title: "紹介フィー受取",
     body: "採択額の一定割合をお支払い",
-    image: isometric20,
+    image: isometric14,
     bg: "#E8F9F4",
   },
 ];
@@ -63,38 +63,16 @@ export default function PartnerFlowSection() {
           </h2>
         </motion.div>
 
-        <div className="relative">
-          <div
-            className="absolute top-[2.6rem] hidden lg:block"
-            style={{
-              left: "calc(12.5% + 1.6rem)",
-              right: "calc(12.5% + 1.6rem)",
-              height: "1px",
-              background:
-                "linear-gradient(to right, rgba(245,166,35,0.0), rgba(245,166,35,0.25) 20%, rgba(245,166,35,0.25) 80%, rgba(245,166,35,0.0))",
-            }}
-            aria-hidden="true"
-          />
-          <div
-            className="absolute left-[2.4rem] top-10 block lg:hidden"
-            style={{
-              height: "calc(100% - 5rem)",
-              width: "1px",
-              background:
-                "linear-gradient(to bottom, rgba(245,166,35,0.0), rgba(245,166,35,0.2) 10%, rgba(245,166,35,0.2) 90%, rgba(245,166,35,0.0))",
-            }}
-            aria-hidden="true"
-          />
-
+        <div>
           <div className="grid grid-cols-1 gap-4 lg:grid-cols-4 lg:gap-5">
             {steps.map((step, i) => (
               <motion.div
                 key={step.number}
                 {...fadeUp(i * 0.08)}
-                className="card group relative flex items-start gap-5 p-6 transition-all duration-300 lg:flex-col"
+                className="card group relative overflow-hidden p-0 transition-all duration-300"
               >
                 <div
-                  className="relative hidden h-[120px] w-full overflow-hidden rounded-xl md:block"
+                  className="relative h-[120px] w-full overflow-hidden rounded-t-xl md:h-[130px]"
                   style={{ background: step.bg }}
                   data-placeholder={`flow-step-${i + 1}`}
                 >
@@ -103,31 +81,45 @@ export default function PartnerFlowSection() {
                     alt="（後から差し替え）紹介後の流れイラスト"
                     width={640}
                     height={640}
-                    className="absolute bottom-0 left-1/2 h-[88%] w-auto -translate-x-1/2 object-contain"
+                    className={`absolute bottom-0 left-1/2 w-auto -translate-x-1/2 object-contain ${i === 1 || i === 3 ? "h-[88%]" : "h-[85%]"}`}
                   />
                 </div>
-                <div className="relative flex-none">
-                  <div
-                    className="flex h-[3.2rem] w-[3.2rem] items-center justify-center rounded-full border text-lg font-bold text-[var(--accent-navy)]"
-                    style={{
-                      borderColor: "rgba(245, 166, 35, 0.4)",
-                      background: "rgba(245, 166, 35, 0.12)",
-                    }}
-                  >
-                    {step.number}
+                <div className="px-6 py-5">
+                  <div className="mb-3 flex items-center gap-3">
+                    <div
+                      className="flex h-[3.2rem] w-[3.2rem] items-center justify-center rounded-full border text-lg font-bold text-[var(--accent-navy)]"
+                      style={{
+                        borderColor: "rgba(245, 166, 35, 0.4)",
+                        background: "rgba(245, 166, 35, 0.12)",
+                      }}
+                    >
+                      {step.number}
+                    </div>
                   </div>
-                  <div
-                    className="absolute inset-0 rounded-full opacity-0 blur-md transition-opacity duration-300 group-hover:opacity-100"
-                    style={{ background: "rgba(245, 166, 35, 0.2)" }}
-                  />
-                </div>
-                <div className="flex-1 lg:pt-4">
                   <h3 className="mb-2 text-base font-bold text-[var(--text-primary)]">{step.title}</h3>
                   <p className="text-sm leading-relaxed text-[var(--text-secondary)]">{step.body}</p>
                 </div>
               </motion.div>
             ))}
           </div>
+
+          <motion.div
+            className="mt-10 rounded-xl bg-[#E8F9F4] px-6 py-4"
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{ duration: 0.5, ease: EASE_OUT, delay: 0.12 }}
+          >
+            <div className="flex flex-wrap items-baseline gap-3">
+              <span className="text-[11px] font-bold uppercase tracking-wider text-[#085041]">
+                活用例
+              </span>
+              <span className="text-[32px] font-bold leading-none text-[#0F6E56]">60万円</span>
+              <span className="text-[11px] leading-relaxed text-[#085041]">
+                省力化補助金で600万円の設備投資が採択された場合の紹介フィー（採択額600万円の10%）
+              </span>
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>

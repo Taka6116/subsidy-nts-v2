@@ -21,7 +21,7 @@ function HeaderCtaGroup() {
         onClick={() => trackCTAClick("header_subsidy_lookup")}
         className="header-cta header-cta--secondary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent-navy)]"
       >
-        対象補助金を調べる
+        対象補助金を確認する
       </Link>
       <Link
         href="/consult"
@@ -63,9 +63,9 @@ export default function Header() {
   return (
     <header
       className={`
-        lp-site-header absolute left-0 right-0 top-3 z-[10]
+        lp-site-header fixed left-0 right-0 top-0 z-[50]
         flex flex-col items-stretch gap-2.5 px-4 py-2.5 transition-all duration-300
-        sm:top-4 sm:min-h-[3.5rem] sm:flex-row sm:items-center sm:gap-4 sm:px-6 sm:py-0
+        sm:min-h-[3.5rem] sm:flex-row sm:items-center sm:gap-4 sm:px-6 sm:py-0
         ${barClass}
       `}
       data-hero-transparent={heroStyle ? "true" : undefined}

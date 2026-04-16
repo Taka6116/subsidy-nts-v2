@@ -86,19 +86,31 @@
 .imgPlaceholder {
   position: relative;
   width: 100%;
-  min-height: 340px;
+  min-height: 380px;
   border-radius: 16px;
   background: #eef6ff;
   overflow: hidden;
 }
 
-.heroMainImage {
+.heroMidImage {
   position: absolute;
   bottom: 0;
-  right: 16px;
+  left: 50%;
+  transform: translateX(-50%);
   width: auto;
-  height: 85%;
+  height: 82%;
   object-fit: contain;
+  z-index: 2;
+}
+
+.heroEndImage {
+  position: absolute;
+  bottom: 0;
+  right: -4%;
+  width: auto;
+  height: 108%;
+  object-fit: contain;
+  z-index: 3;
 }
 
 .heroBackImage {
@@ -106,9 +118,10 @@
   bottom: 0;
   left: 8px;
   width: auto;
-  height: 60%;
+  height: 58%;
   object-fit: contain;
   opacity: 0.75;
+  z-index: 1;
 }
 
 /* ── テキスト要素 ────────────────────────────────────────── */
@@ -171,162 +184,6 @@
   }
 }
 
-/* ── フローステップ ──────────────────────────────────────── */
-.flow {
-  --partner-flow-scale: 1;
-  display: flex;
-  align-items: flex-start;
-  gap: 0;
-  margin-bottom: 36px;
-  width: 100%;
-  max-width: 560px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-@media (min-width: 480px) {
-  .flow {
-    --partner-flow-scale: 1.1;
-  }
-}
-
-@media (min-width: 1024px) {
-  .flow {
-    --partner-flow-scale: 1;
-    max-width: none;
-    justify-content: flex-start;
-  }
-}
-
-.step {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: calc(10px * var(--partner-flow-scale));
-  opacity: 0;
-  transform: translateY(calc(24px * var(--partner-flow-scale)));
-}
-
-.stepIcon {
-  width: calc(64px * var(--partner-flow-scale));
-  height: calc(64px * var(--partner-flow-scale));
-  border-radius: 50%;
-  border: calc(1.5px * var(--partner-flow-scale)) solid var(--border-card);
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(12px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-}
-
-.stepIcon svg {
-  width: calc(24px * var(--partner-flow-scale));
-  height: calc(24px * var(--partner-flow-scale));
-  fill: none;
-  stroke: var(--accent-navy);
-  stroke-width: calc(1.8 * var(--partner-flow-scale));
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-.stepNum {
-  position: absolute;
-  top: calc(-5px * var(--partner-flow-scale));
-  right: calc(-5px * var(--partner-flow-scale));
-  width: calc(18px * var(--partner-flow-scale));
-  height: calc(18px * var(--partner-flow-scale));
-  border-radius: 50%;
-  background: rgba(26, 76, 142, 0.12);
-  border: calc(1px * var(--partner-flow-scale)) solid rgba(26, 76, 142, 0.35);
-  font-size: calc(9px * var(--partner-flow-scale));
-  font-weight: 500;
-  color: var(--accent-navy);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.stepLabel {
-  font-size: calc(11px * var(--partner-flow-scale));
-  font-weight: 600;
-  color: var(--text-primary);
-  letter-spacing: 0.04em;
-  text-align: center;
-  line-height: 1.4;
-  max-width: calc(80px * var(--partner-flow-scale));
-}
-
-.stepSub {
-  font-size: calc(9px * var(--partner-flow-scale));
-  color: var(--text-secondary);
-  text-align: center;
-  max-width: calc(90px * var(--partner-flow-scale));
-  line-height: 1.5;
-}
-
-.arrow {
-  width: calc(36px * var(--partner-flow-scale));
-  height: calc(2px * var(--partner-flow-scale));
-  background: rgba(26, 76, 142, 0.2);
-  position: relative;
-  align-self: flex-start;
-  margin-top: calc(32px * var(--partner-flow-scale));
-  margin-right: calc(2px * var(--partner-flow-scale));
-  margin-left: calc(2px * var(--partner-flow-scale));
-  flex-shrink: 0;
-  opacity: 0;
-}
-
-.arrow::after {
-  content: "";
-  position: absolute;
-  right: calc(-4px * var(--partner-flow-scale));
-  top: calc(-3px * var(--partner-flow-scale));
-  width: calc(8px * var(--partner-flow-scale));
-  height: calc(8px * var(--partner-flow-scale));
-  border-right: calc(1.5px * var(--partner-flow-scale)) solid rgba(26, 76, 142, 0.45);
-  border-top: calc(1.5px * var(--partner-flow-scale)) solid rgba(26, 76, 142, 0.45);
-  transform: rotate(45deg);
-}
-
-.arrowDot {
-  position: absolute;
-  top: 50%;
-  left: 0;
-  width: calc(6px * var(--partner-flow-scale));
-  height: calc(6px * var(--partner-flow-scale));
-  border-radius: 50%;
-  background: var(--accent-teal);
-  transform: translateY(-50%);
-  animation: moveDot 2.4s ease-in-out infinite;
-}
-
-.arrowDotDelay1 {
-  animation-delay: 0.8s;
-}
-
-.arrowDotDelay2 {
-  animation-delay: 1.6s;
-}
-
-@keyframes moveDot {
-  0% {
-    left: 0;
-    opacity: 0;
-  }
-  15% {
-    opacity: 1;
-  }
-  85% {
-    opacity: 1;
-  }
-  100% {
-    left: calc(100% - 7.8px);
-    opacity: 0;
-  }
-}
-
 /* ── CTAボタン群 ─────────────────────────────────────────── */
 .ctas {
   display: flex;
@@ -385,23 +242,3 @@
   color: #fff;
 }
 
-/* ── パルスリング ────────────────────────────────────────── */
-.pulseRing {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  border: calc(1px * var(--partner-flow-scale, 1)) solid rgba(0, 184, 148, 0.35);
-  animation: pulse 2.8s ease-out infinite;
-}
-
-@keyframes pulse {
-  0% {
-    transform: scale(1);
-    opacity: 0.5;
-  }
-  100% {
-    transform: scale(1.7);
-    opacity: 0;
-  }
-}
