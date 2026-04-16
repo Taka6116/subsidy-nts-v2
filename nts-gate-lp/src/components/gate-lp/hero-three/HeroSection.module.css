@@ -1,0 +1,336 @@
+/* ─────────────────────────────────────────────
+   HeroSection.module.css
+   ※ nav は Header.tsx に任せるため削除済み
+───────────────────────────────────────────── */
+
+.hero {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  overflow: hidden;
+  background: transparent;
+  font-family: var(--font-body);
+}
+
+/* ── メインコンテンツ ──────────────────────────
+   Header が absolute z-[10] で被さるため padding-top で確保
+─────────────────────────────────────────── */
+.content {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  /* Header 分（top-4 + h-16 ≈ 80px）＋余白 */
+  padding: 72px 52px 72px;
+  box-sizing: border-box;
+}
+
+.heroInner {
+  width: 100%;
+}
+
+/* 2カラム時：左カラムは lg で左寄せ */
+.textCol {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+@media (min-width: 1024px) {
+  .textCol {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .textCol .headline {
+    align-items: flex-start;
+    margin-left: 0;
+    margin-right: auto;
+  }
+
+  .textCol .headlineLine {
+    text-align: left;
+  }
+
+  .textCol .sub {
+    align-items: flex-start;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .textCol .subLine {
+    text-align: left;
+  }
+
+  .textCol .ctaRow {
+    justify-content: flex-start;
+    align-self: flex-start;
+  }
+}
+
+/*
+ * メイン見出し：1文＝1ボックス（幅はその文だけ）を縦に積み、
+ * 親の flex + align-items:center でそれぞれ画面中央に揃える
+ */
+.headline {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15em;
+  width: fit-content;
+  max-width: min(100%, 56rem);
+  margin-top: 0;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 24px;
+  text-align: center;
+  padding: 0 1rem;
+  box-sizing: border-box;
+  font-size: clamp(14.4px, 3.18vw, 40.8px);
+  color: var(--text-primary);
+  line-height: 1.55;
+  letter-spacing: -0.02em;
+  opacity: 0;
+  animation: fadeUp 0.9s 0.28s ease forwards;
+}
+
+.headlineLine {
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+  text-align: center;
+  white-space: nowrap;
+  word-break: keep-all;
+}
+
+/* サブコピー（見出しと同じく1文ずつボックスで中央） */
+.sub {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2em;
+  width: 100%;
+  max-width: min(100%, 36rem);
+  margin: 0 auto 43px;
+  padding: 0 0.25rem;
+  box-sizing: border-box;
+  font-size: clamp(14.4px, 1.44vw, 16.8px);
+  color: var(--text-secondary);
+  line-height: 1.75;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.48s ease forwards;
+}
+
+.subLine {
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+  text-align: center;
+  white-space: nowrap;
+  word-break: keep-all;
+}
+
+/* CTA 行（2ボタン・折返し可） */
+.ctaRow {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 14px 18px;
+  align-self: center;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.68s ease forwards;
+}
+
+/* CTA（照会・ティール） — HeroCheckCtaLink */
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 32px;
+  background: var(--accent-teal);
+  border-radius: 8px;
+  color: #fff;
+  font-family: var(--font-heading);
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  transition: background 0.25s, transform 0.25s, box-shadow 0.25s;
+  width: fit-content;
+  outline-offset: 3px;
+}
+.cta:hover {
+  background: #00a07e;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 184, 148, 0.35);
+}
+.cta:focus-visible {
+  outline: 2px solid var(--accent-navy);
+}
+
+/* CTA（無料相談・ネイビー） */
+.ctaConsult {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 32px;
+  background: var(--accent-navy);
+  border-radius: 8px;
+  color: #fff;
+  font-family: var(--font-heading);
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  transition: background 0.25s, transform 0.25s, box-shadow 0.25s;
+  width: fit-content;
+  outline-offset: 3px;
+}
+.ctaConsult:hover {
+  background: #1557a8;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(26, 76, 142, 0.35);
+}
+.ctaConsult:focus-visible {
+  outline: 2px solid var(--accent-teal);
+}
+
+/* CTA（相談・枠線） */
+.ctaSecondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 41px;
+  border: 1.5px solid rgba(255, 255, 255, 0.55);
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  text-decoration: none;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition:
+    background 0.25s,
+    border-color 0.25s,
+    transform 0.25s,
+    box-shadow 0.25s;
+  width: fit-content;
+  outline-offset: 3px;
+}
+.ctaSecondary:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.85);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(0, 196, 255, 0.2);
+}
+.ctaSecondary:focus-visible {
+  outline: 2px solid #00c4ff;
+}
+
+.ctaArrow {
+  font-size: 19.2px;
+  transition: transform 0.2s;
+}
+.cta:hover .ctaArrow,
+.ctaSecondary:hover .ctaArrow,
+.ctaConsult:hover .ctaArrow {
+  transform: translateX(4px);
+}
+
+/* ── スクロールヒント ──────────────────────────── */
+.scrollHint {
+  position: absolute;
+  bottom: 28px;
+  right: 48px;
+  z-index: 5;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.88s ease forwards;
+}
+
+.scrollLine {
+  width: 1px;
+  height: 32px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(26, 76, 142, 0.35)
+  );
+  animation: scrollLine 1.8s ease-in-out infinite;
+}
+
+.scrollText {
+  font-size: 10.8px;
+  color: var(--text-muted);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  writing-mode: vertical-rl;
+}
+
+/* ── キーフレーム ──────────────────────────────── */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scrollLine {
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .headline,
+  .sub,
+  .ctaRow,
+  .scrollHint {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  .scrollLine {
+    animation: none;
+    opacity: 0.5;
+  }
+}
+
+@media (max-width: 768px) {
+  .content {
+    padding: 72px 24px 72px;
+  }
+  .scrollHint {
+    right: 24px;
+  }
+}
+
+/* 極窄では各行ボックス内で折返し */
+@media (max-width: 520px) {
+  .headlineLine,
+  .subLine {
+    white-space: normal;
+  }
+}

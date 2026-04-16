@@ -1,0 +1,7 @@
+{
+  "functions": {
+    "src/app/api/subsidy/match/route.ts": {
+      "regions": ["hnd1"]
+    }
+  }
+}

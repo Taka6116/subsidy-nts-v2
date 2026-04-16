@@ -1,0 +1,800 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* === LP refresh — カラートークン === */
+  --bg-base: #eef2f7;
+  --bg-white: #ffffff;
+  --bg-section-alt: #f0f4fa;
+  --bg-tag-band: #b8cde0;
+
+  --text-primary: #1a2b3c;
+  --text-secondary: #4a5568;
+  --text-muted: #718096;
+
+  --accent-teal: #00b894;
+  --accent-gold: #f5a623;
+  --accent-navy: #1a4c8e;
+  --accent-cyan: #4ecdc4;
+  --accent-cyan-dim: rgba(0, 184, 148, 0.12);
+
+  --border-card: rgba(26, 76, 142, 0.15);
+  --border-subtle: #d1dce8;
+
+  --shadow-card: 0 4px 20px rgba(26, 76, 142, 0.08);
+
+  /* === LP surface（design-guide.md / ライトブルー基調）=== */
+  --lp-hero-gradient: linear-gradient(135deg, #f5f9ff 0%, #eaf2fb 100%);
+  --lp-card-radius: 12px;
+  --lp-card-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+
+  /* === Brand（#0F2027 → #2C5364 → #00c6ff） === */
+  --brand-900: #0f2027;
+  --brand-500: #2c5364;
+  --brand-accent: #00c6ff;
+
+  --gradient-brand: linear-gradient(
+    135deg,
+    var(--brand-900) 0%,
+    var(--brand-500) 50%,
+    var(--brand-accent) 100%
+  );
+
+  /* === Primary（ブランドトーンに合わせたスケール） === */
+  --primary-900: #0f2027;
+  --primary-700: #1e3d4d;
+  --primary-500: #2c5364;
+  --primary-300: #3d6b7f;
+  --primary-200: #5a9eb8;
+  --primary-100: #d9f0f8;
+  --primary-50:  #f0f9fc;
+
+  /* === Warm Accent（アンバー寄りゴールド） === */
+  --accent-600:  #B86A10;
+  --accent-500:  #E8911E;
+  --accent-100:  #FEF0DC;
+
+  /* === Neutral（本文・構造） === */
+  --neutral-900: #1A1A1A;
+  --neutral-700: #4A4A4A;
+  --neutral-600: #6B6B6B;
+  --neutral-500: #8A8A8A;
+  --neutral-200: #E5E5E5;
+  --neutral-100: #F5F5F3;
+  --neutral-50:  #FAFAF8;
+
+  /* === Semantic === */
+  --success:     #2d7a6b;
+  --info:        #2c5364;
+  --warning:     #d4930d;
+
+  /* === タイポグラフィ（Zen Kaku Gothic New 本文 / Poppins 見出し・英数） === */
+  --font-body: var(--font-zen-kaku-gothic-new), "Zen Kaku Gothic New", sans-serif;
+  --font-heading: var(--font-poppins), "Poppins", var(--font-zen-kaku-gothic-new),
+    "Zen Kaku Gothic New", sans-serif;
+  --font-display: var(--font-poppins), "Poppins", var(--font-zen-kaku-gothic-new),
+    "Zen Kaku Gothic New", sans-serif;
+  --font-mono: var(--font-ibm-plex-mono), "IBM Plex Mono", ui-monospace,
+    SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  --text-hero:    clamp(1.75rem, 5vw, 3.5rem);
+  --text-h1:      clamp(1.75rem, 4vw, 2.5rem);
+  --text-h2:      clamp(1.25rem, 3vw, 1.75rem);
+  --text-h3:      1.125rem;
+  --text-body:    1rem;
+  --text-small:   0.875rem;
+  --text-caption: 0.75rem;
+
+  --leading-tight:  1.3;
+  --leading-normal: 1.7;
+  --leading-loose:  2.0;
+
+  /* === スペーシング === */
+  --space-1:  0.25rem;
+  --space-2:  0.5rem;
+  --space-3:  0.75rem;
+  --space-4:  1rem;
+  --space-6:  1.5rem;
+  --space-8:  2rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+  --space-32: 8rem;
+
+  --section-gap: clamp(4rem, 8vw, 8rem);
+}
+
+/* ===== NTS Check Portal — Dark Theme Variables ===== */
+.check-portal {
+  --portal-bg: #0b1a22;
+  --portal-surface: rgba(255, 255, 255, 0.05);
+  --portal-surface-low: rgba(255, 255, 255, 0.03);
+  --portal-surface-lowest: #ffffff;
+  --portal-outline: rgba(0, 198, 255, 0.18);
+  --portal-primary: #00c6ff;
+  --portal-primary-container: #7ed9f5;
+  --portal-on-primary: #0b1a22;
+  --portal-on-surface: #e8f4fd;
+  --portal-on-surface-variant: rgba(200, 225, 240, 0.65);
+  --portal-on-surface-card: #0f2027;
+  --portal-on-surface-card-sub: #5a7080;
+  --portal-error: #f87171;
+  --portal-tertiary-container: rgba(0, 198, 255, 0.12);
+  --portal-on-tertiary-container: #00c6ff;
+  --portal-nav-bg: rgba(6, 14, 28, 0.95);
+  --portal-nav-border: rgba(255, 255, 255, 0.1);
+
+  /* 白カード内サブブロック・ラベル用（既存コンポーネント互換） */
+  --portal-secondary: #6b8294;
+  --portal-surface-container: #e8f1f6;
+  --portal-secondary-container: rgba(0, 198, 255, 0.1);
+  --portal-on-secondary-container: #1a3a4a;
+  --portal-tertiary-fixed-dim: #00b0e6;
+
+  background: linear-gradient(160deg, #0a1628 0%, #0d1d38 60%, #060e1c 100%);
+}
+
+/* /check エンドユーザー: トップと同一の WebGL 背景の下にグラデを敷かない */
+.check-portal.check-portal-lp-bg {
+  background: transparent;
+}
+
+.check-portal-editorial-gradient {
+  background: var(--gradient-brand);
+}
+
+/* ===== /check 照合結果 — ダッシュボード用（#00132c 系・check-portal と独立） ===== */
+.results-dashboard {
+  --rd-bg: rgba(6, 14, 28, 0.35);
+  --rd-bg-elevated: rgba(10, 22, 40, 0.55);
+  --rd-surface: rgba(4, 16, 32, 0.45);
+  --rd-surface-high: rgba(12, 28, 52, 0.55);
+  /* LP 橙色（CTA・リンク強調） */
+  --rd-primary: #e8880a;
+  --rd-primary-muted: rgba(232, 136, 10, 0.18);
+  --rd-on-surface: #f8fafc;
+  --rd-on-surface-variant: rgba(248, 250, 252, 0.72);
+  --rd-on-surface-dim: rgba(248, 250, 252, 0.45);
+  --rd-border: rgba(255, 255, 255, 0.1);
+  --rd-border-strong: rgba(255, 255, 255, 0.2);
+  --rd-warning: #fbbf24;
+  --rd-on-primary: #ffffff;
+}
+
+/* トップ Hero ベース（画像・オーバーレイの下層） */
+.hero-gradient-bg {
+  background: linear-gradient(
+    135deg,
+    var(--brand-900) 0%,
+    var(--brand-500) 55%,
+    var(--brand-accent) 100%
+  );
+}
+
+.check-portal-glass-nav {
+  background: rgba(6, 14, 28, 0.28);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+
+.check-portal-glass-nav img {
+  opacity: 0.98;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.35)) brightness(0) invert(1)
+    contrast(1.05);
+}
+
+body {
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  line-height: var(--leading-normal);
+}
+
+@layer base {
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-heading);
+  }
+
+  h1 {
+    font-size: clamp(2.2rem, 5vw, 4rem);
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--text-primary);
+  }
+
+  h2 {
+    font-size: clamp(1.6rem, 3.5vw, 2.5rem);
+    font-weight: 700;
+    line-height: 1.25;
+    color: var(--text-primary);
+  }
+
+  p {
+    font-size: 1rem;
+    line-height: 1.85;
+    color: var(--text-secondary);
+  }
+}
+
+.check-portal h1,
+.check-portal h2,
+.check-portal h3,
+.check-portal p {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+}
+
+/* --- LP セクション・UI ユーティリティ --- */
+
+.section-hero {
+  position: relative;
+  isolation: isolate;
+  background: var(--lp-hero-gradient);
+}
+
+.section-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.08;
+  background-image:
+    repeating-linear-gradient(
+      -14deg,
+      rgba(26, 76, 142, 0.14) 0 1px,
+      transparent 1px 18px
+    ),
+    repeating-linear-gradient(
+      76deg,
+      rgba(47, 107, 255, 0.1) 0 1px,
+      transparent 1px 26px
+    );
+}
+
+.section-hero > * {
+  position: relative;
+  z-index: 1;
+}
+
+.section-white {
+  background: var(--bg-white);
+}
+
+.section-alt {
+  background: var(--bg-section-alt);
+}
+
+.section-tag-band {
+  background: var(--bg-tag-band);
+}
+
+.section-cta {
+  background: linear-gradient(135deg, #1a4c8e 0%, #0f3468 100%);
+  color: #ffffff;
+}
+
+.section-cta h1,
+.section-cta h2,
+.section-cta h3 {
+  color: #ffffff;
+}
+
+.section-cta p {
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.card {
+  background: var(--bg-white);
+  border: 1px solid var(--border-card);
+  border-radius: 16px;
+  box-shadow: var(--shadow-card);
+  transition:
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+.card:hover {
+  box-shadow: 0 8px 32px rgba(26, 76, 142, 0.14);
+  transform: translateY(-2px);
+}
+
+/* トップLP：仕様書のカード（枠線なし・12px・ニュートラル影） */
+.card.lp-card-surface {
+  border: none;
+  border-radius: var(--lp-card-radius);
+  box-shadow: var(--lp-card-shadow);
+}
+
+.card.lp-card-surface:hover {
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.btn-primary {
+  background: var(--accent-navy);
+  color: #ffffff;
+  font-weight: 700;
+  border-radius: 8px;
+  padding: 14px 32px;
+  font-family: var(--font-heading);
+  letter-spacing: 0.02em;
+  transition:
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.btn-primary:hover {
+  background: #1557a8;
+  box-shadow: 0 4px 16px rgba(26, 76, 142, 0.35);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--accent-navy);
+  border: 2px solid var(--accent-navy);
+  border-radius: 8px;
+  padding: 12px 30px;
+  font-weight: 600;
+}
+
+.btn-secondary:hover {
+  background: var(--accent-navy);
+  color: #ffffff;
+}
+
+.btn-teal {
+  background: var(--accent-teal);
+  color: #ffffff;
+  font-weight: 700;
+  border-radius: 8px;
+  padding: 14px 32px;
+}
+
+.btn-teal:hover {
+  background: #00a07e;
+  box-shadow: 0 4px 16px rgba(0, 184, 148, 0.35);
+}
+
+.label-section {
+  font-family: var(--font-poppins), "Poppins", sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent-teal);
+}
+
+.text-highlight-gold {
+  color: var(--accent-gold);
+}
+
+.text-highlight-teal {
+  color: var(--accent-teal);
+  font-weight: 700;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 999px;
+  font-size: 0.875rem;
+  color: var(--text-primary);
+  white-space: nowrap;
+  backdrop-filter: blur(4px);
+}
+
+nav,
+header.lp-site-header:not([data-hero-transparent]) {
+  background: rgba(255, 255, 255, 0.92);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+nav a,
+header.lp-site-header:not([data-hero-transparent]) a {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+nav .btn-cta,
+header.lp-site-header:not([data-hero-transparent]) .btn-cta {
+  background: var(--accent-navy);
+  color: #ffffff;
+  border-radius: 6px;
+  padding: 10px 24px;
+  font-weight: 700;
+}
+
+/* 共通ヘッダー — コンパクトCTAs */
+.header-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  white-space: nowrap;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+@media (min-width: 640px) {
+  .header-cta {
+    min-height: 42px;
+    padding: 9px 18px;
+    font-size: 0.875rem;
+  }
+}
+
+.header-cta--primary {
+  background: var(--accent-navy);
+  color: #ffffff;
+  box-shadow: 0 1px 2px rgba(26, 76, 142, 0.12);
+}
+
+.header-cta--primary:hover {
+  background: #1557a8;
+  box-shadow: 0 2px 8px rgba(26, 76, 142, 0.2);
+}
+
+.header-cta--secondary {
+  border: 1.5px solid var(--accent-navy);
+  color: var(--accent-navy);
+  background: rgba(255, 255, 255, 0.85);
+}
+
+.header-cta--secondary:hover {
+  background: rgba(255, 255, 255, 1);
+  border-color: #1557a8;
+  color: #1557a8;
+}
+
+header.lp-site-header[data-hero-transparent="true"] .header-cta--secondary {
+  background: rgba(255, 255, 255, 0.72);
+  border-color: var(--accent-navy);
+  color: var(--accent-navy);
+}
+
+header.lp-site-header[data-hero-transparent="true"] .header-cta--secondary:hover {
+  background: rgba(255, 255, 255, 0.92);
+}
+
+hr,
+[class*="divider"] {
+  border-color: var(--border-subtle);
+}
+
+.partner-lp-light-overlay {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    180deg,
+    rgba(238, 242, 247, 0.94) 0%,
+    rgba(228, 235, 244, 0.9) 45%,
+    rgba(238, 242, 247, 0.93) 100%
+  );
+}
+
+@layer utilities {
+  .mono {
+    font-family: var(--font-mono);
+  }
+}
+
+/* ヒーロー静止画（カルーセル廃止後の単一ビジュアル） */
+.hero-static-visual {
+  transform: scale(1.05);
+  filter: brightness(0.9) contrast(1.1) saturate(0.9);
+}
+
+/* === Logo scroll animation === */
+
+@keyframes logo-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes logo-scroll-reverse {
+  0%   { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+.logo-scroll-track {
+  width: max-content;
+  animation: logo-scroll 40s linear infinite;
+  will-change: transform;
+  opacity: 0.35;
+}
+
+.logo-scroll-track:hover {
+  animation-play-state: paused;
+}
+
+.logo-scroll-mask {
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 8%,
+    black 92%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 8%,
+    black 92%,
+    transparent 100%
+  );
+}
+
+/* ヒーロー直下: フルカラー・高コントラストのロゴ帯 */
+.hero-partner-logo-track {
+  width: max-content;
+  animation: logo-scroll 48s linear infinite;
+  will-change: transform;
+}
+
+.hero-partner-logo-track-reverse {
+  width: max-content;
+  animation: logo-scroll-reverse 48s linear infinite;
+  will-change: transform;
+}
+
+.hero-partner-logo-mask {
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 5%,
+    black 95%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 5%,
+    black 95%,
+    transparent 100%
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logo-scroll-track {
+    animation: none !important;
+  }
+
+  .hero-partner-logo-track,
+  .hero-partner-logo-track-reverse {
+    animation: none !important;
+  }
+}
+
+/* ===== Subsidy match loading (/check) ===== */
+@keyframes subsidy-match-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes subsidy-match-message-fade {
+  from {
+    opacity: 0;
+    color: #ffffff;
+  }
+  to {
+    opacity: 1;
+    color: #ffffff;
+  }
+}
+
+.subsidy-match-loading-spin-overlay {
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg 260deg,
+    rgba(155, 248, 244, 0.45) 310deg,
+    rgba(111, 123, 247, 0.3) 340deg,
+    transparent 360deg
+  );
+  animation: subsidy-match-spin 1.5s cubic-bezier(0.35, 0.05, 0.25, 1) infinite;
+}
+
+/* 親の text 色に依存せず、白・大きめで固定（/check 照合ローディング） */
+.subsidy-match-loading-message {
+  margin-top: 3.75rem;
+  max-width: min(100vw - 2rem, 52rem);
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  line-height: 1.55;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: clamp(1.125rem, 4.2vw, 1.4rem);
+  opacity: 0;
+}
+
+@media (min-width: 640px) {
+  .subsidy-match-loading-message {
+    font-size: clamp(1.1875rem, 3.4vw, 1.55rem);
+    max-width: min(100vw - 2.5rem, 54rem);
+  }
+}
+
+@media (min-width: 768px) {
+  .subsidy-match-loading-message {
+    font-size: clamp(1.25rem, 2.75vw, 1.6rem);
+    max-width: min(100vw - 3rem, 58rem);
+  }
+}
+
+@media (min-width: 1024px) {
+  .subsidy-match-loading-message {
+    font-size: clamp(1.35rem, 1.45vw, 1.65rem);
+    max-width: min(100%, 42rem);
+    white-space: normal;
+    overflow-x: visible;
+  }
+}
+
+.subsidy-match-loading-message--visible {
+  animation: subsidy-match-message-fade 0.85s ease forwards;
+  color: #ffffff;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .subsidy-match-loading-spin-overlay {
+    animation: none;
+    opacity: 0.12;
+  }
+
+  .subsidy-match-loading-message--visible {
+    animation: none;
+    opacity: 1;
+    color: #ffffff;
+  }
+}
+
+@keyframes subsidy-detail-panel-slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.subsidy-detail-side-panel {
+  opacity: 0;
+  transform: translateX(20px);
+  transition: all 0.5s ease;
+  animation: subsidy-detail-panel-slide-in 0.5s ease 0.3s forwards;
+}
+
+/* ============================================
+   セクション共通レイアウト（LP根本構造）
+   ============================================ */
+
+.section-inner {
+  width: 100%;
+  max-width: 1160px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 48px;
+  padding-right: 48px;
+}
+
+@media (max-width: 768px) {
+  .section-inner {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+
+.section-block {
+  padding-top: 100px;
+  padding-bottom: 100px;
+}
+
+@media (max-width: 768px) {
+  .section-block {
+    padding-top: 64px;
+    padding-bottom: 64px;
+  }
+}
+
+.bg-section-white {
+  background-color: #ffffff;
+}
+
+.bg-section-gray {
+  background-color: #eef2f7;
+}
+
+.sec-label {
+  display: block;
+  font-family: var(--font-poppins), "Poppins", sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #00b894;
+  margin-bottom: 12px;
+}
+
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 72px;
+  align-items: center;
+}
+
+@media (max-width: 1024px) {
+  .two-col {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+}
+
+.two-col.img-right .col-img {
+  order: 2;
+}
+
+.two-col.img-right .col-text {
+  order: 1;
+}
+
+.two-col.img-left .col-img {
+  order: 1;
+}
+
+.two-col.img-left .col-text {
+  order: 2;
+}
+
+@media (max-width: 1024px) {
+  .two-col.img-right .col-img,
+  .two-col.img-left .col-img {
+    order: 1;
+  }
+
+  .two-col.img-right .col-text,
+  .two-col.img-left .col-text {
+    order: 2;
+  }
+}
+
+.nts-card {
+  background: #ffffff;
+  border: 1px solid rgba(26, 76, 142, 0.12);
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(26, 76, 142, 0.07);
+  transition:
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+.nts-card:hover {
+  box-shadow: 0 8px 32px rgba(26, 76, 142, 0.13);
+  transform: translateY(-2px);
+}
