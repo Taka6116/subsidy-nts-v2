@@ -30,7 +30,15 @@ export default function NtsWarmIntroSection() {
           viewport={fadeInUpViewport}
           transition={fadeInUpTransition}
         >
-          <p className="label-section mb-3 text-center lg:text-left">日本提携支援</p>
+          <div className="mb-10 text-center md:mb-12">
+            <p className="label-section mb-3">日本提携支援</p>
+            <h2
+              id="home-nts-warm-intro-heading"
+              className="font-heading text-2xl font-bold leading-snug text-[var(--text-primary)] md:text-3xl md:leading-snug lg:text-[2rem] lg:leading-snug"
+            >
+              「補助金が使えます」——その一言の先に、1年間の伴走があります。
+            </h2>
+          </div>
 
           <div className="two-col img-left mt-2">
             <div className="col-img w-full max-w-xl justify-self-center lg:max-w-none">
@@ -47,13 +55,10 @@ export default function NtsWarmIntroSection() {
               </div>
             </div>
 
-            <div className="col-text flex flex-col justify-center gap-6 text-center lg:text-left">
-              <h2
-                id="home-nts-warm-intro-heading"
-                className="font-heading text-2xl font-bold leading-snug text-[var(--text-primary)] md:text-3xl md:leading-snug lg:text-[2rem] lg:leading-snug"
-              >
+            <div className="col-text flex flex-col justify-center gap-5 text-center lg:text-left">
+              <p className="font-heading text-xl font-bold leading-snug text-[var(--text-primary)] md:text-2xl">
                 私たちは補助金だけではなく、あなたが直面している経営課題にも寄り添います。
-              </h2>
+              </p>
               <p className="text-base font-medium leading-loose text-[var(--text-secondary)] md:text-lg md:leading-loose">
                 採択して終わりではなく、1年間にわたり伴走いたします。
               </p>

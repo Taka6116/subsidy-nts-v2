@@ -15,7 +15,7 @@ export default function HeroSection() {
       }}
       aria-label="補助金照会サービス ヒーローセクション"
     >
-      <div className="section-inner w-full shrink-0 py-8">
+      <div className={`section-inner w-full shrink-0 py-8 ${styles.heroInnerWide}`}>
         <div className={`two-col img-right ${styles.heroSplit}`}>
           <div className={`${styles.textCol} col-text space-y-6`}>
             <h1 className={styles.headline}>
@@ -34,7 +34,7 @@ export default function HeroSection() {
                 className={styles.ctaConsult}
                 onClick={() => trackCTAClick("hero")}
               >
-                まず話を聞かせてください（無料相談）
+                無料相談申し込み
                 <span className={styles.ctaArrow} aria-hidden="true">
                   →
                 </span>

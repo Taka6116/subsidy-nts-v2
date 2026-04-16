@@ -127,17 +127,14 @@ export default function Header() {
         </>
       ) : (
         <div className="flex min-w-0 flex-1 flex-col gap-2.5 sm:flex-row sm:items-center sm:justify-end sm:gap-4 md:gap-5">
-          <Link
-            href={partnerHref}
-            onClick={() => trackPartnerLinkClick("header")}
-            className={`${partnerTextClass(heroStyle)} order-2 text-center sm:order-1 sm:mr-auto sm:text-left`}
-          >
-            パートナー企業の方へ
-            <span className="ml-1" aria-hidden="true">
-              →
-            </span>
-          </Link>
-          <div className="order-1 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 sm:order-2 sm:justify-end sm:gap-x-5">
+          <div className="order-1 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 sm:justify-end sm:gap-x-5">
+            <Link
+              href={partnerHref}
+              onClick={() => trackPartnerLinkClick("header")}
+              className={`${navLinkClass(heroStyle)} shrink-0`}
+            >
+              パートナー企業の方へ
+            </Link>
             <Link
               href="/subsidies"
               onClick={() => trackCTAClick("header_subsidy_detail")}

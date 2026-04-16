@@ -46,8 +46,8 @@
 /* ヒーロー専用：左テキスト / 右ビジュアルを非対称に（グローバル .two-col を上書き） */
 @media (min-width: 1024px) {
   .heroSplit {
-    grid-template-columns: minmax(0, 0.38fr) minmax(0, 0.62fr);
-    gap: 2.75rem;
+    grid-template-columns: minmax(0, 0.42fr) minmax(0, 0.58fr);
+    gap: 2.25rem;
     align-items: center;
   }
 
@@ -58,7 +58,15 @@
   }
 
   .heroSplit .textCol {
-    max-width: 36rem;
+    max-width: 33rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .heroInnerWide {
+    max-width: 1320px;
+    padding-left: 36px;
+    padding-right: 36px;
   }
 }
 
@@ -82,7 +90,8 @@
   .textCol .headline {
     align-items: flex-start;
     margin-left: 0;
-    margin-right: auto;
+    margin-right: 0;
+    padding-left: 0;
   }
 
   .textCol .headlineLine {
@@ -93,21 +102,17 @@
     align-items: flex-start;
     margin-left: 0;
     margin-right: 0;
+    padding-left: 0;
   }
 
   .textCol .subLine {
     text-align: left;
+    white-space: normal;
   }
 
   .textCol .ctaRow {
     justify-content: flex-start;
     align-self: flex-start;
-  }
-
-  /* .textCol .headline の margin-right:auto より優先 */
-  .heroSplit .textCol .headline {
-    margin-right: 0;
-    max-width: 34rem;
   }
 }
 
@@ -120,14 +125,14 @@
   flex-direction: column;
   align-items: center;
   gap: 0.15em;
-  width: fit-content;
-  max-width: min(100%, 56rem);
+  width: 100%;
+  max-width: 34rem;
   margin-top: 0;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 24px;
   text-align: center;
-  padding: 0 1rem;
+  padding: 0 0.5rem;
   box-sizing: border-box;
   font-family: var(--font-body);
   font-size: clamp(2.2rem, 4vw, 3.6rem);
@@ -141,11 +146,12 @@
 
 .headlineLine {
   display: block;
-  width: fit-content;
+  width: 100%;
   max-width: 100%;
   text-align: center;
-  white-space: nowrap;
+  white-space: normal;
   word-break: keep-all;
+  overflow-wrap: break-word;
 }
 
 /* サブコピー（見出しと同じく1文ずつボックスで中央） */
@@ -169,10 +175,10 @@
 
 .subLine {
   display: block;
-  width: fit-content;
+  width: 100%;
   max-width: 100%;
   text-align: center;
-  white-space: nowrap;
+  white-space: normal;
   word-break: keep-all;
 }
 
@@ -367,10 +373,9 @@
   }
 }
 
-/* 極窄では各行ボックス内で折返し */
+/* 極窄でも視認性を維持 */
 @media (max-width: 520px) {
-  .headlineLine,
-  .subLine {
-    white-space: normal;
+  .headline {
+    max-width: 100%;
   }
 }
