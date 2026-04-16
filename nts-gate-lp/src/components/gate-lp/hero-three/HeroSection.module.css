@@ -43,6 +43,36 @@
   text-align: center;
 }
 
+/* ヒーロー専用：左テキスト / 右ビジュアルを非対称に（グローバル .two-col を上書き） */
+@media (min-width: 1024px) {
+  .heroSplit {
+    grid-template-columns: minmax(0, 0.38fr) minmax(0, 0.62fr);
+    gap: 2.75rem;
+    align-items: center;
+  }
+
+  .heroSplit :global(.col-img) {
+    justify-self: stretch;
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .heroSplit .textCol {
+    max-width: 36rem;
+  }
+}
+
+.heroImgCol {
+  max-width: 100%;
+}
+
+@media (max-width: 1023px) {
+  .heroImgCol {
+    justify-self: center;
+    max-width: min(100%, 36rem);
+  }
+}
+
 @media (min-width: 1024px) {
   .textCol {
     align-items: flex-start;
@@ -72,6 +102,12 @@
   .textCol .ctaRow {
     justify-content: flex-start;
     align-self: flex-start;
+  }
+
+  /* .textCol .headline の margin-right:auto より優先 */
+  .heroSplit .textCol .headline {
+    margin-right: 0;
+    max-width: 34rem;
   }
 }
 
@@ -119,11 +155,10 @@
   align-items: center;
   gap: 0.2em;
   width: 100%;
-  max-width: min(100%, 36rem);
+  max-width: 480px;
   margin: 20px auto 0;
   padding: 0 0.25rem;
   box-sizing: border-box;
-  max-width: 480px;
   font-size: 1.05rem;
   color: var(--text-secondary);
   line-height: 2;

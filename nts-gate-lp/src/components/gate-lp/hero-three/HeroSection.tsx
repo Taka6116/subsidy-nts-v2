@@ -16,7 +16,7 @@ export default function HeroSection() {
       aria-label="補助金照会サービス ヒーローセクション"
     >
       <div className="section-inner w-full shrink-0 py-8">
-        <div className="two-col img-right">
+        <div className={`two-col img-right ${styles.heroSplit}`}>
           <div className={`${styles.textCol} col-text space-y-6`}>
             <h1 className={styles.headline}>
               <span className={styles.headlineLine}>補助金だけでなく、経営課題を超えて</span>
@@ -42,7 +42,7 @@ export default function HeroSection() {
             </div>
           </div>
 
-          <div className="col-img w-full max-w-xl justify-self-end lg:max-w-none">
+          <div className={`col-img w-full ${styles.heroImgCol}`}>
             <ImagePlaceholder
               label="メインビジュアル（等角イラストまたはダッシュボード画像）"
               aspectRatio="3/2"

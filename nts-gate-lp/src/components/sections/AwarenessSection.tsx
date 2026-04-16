@@ -1,7 +1,7 @@
 "use client";
 
-import { Bus, GitMerge, HardHat } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
+import ImagePlaceholder from "@/components/ui/ImagePlaceholder";
 import {
   fadeInUpInitial,
   fadeInUpInView,
@@ -10,24 +10,16 @@ import {
   fadeInUpViewport,
 } from "@/components/sections/sectionStyles";
 
-const CARD_ICONS = [HardHat, Bus, GitMerge] as const;
-
 const CARD_STYLES = [
-  {
-    borderTop: "4px solid #00B894",
-    numColor: "rgba(0, 184, 148, 0.07)",
-    labelClass: "text-[0.75rem] font-bold tracking-[0.1em] text-[var(--accent-teal)]",
-  },
-  {
-    borderTop: "4px solid #1A4C8E",
-    numColor: "rgba(26, 76, 142, 0.07)",
-    labelClass: "text-[0.75rem] font-bold tracking-[0.1em] text-[var(--accent-navy)]",
-  },
-  {
-    borderTop: "4px solid #F5A623",
-    numColor: "rgba(245, 166, 35, 0.07)",
-    labelClass: "text-[0.75rem] font-bold tracking-[0.1em] text-[var(--accent-gold)]",
-  },
+  { labelClass: "text-[0.75rem] font-bold tracking-[0.1em] text-[var(--accent-teal)]" },
+  { labelClass: "text-[0.75rem] font-bold tracking-[0.1em] text-[var(--accent-navy)]" },
+  { labelClass: "text-[0.75rem] font-bold tracking-[0.1em] text-[var(--accent-gold)]" },
+] as const;
+
+const IMAGE_LABELS = [
+  "課題共感カード1イメージ（建設業）",
+  "課題共感カード2イメージ（運送業）",
+  "課題共感カード3イメージ（共通）",
 ] as const;
 
 const CARDS = [
@@ -47,6 +39,31 @@ const CARDS = [
     body: "事業承継補助金を使って設備を整え、引き継ぎやすい会社にする。その設計から一緒に考えます。",
   },
 ] as const;
+
+function AwarenessCard({
+  card,
+  style,
+  imageLabel,
+}: {
+  card: (typeof CARDS)[number];
+  style: (typeof CARD_STYLES)[number];
+  imageLabel: string;
+}) {
+  return (
+    <div className="nts-card relative overflow-hidden p-8 md:p-10">
+      <div className="pointer-events-none absolute right-4 top-4 z-[1] w-[min(42%,11rem)] sm:right-5 sm:top-5 sm:w-[min(40%,12.5rem)]">
+        <ImagePlaceholder label={imageLabel} aspectRatio="4/3" className="rounded-lg" />
+      </div>
+      <div className="relative z-[2] pr-[min(46%,12rem)] sm:pr-[min(44%,13rem)]">
+        <p className={`mb-3 ${style.labelClass}`}>{card.label}</p>
+        <h3 className="mb-4 whitespace-pre-line font-heading text-2xl font-extrabold leading-snug text-[var(--text-primary)] md:text-[1.5rem]">
+          {card.title}
+        </h3>
+        <p className="text-[0.9rem] leading-[1.9] text-[var(--text-secondary)] md:text-base">{card.body}</p>
+      </div>
+    </div>
+  );
+}
 
 export default function AwarenessSection() {
   const reduce = useReducedMotion();
@@ -79,90 +96,29 @@ export default function AwarenessSection() {
             </div>
           </div>
 
-          {/* 1段目：2カード */}
           <div className="mb-6 grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-6">
-            {CARDS.slice(0, 2).map((card, i) => {
-              const Icon = CARD_ICONS[i];
-              const style = CARD_STYLES[i];
-              const num = String(i + 1).padStart(2, "0");
-              return (
-                <div
-                  key={card.label}
-                  className="nts-card relative overflow-hidden p-8 md:p-10"
-                  style={{ borderTop: style.borderTop }}
-                >
-                  <span
-                    className="pointer-events-none absolute right-5 top-3 font-heading text-[6rem] font-extrabold leading-none select-none"
-                    style={{ color: style.numColor }}
-                    aria-hidden
-                  >
-                    {num}
-                  </span>
-                  <div className="relative z-[1]">
-                    <div className="mb-4 flex items-center gap-2.5">
-                      <div
-                        className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl text-[var(--accent-teal)]"
-                        style={{ backgroundColor: "rgba(0, 184, 148, 0.1)" }}
-                      >
-                        <Icon className="h-6 w-6" strokeWidth={2} aria-hidden />
-                      </div>
-                      <span className={style.labelClass}>{card.label}</span>
-                    </div>
-                    <h3 className="mb-4 whitespace-pre-line font-heading text-2xl font-extrabold leading-snug text-[var(--text-primary)] md:text-[1.5rem]">
-                      {card.title}
-                    </h3>
-                    <p className="text-[0.9rem] leading-[1.9] text-[var(--text-secondary)] md:text-base">
-                      {card.body}
-                    </p>
-                  </div>
-                </div>
-              );
-            })}
+            {CARDS.slice(0, 2).map((card, i) => (
+              <AwarenessCard
+                key={card.label}
+                card={card}
+                style={CARD_STYLES[i]}
+                imageLabel={IMAGE_LABELS[i]}
+              />
+            ))}
           </div>
 
-          {/* 2段目：中央1カード */}
           <div className="flex justify-center">
-            {(() => {
-              const card = CARDS[2];
-              const Icon = CARD_ICONS[2];
-              const style = CARD_STYLES[2];
-              return (
-                <div
-                  key={card.label}
-                  className="nts-card relative w-full max-w-[620px] overflow-hidden p-8 md:p-10"
-                  style={{ borderTop: style.borderTop }}
-                >
-                  <span
-                    className="pointer-events-none absolute right-5 top-3 font-heading text-[6rem] font-extrabold leading-none select-none"
-                    style={{ color: style.numColor }}
-                    aria-hidden
-                  >
-                    03
-                  </span>
-                  <div className="relative z-[1]">
-                    <div className="mb-4 flex items-center gap-2.5">
-                      <div
-                        className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl text-[var(--accent-teal)]"
-                        style={{ backgroundColor: "rgba(0, 184, 148, 0.1)" }}
-                      >
-                        <Icon className="h-6 w-6" strokeWidth={2} aria-hidden />
-                      </div>
-                      <span className={style.labelClass}>{card.label}</span>
-                    </div>
-                    <h3 className="mb-4 whitespace-pre-line font-heading text-2xl font-extrabold leading-snug text-[var(--text-primary)] md:text-[1.5rem]">
-                      {card.title}
-                    </h3>
-                    <p className="text-[0.9rem] leading-[1.9] text-[var(--text-secondary)] md:text-base">
-                      {card.body}
-                    </p>
-                  </div>
-                </div>
-              );
-            })()}
+            <div className="w-full max-w-[620px]">
+              <AwarenessCard
+                card={CARDS[2]}
+                style={CARD_STYLES[2]}
+                imageLabel={IMAGE_LABELS[2]}
+              />
+            </div>
           </div>
 
           <div
-            className="mt-10 rounded-r-xl border-l-4 border-[var(--accent-teal)] px-6 py-5 md:mt-12"
+            className="mt-10 rounded-xl px-6 py-5 md:mt-12"
             style={{ backgroundColor: "rgba(0, 184, 148, 0.04)" }}
           >
             <p className="text-[0.95rem] font-medium leading-[1.9] text-[var(--text-primary)] md:text-base">
