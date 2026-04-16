@@ -21,13 +21,13 @@ export default async function CheckPage({
   const raw = params.audience;
   const audienceParam = Array.isArray(raw) ? raw[0] : raw;
   const audience = audienceParam === "partner" ? "partner" : "end_user";
-  const isEndUser = audience === "end_user";
+  const useEndUserTone = true;
 
   return (
     <div
-      className={`check-portal min-h-screen font-body text-portal-on-surface${isEndUser ? " check-portal-lp-bg" : ""}`}
+      className={`check-portal min-h-screen font-body text-portal-on-surface${useEndUserTone ? " check-portal-lp-bg" : ""}`}
     >
-      {isEndUser ? <HeroThreeWebGLBackground interactive={false} /> : null}
+      {useEndUserTone ? <HeroThreeWebGLBackground interactive={false} /> : null}
       <CheckPortalHeader audience={audience} />
       <main className="relative z-[2] min-h-[calc(100vh-5rem)] px-6 pb-16 pt-24">
         <div className="mx-auto max-w-5xl">

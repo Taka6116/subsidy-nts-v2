@@ -1,7 +1,7 @@
 "use client";
 
+import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
-import ImagePlaceholder from "@/components/ui/ImagePlaceholder";
 import {
   fadeInUpInitial,
   fadeInUpInView,
@@ -9,12 +9,15 @@ import {
   fadeInUpTransition,
   fadeInUpViewport,
 } from "@/components/sections/sectionStyles";
+import imgDx from "../../../icon-assets/dx.webp";
+import imgOldFacility from "../../../icon-assets/old-facility.webp";
 
 const CARDS = [
   {
     industry: "建設業",
     title: "職人不足・設備老朽化・事業承継",
-    placeholderLabel: "建設業イメージ",
+    imageSrc: imgOldFacility,
+    imageAlt: "建設業の老朽設備と更新課題のイメージ",
     keywords: [
       "省力化補助金",
       "事業承継補助金",
@@ -30,7 +33,8 @@ const CARDS = [
   {
     industry: "運送業",
     title: "ドライバー不足・デジタル化・2代目承継",
-    placeholderLabel: "運送業イメージ",
+    imageSrc: imgDx,
+    imageAlt: "運送業のデジタル化とDX推進のイメージ",
     keywords: [
       "省力化補助金",
       "事業承継補助金",
@@ -82,11 +86,15 @@ export default function SubsidyKindsSection() {
           >
             {CARDS.map((c) => (
               <li key={c.title} className="nts-card p-8 md:p-10">
-                <ImagePlaceholder
-                  label={c.placeholderLabel}
-                  aspectRatio="16/7"
-                  className="mb-6 rounded-xl"
-                />
+                <div className="mb-6 overflow-hidden rounded-xl">
+                  <Image
+                    src={c.imageSrc}
+                    alt={c.imageAlt}
+                    className="h-auto w-full object-cover"
+                    sizes="(max-width: 768px) 100vw, 540px"
+                    priority={false}
+                  />
+                </div>
                 <p className="text-highlight-teal mb-1 text-xs font-bold uppercase tracking-[0.18em]">
                   WORKS FOR
                 </p>

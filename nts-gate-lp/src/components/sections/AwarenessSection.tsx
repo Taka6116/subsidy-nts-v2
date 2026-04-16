@@ -1,7 +1,7 @@
 "use client";
 
+import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
-import ImagePlaceholder from "@/components/ui/ImagePlaceholder";
 import {
   fadeInUpInitial,
   fadeInUpInView,
@@ -9,6 +9,9 @@ import {
   fadeInUpTransition,
   fadeInUpViewport,
 } from "@/components/sections/sectionStyles";
+import imgIsometric07 from "../../../icon-assets/isometric_07.png";
+import imgIsometric10 from "../../../icon-assets/isometric_10.png";
+import imgIsometric11 from "../../../icon-assets/isometric_11.png";
 
 const CARD_STYLES = [
   { labelClass: "text-[0.75rem] font-bold tracking-[0.1em] text-[var(--accent-teal)]" },
@@ -16,10 +19,19 @@ const CARD_STYLES = [
   { labelClass: "text-[0.75rem] font-bold tracking-[0.1em] text-[var(--accent-gold)]" },
 ] as const;
 
-const IMAGE_LABELS = [
-  "課題共感カード1イメージ（建設業）",
-  "課題共感カード2イメージ（運送業）",
-  "課題共感カード3イメージ（共通）",
+const IMAGE_ASSETS = [
+  {
+    src: imgIsometric10,
+    alt: "建設業の職人不足を表すイメージ",
+  },
+  {
+    src: imgIsometric07,
+    alt: "運送業のドライバー不足を表すイメージ",
+  },
+  {
+    src: imgIsometric11,
+    alt: "後継者への引き継ぎ課題を表すイメージ",
+  },
 ] as const;
 
 const CARDS = [
@@ -43,16 +55,24 @@ const CARDS = [
 function AwarenessCard({
   card,
   style,
-  imageLabel,
+  image,
 }: {
   card: (typeof CARDS)[number];
   style: (typeof CARD_STYLES)[number];
-  imageLabel: string;
+  image: (typeof IMAGE_ASSETS)[number];
 }) {
   return (
     <div className="nts-card relative overflow-hidden p-8 md:p-10">
       <div className="pointer-events-none absolute right-4 top-4 z-[1] w-[min(42%,11rem)] sm:right-5 sm:top-5 sm:w-[min(40%,12.5rem)]">
-        <ImagePlaceholder label={imageLabel} aspectRatio="4/3" className="rounded-lg" />
+        <div className="overflow-hidden rounded-lg">
+          <Image
+            src={image.src}
+            alt={image.alt}
+            className="h-auto w-full object-contain"
+            sizes="(max-width: 640px) 42vw, 180px"
+            priority={false}
+          />
+        </div>
       </div>
       <div className="relative z-[2] pr-[min(46%,12rem)] sm:pr-[min(44%,13rem)]">
         <p className={`mb-3 ${style.labelClass}`}>{card.label}</p>
@@ -102,7 +122,7 @@ export default function AwarenessSection() {
                 key={card.label}
                 card={card}
                 style={CARD_STYLES[i]}
-                imageLabel={IMAGE_LABELS[i]}
+                image={IMAGE_ASSETS[i]}
               />
             ))}
           </div>
@@ -112,19 +132,11 @@ export default function AwarenessSection() {
               <AwarenessCard
                 card={CARDS[2]}
                 style={CARD_STYLES[2]}
-                imageLabel={IMAGE_LABELS[2]}
+                image={IMAGE_ASSETS[2]}
               />
             </div>
           </div>
 
-          <div
-            className="mt-10 rounded-xl px-6 py-5 md:mt-12"
-            style={{ backgroundColor: "rgba(0, 184, 148, 0.04)" }}
-          >
-            <p className="text-[0.95rem] font-medium leading-[1.9] text-[var(--text-primary)] md:text-base">
-              「補助金が使えます」——その一言の先に、1年間の伴走があります。
-            </p>
-          </div>
         </motion.div>
       </div>
     </section>
