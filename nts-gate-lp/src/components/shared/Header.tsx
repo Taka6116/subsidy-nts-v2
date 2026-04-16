@@ -13,13 +13,6 @@ const navLinkClass = (heroStyle: boolean) =>
       : "text-[var(--text-secondary)] hover:text-[var(--accent-navy)]"
   }`;
 
-const partnerTextClass = (heroStyle: boolean) =>
-  `shrink-0 text-sm font-medium transition-colors duration-200 rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent-navy)] sm:text-[0.9375rem] ${
-    heroStyle
-      ? "text-[var(--text-primary)] hover:text-[var(--accent-navy)]"
-      : "text-[var(--text-secondary)] hover:text-[var(--accent-navy)]"
-  }`;
-
 function HeaderCtaGroup() {
   return (
     <div className="flex shrink-0 flex-wrap items-center justify-end gap-2 sm:gap-2.5">
