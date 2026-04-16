@@ -162,49 +162,45 @@ export default function SubsidyCheckResultTabs({
             className="space-y-8"
           >
             <section
-              className="relative min-h-[280px] overflow-hidden rounded-3xl bg-[var(--rd-surface-high)] md:min-h-[320px]"
+              className="overflow-hidden rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-white)]"
               aria-label="制度概要"
             >
-              <div className="absolute inset-0">
+              {/* ヒーロー画像エリア（画像あり） */}
+              <div className="relative h-48 w-full overflow-hidden md:h-56">
                 <Image
                   src={RESULT_DASHBOARD_HERO_IMAGE}
                   alt=""
                   fill
-                  className="object-cover opacity-35 transition-opacity duration-700 hover:opacity-45"
+                  className="object-cover opacity-60"
                   sizes="(max-width: 768px) 100vw, 896px"
                   priority
                 />
                 <div
-                  className="absolute inset-0 bg-gradient-to-t from-[rgba(20,40,70,0.92)] via-[rgba(20,40,70,0.5)] to-transparent"
+                  className="absolute inset-0 bg-gradient-to-t from-[var(--accent-navy)]/70 via-[var(--accent-navy)]/30 to-transparent"
                   aria-hidden
                 />
-              </div>
-              <div className="relative z-10 flex min-h-[280px] flex-col justify-end p-6 md:min-h-[320px] md:p-10">
-                <span className="mb-3 inline-block w-fit rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-white/90">
+                <span className="absolute bottom-4 left-6 inline-block rounded-full border border-white/30 bg-white/20 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-white backdrop-blur-sm">
                   概要
                 </span>
+              </div>
+              {/* テキストエリア */}
+              <div className="p-6 md:p-8">
                 {d?.summary ? (
-                  <p
-                    id={`${baseId}-featured-heading`}
-                    className="mb-4 max-w-2xl text-sm font-medium leading-relaxed text-white/70 md:text-base"
-                  >
+                  <p className="mb-3 text-sm font-medium leading-relaxed text-[var(--text-secondary)] md:text-base">
                     {d.summary}
                   </p>
                 ) : null}
                 {factBody ? (
-                  <p className="mb-8 max-w-2xl text-sm leading-relaxed text-white md:text-base">
+                  <p className="mb-6 text-sm leading-[1.9] text-[var(--text-primary)] md:text-base">
                     {factBody.length > 560 ? `${factBody.slice(0, 560)}…` : factBody}
                   </p>
                 ) : (
-                  <p className="mb-8 text-sm text-white/70">
+                  <p className="mb-6 text-sm text-[var(--text-muted)]">
                     説明文の取得がありません。公式情報でご確認ください。
                   </p>
                 )}
-                <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:flex-wrap">
-                  <Link
-                    href="/consult"
-                    className={heroStyles.cta}
-                  >
+                <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+                  <Link href="/consult" className={heroStyles.cta}>
                     無料相談を申し込む
                     <span className={heroStyles.ctaArrow} aria-hidden="true">
                       →
@@ -238,21 +234,30 @@ export default function SubsidyCheckResultTabs({
                 {insightCards.map((card, idx) => (
                   <li
                     key={`${card.title}-${idx}`}
-                    className="rounded-2xl border border-[var(--rd-border)] bg-[var(--rd-surface)] p-6"
+                    className="nts-card p-6"
                   >
-                    <p className="mb-2 text-xs font-bold uppercase tracking-wide text-white/70">
+                    <p className="mb-2 text-xs font-bold uppercase tracking-wide text-[var(--accent-teal)]">
                       {card.title}
                     </p>
-                    <p className="text-sm leading-relaxed text-[var(--rd-on-surface)]">
+                    <p className="text-sm leading-relaxed text-[var(--text-secondary)]">
                       {card.body}
                     </p>
                   </li>
                 ))}
               </ul>
             ) : (
-              <p className="rounded-2xl border border-dashed border-[var(--rd-border)] bg-[var(--rd-surface)]/60 p-8 text-center text-sm text-[var(--rd-on-surface-variant)]">
-                照合結果に活用例の生成（insightCards）が含まれていません。概要タブの要約・本文をご確認ください。
-              </p>
+              <div className="rounded-xl border border-dashed border-[var(--border-subtle)] bg-[var(--bg-section-alt)] p-8 text-center">
+                <p className="text-sm text-[var(--text-muted)]">
+                  活用例の詳細はまだ生成されていません。
+                </p>
+                <p className="mt-2 text-sm text-[var(--text-secondary)]">
+                  概要タブの制度説明をご確認いただき、活用のイメージは
+                  <Link href="/consult" className="ml-1 font-medium text-[var(--accent-teal)] underline underline-offset-2 hover:opacity-80">
+                    無料相談
+                  </Link>
+                  でお気軽にご相談ください。
+                </p>
+              </div>
             )}
           </div>
         )}
@@ -273,11 +278,11 @@ export default function SubsidyCheckResultTabs({
                   <AlertTriangle className="h-5 w-5 shrink-0" aria-hidden />
                   注意・リスクフラグ
                 </h2>
-                <ul className="space-y-2 rounded-2xl border border-[var(--rd-warning)]/35 bg-[var(--rd-warning)]/10 p-4">
+                <ul className="space-y-2 rounded-2xl border border-amber-200 bg-amber-50 p-4">
                   {risks.map((r) => (
                     <li
                       key={r}
-                      className="text-sm leading-relaxed text-[var(--rd-on-surface)]"
+                      className="text-sm leading-relaxed text-[var(--text-primary)]"
                     >
                       {r}
                     </li>
@@ -289,7 +294,7 @@ export default function SubsidyCheckResultTabs({
             <section aria-labelledby={`${baseId}-target-reasons-heading`}>
               <h2
                 id={`${baseId}-target-reasons-heading`}
-                className="mb-3 font-heading text-lg font-bold text-[var(--rd-on-surface)]"
+                className="mb-3 font-heading text-lg font-bold text-[var(--text-primary)]"
               >
                 対象理由
               </h2>
@@ -298,10 +303,10 @@ export default function SubsidyCheckResultTabs({
                   {reasons.map((line) => (
                     <li
                       key={line}
-                      className="flex gap-3 rounded-xl border border-[var(--rd-border)] bg-[var(--rd-surface)] p-4 text-sm leading-relaxed text-[var(--rd-on-surface)]"
+                      className="flex gap-3 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-white)] p-4 text-sm leading-relaxed text-[var(--text-primary)]"
                     >
                       <CheckCircle2
-                        className="mt-0.5 h-5 w-5 shrink-0 text-emerald-400"
+                        className="mt-0.5 h-5 w-5 shrink-0 text-[var(--accent-teal)]"
                         aria-hidden
                       />
                       <span>{line}</span>
@@ -309,16 +314,25 @@ export default function SubsidyCheckResultTabs({
                   ))}
                 </ul>
               ) : (
-                <p className="text-sm text-[var(--rd-on-surface-variant)]">
-                  理由文がありません。
-                </p>
+                <div className="rounded-xl border border-dashed border-[var(--border-subtle)] bg-[var(--bg-section-alt)] p-6 text-center">
+                  <p className="text-sm text-[var(--text-muted)]">
+                    照合根拠の詳細データがありません。
+                  </p>
+                  <p className="mt-1 text-sm text-[var(--text-secondary)]">
+                    公募要領を直接ご確認いただくか、
+                    <Link href="/consult" className="ml-1 font-medium text-[var(--accent-teal)] underline underline-offset-2 hover:opacity-80">
+                      無料相談
+                    </Link>
+                    でお問い合わせください。
+                  </p>
+                </div>
               )}
             </section>
 
             <section aria-labelledby={`${baseId}-criteria-heading`}>
               <h2
                 id={`${baseId}-criteria-heading`}
-                className="mb-3 font-heading text-lg font-bold text-[var(--rd-on-surface)]"
+                className="mb-3 font-heading text-lg font-bold text-[var(--text-primary)]"
               >
                 事実ベースの条件（抜粋）
               </h2>
@@ -326,12 +340,12 @@ export default function SubsidyCheckResultTabs({
                 {criteria.map((c) => (
                   <div
                     key={c.label}
-                    className="rounded-xl border border-[var(--rd-border)] bg-[var(--rd-surface-high)] p-4"
+                    className="rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-section-alt)] p-4"
                   >
                     <p className="mb-1 text-[10px] font-semibold uppercase tracking-wide text-[var(--text-muted)]">
                       {c.label}
                     </p>
-                    <p className="text-sm leading-relaxed text-[var(--rd-on-surface)]">
+                    <p className="text-sm leading-relaxed text-[var(--text-primary)]">
                       {c.text}
                     </p>
                   </div>
@@ -348,9 +362,16 @@ export default function SubsidyCheckResultTabs({
             aria-labelledby={`${baseId}-tab-related`}
           >
             {relatedCandidates.length === 0 ? (
-              <p className="rounded-2xl border border-dashed border-[var(--rd-border)] bg-[var(--rd-surface)]/60 p-8 text-center text-sm text-[var(--rd-on-surface-variant)]">
-                候補がありません。
-              </p>
+              <div className="rounded-2xl border border-dashed border-[var(--border-subtle)] bg-[var(--bg-section-alt)] p-8 text-center">
+                <p className="text-sm text-[var(--text-muted)]">他の候補補助金がありません。</p>
+                <p className="mt-2 text-sm text-[var(--text-secondary)]">
+                  業種・規模・目的を変えて再診断するか、
+                  <Link href="/consult" className="ml-1 font-medium text-[var(--accent-teal)] underline underline-offset-2 hover:opacity-80">
+                    無料相談
+                  </Link>
+                  でご確認ください。
+                </p>
+              </div>
             ) : (
               <ul className="grid grid-cols-1 gap-4 md:grid-cols-3">
                 {relatedCandidates.map((r, globalIndex) => {
@@ -362,20 +383,20 @@ export default function SubsidyCheckResultTabs({
                         onClick={() => selectRelated(globalIndex)}
                         className={`flex h-full w-full flex-col rounded-2xl border p-6 text-left transition ${
                           selected
-                            ? "border-[var(--rd-primary)] bg-[var(--rd-surface-high)] ring-2 ring-[var(--rd-primary)]/40"
-                            : "border-[var(--rd-border)] bg-[var(--rd-surface)] hover:border-[var(--rd-border-strong)]"
+                            ? "border-[var(--accent-teal)] bg-[var(--bg-section-alt)] ring-2 ring-[var(--accent-teal)]/30"
+                            : "border-[var(--border-subtle)] bg-[var(--bg-white)] hover:border-[var(--accent-teal)]/50 hover:shadow-sm"
                         }`}
                       >
-                        <span className="mb-3 inline-block w-fit rounded-full bg-[var(--rd-primary-muted)] px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-[var(--rd-primary)]">
+                        <span className="mb-3 inline-block w-fit rounded-full bg-[var(--accent-teal)]/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-[var(--accent-teal)]">
                           {selected ? "表示中" : "候補"}
                         </span>
-                        <span className="font-heading text-base font-semibold text-[var(--rd-on-surface)]">
+                        <span className="font-heading text-base font-semibold text-[var(--text-primary)]">
                           {r.name}
                         </span>
-                        <span className="mt-3 font-display text-xl font-bold text-[var(--text-primary)]">
+                        <span className="mt-3 font-display text-xl font-bold text-[var(--accent-navy)]">
                           {r.maxAmountLabel}
                         </span>
-                        <span className="mt-4 inline-flex items-center gap-1 text-xs font-semibold text-[var(--rd-primary)]">
+                        <span className="mt-4 inline-flex items-center gap-1 text-xs font-semibold text-[var(--accent-teal)]">
                           この制度をメインに表示
                           <ChevronRight className="h-4 w-4" aria-hidden />
                         </span>
@@ -389,8 +410,8 @@ export default function SubsidyCheckResultTabs({
         )}
       </div>
 
-      <p className="mt-10 flex items-start gap-2 text-xs leading-relaxed text-[var(--rd-on-surface-dim)]">
-        <FileText className="mt-0.5 h-4 w-4 shrink-0 text-[var(--rd-on-surface-dim)]" aria-hidden />
+      <p className="mt-10 flex items-start gap-2 text-xs leading-relaxed text-[var(--text-muted)]">
+        <FileText className="mt-0.5 h-4 w-4 shrink-0 text-[var(--text-muted)]" aria-hidden />
         補助金採択を確約するものではありません。
       </p>
     </div>

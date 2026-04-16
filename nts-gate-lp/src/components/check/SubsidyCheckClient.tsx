@@ -65,7 +65,7 @@ function parseMatchApiResults(payload: unknown): MatchedSubsidyPreview[] {
         name,
         maxAmountLabel,
         deadlineLabel,
-        summary: description,
+        summary: decisionSummary || description,
         description: description || undefined,
         targetIndustries: targetIndustries.length ? targetIndustries : undefined,
         subsidyRate: subsidyRate || undefined,
