@@ -137,7 +137,7 @@ export default function FeeStructureSection() {
             </div>
           </div>
 
-          <div className="mt-10 rounded-xl border-l-[3px] border-[var(--accent-teal)] bg-[var(--accent-teal)]/10 px-5 py-4 text-sm leading-relaxed text-[var(--text-primary)] md:text-base">
+          <div className="mt-10 rounded-xl bg-[var(--accent-teal)]/10 px-5 py-4 text-sm leading-relaxed text-[var(--text-primary)] md:text-base">
             合計の成果報酬は補助金額の15%。
             <br />
             「採択されなければ成果報酬は発生しません」——

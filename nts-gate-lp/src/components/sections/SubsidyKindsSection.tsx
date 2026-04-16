@@ -9,15 +9,15 @@ import {
   fadeInUpTransition,
   fadeInUpViewport,
 } from "@/components/sections/sectionStyles";
-import imgDx from "../../../icon-assets/dx.webp";
-import imgOldFacility from "../../../icon-assets/old-facility.webp";
+import imgCraftswoman from "../../../icon-assets/craftswoman.webp";
+import imgDelivery from "../../../icon-assets/delivery.webp";
 
 const CARDS = [
   {
     industry: "建設業",
     title: "職人不足・設備老朽化・事業承継",
-    imageSrc: imgOldFacility,
-    imageAlt: "建設業の老朽設備と更新課題のイメージ",
+    imageSrc: imgCraftswoman,
+    imageAlt: "建設業の職人不足と現場課題のイメージ",
     keywords: [
       "省力化補助金",
       "事業承継補助金",
@@ -33,8 +33,8 @@ const CARDS = [
   {
     industry: "運送業",
     title: "ドライバー不足・デジタル化・2代目承継",
-    imageSrc: imgDx,
-    imageAlt: "運送業のデジタル化とDX推進のイメージ",
+    imageSrc: imgDelivery,
+    imageAlt: "運送業の配送現場とドライバー不足のイメージ",
     keywords: [
       "省力化補助金",
       "事業承継補助金",
@@ -86,7 +86,7 @@ export default function SubsidyKindsSection() {
           >
             {CARDS.map((c) => (
               <li key={c.title} className="nts-card p-8 md:p-10">
-                <div className="mb-6 overflow-hidden rounded-xl">
+                <div className="mx-auto mb-6 w-[94%] overflow-hidden rounded-xl">
                   <Image
                     src={c.imageSrc}
                     alt={c.imageAlt}
