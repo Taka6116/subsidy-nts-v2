@@ -1,8 +1,12 @@
 "use client";
 
-import { FileText, HeartHandshake, Target } from "lucide-react";
+import Image from "next/image";
+import { ArrowRight } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
-import ImagePlaceholder from "@/components/ui/ImagePlaceholder";
+import isometric11 from "../../../icon-assets/isometric_11.webp";
+import isometric13 from "../../../icon-assets/isometric_13.webp";
+import isometric15 from "../../../icon-assets/isometric_15.webp";
+import isometric14 from "../../../icon-assets/isometric_14.webp";
 import {
   fadeInUpInitial,
   fadeInUpInView,
@@ -11,27 +15,35 @@ import {
   fadeInUpViewport,
 } from "@/components/sections/sectionStyles";
 
-const ABOUT_ICONS = [Target, FileText, HeartHandshake] as const;
-
-const ABOUT_CARDS = [
+const FLOW_STEPS = [
   {
-    label: "戦略設計",
-    body: "補助金を使う目的と順序を、経営計画と照らし合わせながら設計します。",
+    title: "無料で補助金を照会",
+    body: "会社名・業種を入力するだけで、対象補助金をすぐに確認できます。",
+    image: isometric11,
+    bg: "#EEF6FF",
+    border: "#B5D4F4",
   },
   {
-    label: "申請サポート",
-    body: "提携行政書士と連携し、書類準備から採択まで伴走します。",
+    title: "戦略設計・ご相談",
+    body: "経営課題に合わせた補助金活用プランを専門家が設計します。",
+    image: isometric13,
+    bg: "#E8F9F4",
+    border: "#9FE1CB",
   },
   {
-    label: "採択後の伴走",
-    body: "設備の導入定着・効果検証・次の一手の設計まで、1年間関わり続けます。",
+    title: "書類作成・申請",
+    body: "提携行政書士と連携し、採択率を高める申請書類を一緒に作ります。",
+    image: isometric15,
+    bg: "#EEF6FF",
+    border: "#B5D4F4",
   },
-] as const;
-
-const TARGET_SUBSIDIES = [
-  "中小企業省力化投資補助金",
-  "IT導入補助金",
-  "事業承継・引継ぎ補助金",
+  {
+    title: "採択・1年間伴走",
+    body: "採択後の効果検証・実績報告まで、1年間サポートを継続します。",
+    image: isometric14,
+    bg: "#E8F9F4",
+    border: "#9FE1CB",
+  },
 ] as const;
 
 export default function WhatIsNtsSection() {
@@ -46,59 +58,53 @@ export default function WhatIsNtsSection() {
           viewport={fadeInUpViewport}
           transition={fadeInUpTransition}
         >
-          <div className="two-col img-right mb-16 lg:mb-20">
-            <div className="col-text space-y-5 text-center lg:text-left">
-              <p className="label-section mb-1">NTSとは</p>
+          <div className="mx-auto max-w-[1100px] py-20">
+            <div className="mb-12 text-center md:mb-16">
+              <p className="label-section mb-2">NTSとは</p>
               <h2
                 id="home-what-is-nts-heading"
                 className="font-heading text-3xl font-bold leading-tight text-[var(--text-primary)] md:text-4xl"
               >
-                補助金活用を、戦略から効果検証まで一貫して担う専門チームです。
+                補助金活用から伴走までのフロー
               </h2>
-              <p className="text-base leading-relaxed text-[var(--text-secondary)] md:text-lg">
-                申請サポートにとどまらず、採択後の1年間もお客様の経営に寄り添います。
-              </p>
-              <div className="mt-6">
-                <p className="mb-3 text-sm font-semibold text-[var(--text-primary)]">対象制度：</p>
-                <ul className="flex list-none flex-col gap-2.5 p-0 text-sm leading-relaxed text-[var(--text-secondary)] md:text-base">
-                  {TARGET_SUBSIDIES.map((name) => (
-                    <li key={name} className="flex items-center justify-center gap-2.5 lg:justify-start">
-                      <span
-                        className="inline-block h-2 w-2 shrink-0 rounded-full bg-[var(--accent-teal)]"
-                        aria-hidden
-                      />
-                      {name}
-                    </li>
-                  ))}
-                </ul>
-              </div>
             </div>
 
-            <div className="col-img w-full max-w-lg justify-self-center lg:max-w-none">
-              <ImagePlaceholder label="NTSサービスイラスト（書類・相談）" aspectRatio="4/3" />
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-            {ABOUT_CARDS.map((card, i) => {
-              const Icon = ABOUT_ICONS[i];
+            <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+              {FLOW_STEPS.map((step, i) => {
+                const stepNo = String(i + 1).padStart(2, "0");
+                const showArrow = i < FLOW_STEPS.length - 1;
               return (
-                <div key={card.label} className="nts-card flex flex-col p-8">
-                <div
-                  className="mb-5 flex h-[52px] w-[52px] shrink-0 items-center justify-center rounded-[14px] text-[var(--accent-teal)]"
-                  style={{ backgroundColor: "rgba(0, 184, 148, 0.1)" }}
-                >
-                  <Icon className="h-6 w-6" strokeWidth={2} aria-hidden />
-                </div>
-                <p className="mb-2 text-xs font-bold uppercase tracking-[0.2em] text-[var(--text-muted)]">
-                  {card.label}
-                </p>
-                <p className="text-sm leading-relaxed text-[var(--text-secondary)] md:text-base">
-                  {card.body}
-                </p>
+                <div key={step.title} className="relative flex flex-col items-center">
+                  <div
+                    className="relative w-full overflow-hidden rounded-2xl border"
+                    style={{ minHeight: "160px", height: "160px", background: step.bg, borderColor: step.border }}
+                  >
+                    <Image
+                      src={step.image}
+                      alt={step.title}
+                      className="absolute bottom-0 left-1/2 h-[88%] w-auto -translate-x-1/2 object-contain"
+                    />
+                  </div>
+
+                  {showArrow ? (
+                    <span className="absolute right-[-12px] top-[80px] z-10 hidden text-[#1A7B6F] lg:block" aria-hidden>
+                      <ArrowRight className="h-5 w-5" />
+                    </span>
+                  ) : null}
+
+                  <div className="mx-auto mb-2 mt-4 flex h-7 w-7 items-center justify-center rounded-full bg-[#1A7B6F] text-xs font-semibold text-white">
+                    {stepNo}
+                  </div>
+                  <p className="mb-1.5 text-center text-sm font-semibold text-[var(--text-primary)]">
+                    {step.title}
+                  </p>
+                  <p className="text-center text-[13px] leading-[1.7] text-[var(--text-secondary)]">
+                    {step.body}
+                  </p>
                 </div>
               );
             })}
+            </div>
           </div>
         </motion.div>
       </div>

@@ -4,7 +4,6 @@ import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import HeroCheckCtaLink from "@/components/shared/HeroCheckCtaLink";
 import isometric08 from "../../../icon-assets/isometric_08.webp";
-import isometric11 from "../../../icon-assets/isometric_11.webp";
 import {
   fadeInUpInitial,
   fadeInUpInView,
@@ -56,14 +55,7 @@ export default function SubsidyMatchCtaSection() {
                 alt="補助金照会を検討するグループのイラスト"
                 width={640}
                 height={640}
-                className="absolute bottom-0 right-[120px] z-[1] h-[60%] w-auto object-contain opacity-85 md:right-[160px]"
-              />
-              <Image
-                src={isometric11}
-                alt="補助金照会を案内する人物のイラスト"
-                width={640}
-                height={640}
-                className="absolute bottom-0 right-6 z-[2] h-[85%] w-auto object-contain"
+                className="absolute bottom-0 left-1/2 h-[85%] w-auto -translate-x-1/2 object-contain"
               />
             </div>
           </div>
