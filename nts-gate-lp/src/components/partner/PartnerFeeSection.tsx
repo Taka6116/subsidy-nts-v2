@@ -2,8 +2,6 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { DollarSign, FileText, Search, UserPlus } from "lucide-react";
-import isometric12 from "../../../icon-assets/isometric_12.webp";
 
 const VIEWPORT = { once: true, margin: "-100px" } as const;
 
