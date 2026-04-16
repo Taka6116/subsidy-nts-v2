@@ -42,7 +42,10 @@ const STEPS = [
 export default function FeeStructureSection() {
   const reduce = useReducedMotion();
   return (
-    <section className={sectionStackClass} aria-labelledby="home-fee-structure-heading">
+    <section
+      className={`${sectionStackClass} section-white`}
+      aria-labelledby="home-fee-structure-heading"
+    >
       <div className={sectionContainerClass}>
         <motion.div
           initial={reduce ? fadeInUpReduced : fadeInUpInitial}
@@ -51,18 +54,33 @@ export default function FeeStructureSection() {
           transition={fadeInUpTransition}
           className={glassShellClass}
         >
-          <p className="mb-4 text-center text-xs font-bold uppercase tracking-[0.2em] text-[#7ec8ff]">
-            FEE STRUCTURE
-          </p>
+          <div className="mb-10 rounded-2xl border border-[var(--border-card)] bg-[var(--bg-section-alt)]/80 px-6 py-8 md:px-10 md:py-10">
+            <p className="text-center font-heading text-lg font-bold text-[var(--text-primary)] md:text-xl">
+              採択の瞬間に成功報酬を一括請求しない——それがNTSのスタンスです。
+            </p>
+            <ul className="mx-auto mt-6 max-w-3xl list-disc space-y-3 pl-5 text-sm leading-relaxed text-[var(--text-secondary)] md:text-base">
+              <li>
+                多くの支援では「採択＝高額請求」になりがちですが、NTSは成果報酬を段階設計し、実際に補助金を使い切り・効果を確認するまで伴走します。
+              </li>
+              <li>
+                着手金は戦略設計のコミットメントとして明確に提示し、以降は採択・実績報告・1年後の効果検証というマイルストーンに沿って発生します。
+              </li>
+              <li>
+                この料金設計は、「申請して終わり」ではなく経営成果まで責任を持つという、NTSの提供価値そのものを表しています。
+              </li>
+            </ul>
+          </div>
+
+          <p className="label-section mb-4 text-center">FEE STRUCTURE</p>
           <h2
             id="home-fee-structure-heading"
-            className="text-center font-heading text-3xl font-bold leading-tight text-white md:text-5xl"
+            className="text-center font-heading text-3xl font-bold leading-tight text-[var(--text-primary)] md:text-5xl"
           >
             採択された瞬間に
             <br />
             全額請求しない理由。
           </h2>
-          <p className="mx-auto mt-6 max-w-3xl text-center text-base leading-relaxed text-white/80 md:text-lg">
+          <p className="mx-auto mt-6 max-w-3xl text-center text-base leading-relaxed text-[var(--text-secondary)] md:text-lg">
             私たちのフィーは、1年間の成果を見届けながら段階的に発生します。
             <br />
             これはNTSの姿勢そのものです。
@@ -70,25 +88,21 @@ export default function FeeStructureSection() {
 
           <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-4">
             {STEPS.map((s, i) => (
-              <div
-                key={s.step}
-                className="relative rounded-xl border border-white/10 bg-white/[0.05] p-5"
-              >
-                <p className="text-xs font-bold tracking-wider text-[#7ec8ff]">{s.step}</p>
-                <p className="mt-3 text-xs text-white/60">{s.timing}</p>
-                <p className="mt-1 font-heading text-xl font-bold text-white">{s.amount}</p>
-                <p className="mt-3 text-sm leading-relaxed text-white/75">{s.body}</p>
+              <div key={s.step} className="card relative p-5">
+                <p className="text-highlight-teal text-xs font-bold tracking-wider">{s.step}</p>
+                <p className="mt-3 text-xs text-[var(--text-muted)]">{s.timing}</p>
+                <p className="text-highlight-gold mt-1 font-heading text-xl font-bold">{s.amount}</p>
+                <p className="mt-3 text-sm leading-relaxed text-[var(--text-secondary)]">{s.body}</p>
                 {i < STEPS.length - 1 ? (
-                  <p className="mt-4 text-center text-xs font-bold text-[#1A7B6F] md:hidden">↓</p>
+                  <p className="text-highlight-teal mt-4 text-center text-xs font-bold md:hidden">
+                    ↓
+                  </p>
                 ) : null}
               </div>
             ))}
           </div>
 
-          <div
-            className="mt-8 rounded-xl border-l-[3px] border-[#1A7B6F] px-5 py-4 text-sm leading-relaxed text-white/85"
-            style={{ background: "rgba(26, 123, 111, 0.1)" }}
-          >
+          <div className="mt-8 rounded-xl border-l-[3px] border-[var(--accent-teal)] bg-[var(--accent-teal)]/10 px-5 py-4 text-sm leading-relaxed text-[var(--text-primary)]">
             合計の成果報酬は補助金額の15%。
             <br />
             「採択されなければ成果報酬は発生しません」——

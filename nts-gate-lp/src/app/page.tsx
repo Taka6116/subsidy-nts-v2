@@ -6,14 +6,16 @@ import HeroSection from "@/components/gate-lp/hero-three/HeroSection";
 import HeroPartnerStrip from "@/components/gate-lp/HeroPartnerStrip";
 import AwarenessSection from "@/components/sections/AwarenessSection";
 import SubsidyKindsSection from "@/components/sections/SubsidyKindsSection";
-import CheckLeadSection from "@/components/sections/CheckLeadSection";
+import WhatIsNtsSection from "@/components/sections/WhatIsNtsSection";
 import NtsServicesSection from "@/components/sections/NtsServicesSection";
 import FeeStructureSection from "@/components/sections/FeeStructureSection";
-import NewSubsidySection from "@/components/sections/NewSubsidySection";
+import BenefitSection from "@/components/sections/BenefitSection";
 import PartnerNarrowSection from "@/components/sections/PartnerNarrowSection";
-import NtsAboutSection from "@/components/sections/NtsAboutSection";
 import FaqSection from "@/components/sections/FaqSection";
 import FinalCtaSection from "@/components/sections/FinalCtaSection";
+// import CheckLeadSection from "@/components/sections/CheckLeadSection";
+// import NewSubsidySection from "@/components/sections/NewSubsidySection";
+// import NtsAboutSection from "@/components/sections/NtsAboutSection";
 
 export default function Home() {
   return (
@@ -34,12 +36,11 @@ export default function Home() {
         </div>
         <AwarenessSection />
         <SubsidyKindsSection />
-        <CheckLeadSection />
+        <WhatIsNtsSection />
         <NtsServicesSection />
         <FeeStructureSection />
-        <NewSubsidySection />
+        <BenefitSection />
         <PartnerNarrowSection />
-        <NtsAboutSection />
         <FaqSection />
         <FinalCtaSection />
       </main>
