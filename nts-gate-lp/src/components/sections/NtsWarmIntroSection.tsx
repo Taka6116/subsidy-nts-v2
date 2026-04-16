@@ -36,19 +36,20 @@ export default function NtsWarmIntroSection() {
               id="home-nts-warm-intro-heading"
               className="font-heading text-[1.75rem] font-bold leading-snug text-[var(--text-primary)] md:text-[2.25rem]"
             >
-              「補助金が使えます」——その一言の先に、1年間の伴走があります。
+              「補助金が使えます」——その一言の先に、
+              <br />
+              1年間の伴走があります。
             </h2>
           </div>
 
           <div className="two-col img-left mt-2">
             <div className="col-img w-full max-w-xl justify-self-center lg:max-w-none">
-              <div className="overflow-hidden rounded-[1.35rem] shadow-[0_14px_48px_-12px_rgba(26,76,142,0.2)] ring-1 ring-[rgba(26,76,142,0.08)] sm:rounded-[1.75rem]">
+              <div className="relative aspect-[4/3] overflow-hidden rounded-[1.35rem] shadow-[0_14px_48px_-12px_rgba(26,76,142,0.2)] ring-1 ring-[rgba(26,76,142,0.08)] sm:rounded-[1.75rem]">
                 <Image
                   src={PHOTO_SRC}
                   alt="日本提携支援のスタッフが対話している様子"
-                  width={1200}
-                  height={900}
-                  className="h-auto w-full object-cover object-[50%_45%] brightness-[1.02] saturate-[1.03]"
+                  fill
+                  className="object-cover object-[50%_38%] brightness-[1.02] saturate-[1.03]"
                   sizes="(max-width: 1024px) 100vw, 46vw"
                   priority={false}
                 />

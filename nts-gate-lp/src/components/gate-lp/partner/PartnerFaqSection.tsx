@@ -1,6 +1,8 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { ChevronDown } from "lucide-react";
 
 const EASE_OUT = [0.22, 1, 0.36, 1] as const;
 
@@ -31,6 +33,8 @@ const FAQ_ITEMS = [
 ];
 
 export default function PartnerFaqSection() {
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
+
   return (
     <section
       id="faq"
@@ -58,14 +62,41 @@ export default function PartnerFaqSection() {
             <motion.div
               key={item.q}
               {...fadeUp(0.08 + i * 0.06)}
-              className="card p-6 md:p-8"
+              className="card overflow-hidden"
             >
-              <p className="font-heading text-lg font-bold leading-snug text-[var(--text-primary)] md:text-xl">
-                Q. {item.q}
-              </p>
-              <p className="mt-4 border-t border-[var(--border-subtle)] pt-4 text-sm leading-relaxed text-[var(--text-secondary)] md:text-base">
-                A. {item.a}
-              </p>
+              <button
+                type="button"
+                onClick={() => setOpenIndex(openIndex === i ? null : i)}
+                aria-expanded={openIndex === i}
+                className="flex w-full items-start justify-between gap-4 px-6 py-6 text-left md:px-8 md:py-7"
+              >
+                <p className="font-heading text-lg font-bold leading-snug text-[var(--text-primary)] md:text-xl">
+                  Q. {item.q}
+                </p>
+                <ChevronDown
+                  className={`mt-1 h-5 w-5 shrink-0 text-[var(--text-muted)] transition-transform duration-200 ${
+                    openIndex === i ? "rotate-180" : ""
+                  }`}
+                  aria-hidden
+                />
+              </button>
+              <AnimatePresence initial={false}>
+                {openIndex === i ? (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.24, ease: EASE_OUT }}
+                    className="overflow-hidden"
+                  >
+                    <div className="border-t border-[var(--border-subtle)] px-6 pb-6 pt-4 md:px-8 md:pb-8">
+                      <p className="text-sm leading-relaxed text-[var(--text-secondary)] md:text-base">
+                        A. {item.a}
+                      </p>
+                    </div>
+                  </motion.div>
+                ) : null}
+              </AnimatePresence>
             </motion.div>
           ))}
         </div>
