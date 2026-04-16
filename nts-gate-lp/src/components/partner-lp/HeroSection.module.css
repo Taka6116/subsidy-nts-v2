@@ -84,44 +84,26 @@
 }
 
 .imgPlaceholder {
-  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 8px;
   width: 100%;
-  min-height: 380px;
+  min-height: 340px;
   border-radius: 16px;
   background: #eef6ff;
   overflow: hidden;
+  padding: 0 16px;
+  box-sizing: border-box;
 }
 
-.heroMidImage {
-  position: absolute;
-  bottom: 0;
-  left: 30%;
-  transform: translateX(-50%);
-  width: auto;
-  height: 75%;
+.heroImageLeft,
+.heroImageRight {
+  width: 50%;
+  height: auto;
+  max-height: 300px;
   object-fit: contain;
-  z-index: 2;
-}
-
-.heroEndImage {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  width: auto;
-  height: 95%;
-  object-fit: contain;
-  z-index: 3;
-}
-
-.heroBackImage {
-  position: absolute;
-  bottom: 0;
-  left: 4%;
-  width: auto;
-  height: 55%;
-  object-fit: contain;
-  opacity: 0.75;
-  z-index: 1;
+  flex-shrink: 0;
 }
 
 /* ── テキスト要素 ────────────────────────────────────────── */

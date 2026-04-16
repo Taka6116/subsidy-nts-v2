@@ -7,7 +7,6 @@ import gsap from "gsap";
 import HeroPartnerStrip from "@/components/gate-lp/HeroPartnerStrip";
 import isometric08 from "../../../icon-assets/isometric_08.webp";
 import isometric16 from "../../../icon-assets/isometric_16.webp";
-import isometric20 from "../../../icon-assets/isometric_20.webp";
 import styles from "./HeroSection.module.css";
 
 export default function HeroSection() {
@@ -91,21 +90,14 @@ export default function HeroSection() {
               alt="（後から差し替え）Heroイラスト"
               width={640}
               height={640}
-              className={styles.heroBackImage}
+              className={styles.heroImageLeft}
             />
             <Image
               src={isometric16}
               alt="（後から差し替え）Heroイラスト"
               width={640}
               height={640}
-              className={styles.heroMidImage}
-            />
-            <Image
-              src={isometric20}
-              alt="（後から差し替え）Heroイラスト"
-              width={640}
-              height={640}
-              className={styles.heroEndImage}
+              className={styles.heroImageRight}
             />
           </div>
         </div>
