@@ -38,7 +38,9 @@ export type CTALocation =
   /** トップ LP — 最終CTA（4カード） */
   | "final_cta_consult"
   | "final_cta_check"
-  | "final_cta_subsidies";
+  | "final_cta_subsidies"
+  /** 提携LP最終CTA — エンドユーザー向けサイトへ */
+  | "partner_final_cta_home";
 
 export function trackCTAClick(location: CTALocation) {
   sendEvent("cta_click", { location });

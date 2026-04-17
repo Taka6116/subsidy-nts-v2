@@ -3,7 +3,7 @@
 import { motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
 import type { LucideIcon } from "lucide-react";
-import { BookOpen, Handshake, Mail, Search } from "lucide-react";
+import { BookOpen, Handshake, House, Mail, Search } from "lucide-react";
 import { trackCTAClick, trackPartnerLinkClick } from "@/lib/analytics";
 import { getPartnerUrl } from "@/lib/partnerUrl";
 import {
@@ -13,6 +13,8 @@ import {
   fadeInUpTransition,
   fadeInUpViewport,
 } from "@/components/sections/sectionStyles";
+
+export type FinalCtaVariant = "home" | "partner";
 
 type CtaCard = {
   title: string;
@@ -52,49 +54,100 @@ function FinalCtaCard({ card }: { card: CtaCard }) {
   );
 }
 
-export default function FinalCtaSection() {
+type FinalCtaSectionProps = {
+  variant?: FinalCtaVariant;
+};
+
+export default function FinalCtaSection({ variant = "home" }: FinalCtaSectionProps) {
   const reduce = useReducedMotion();
   const partnerHref = getPartnerUrl();
   const partnerIsExternal = partnerHref.startsWith("http");
 
-  const cards: CtaCard[] = [
-    {
-      title: "お問い合わせ",
-      body: "補助金に関するご不明点やご相談は、まずお気軽にどうぞ。専門スタッフが丁寧にお聞きします。",
-      ctaLabel: "無料で相談する",
-      href: "/consult",
-      icon: Mail,
-      onClick: () => trackCTAClick("final_cta_consult"),
-    },
-    {
-      title: "対象の補助金チェック",
-      body: "会社名を入力するだけで、御社に合いそうな補助金をすぐに照会できます。",
-      ctaLabel: "対象補助金を確認する",
-      href: "/check",
-      icon: Search,
-      onClick: () => trackCTAClick("final_cta_check"),
-    },
-    {
-      title: "提携先はこちら",
-      body: "御社の顧客に補助金という選択肢を。パートナープログラムの概要はこちらから。",
-      ctaLabel: "パートナーになる",
-      href: partnerHref,
-      icon: Handshake,
-      external: partnerIsExternal,
-      onClick: () => trackPartnerLinkClick("final_cta"),
-    },
-    {
-      title: "補助金解説ページ",
-      body: "省力化・事業承継など、主要な補助金をわかりやすく解説しています。",
-      ctaLabel: "補助金を学ぶ",
-      href: "/subsidies",
-      icon: BookOpen,
-      onClick: () => trackCTAClick("final_cta_subsidies"),
-    },
-  ];
+  const cards: CtaCard[] =
+    variant === "partner"
+      ? [
+          {
+            title: "お問い合わせ",
+            body: "補助金に関するご不明点やご相談は、まずお気軽にどうぞ。専門スタッフが丁寧にお聞きします。",
+            ctaLabel: "無料で相談する",
+            href: "/consult",
+            icon: Mail,
+            onClick: () => trackCTAClick("final_cta_consult"),
+          },
+          {
+            title: "対象の補助金チェック",
+            body: "会社名を入力するだけで、御社に合いそうな補助金をすぐに照会できます。",
+            ctaLabel: "対象補助金を確認する",
+            href: "/check",
+            icon: Search,
+            onClick: () => trackCTAClick("final_cta_check"),
+          },
+          {
+            title: "補助金を使用したい方はこちら",
+            body: "補助金の照会や無料相談は、エンドユーザー向けサイトからご利用いただけます。お客様へのご案内にもご活用ください。",
+            ctaLabel: "サービスを見る",
+            href: "/",
+            icon: House,
+            onClick: () => trackCTAClick("partner_final_cta_home"),
+          },
+          {
+            title: "補助金解説ページ",
+            body: "省力化・事業承継など、主要な補助金をわかりやすく解説しています。",
+            ctaLabel: "補助金を学ぶ",
+            href: "/subsidies",
+            icon: BookOpen,
+            onClick: () => trackCTAClick("final_cta_subsidies"),
+          },
+        ]
+      : [
+          {
+            title: "お問い合わせ",
+            body: "補助金に関するご不明点やご相談は、まずお気軽にどうぞ。専門スタッフが丁寧にお聞きします。",
+            ctaLabel: "無料で相談する",
+            href: "/consult",
+            icon: Mail,
+            onClick: () => trackCTAClick("final_cta_consult"),
+          },
+          {
+            title: "対象の補助金チェック",
+            body: "会社名を入力するだけで、御社に合いそうな補助金をすぐに照会できます。",
+            ctaLabel: "対象補助金を確認する",
+            href: "/check",
+            icon: Search,
+            onClick: () => trackCTAClick("final_cta_check"),
+          },
+          {
+            title: "提携先はこちら",
+            body: "御社の顧客に補助金という選択肢を。パートナープログラムの概要はこちらから。",
+            ctaLabel: "パートナーになる",
+            href: partnerHref,
+            icon: Handshake,
+            external: partnerIsExternal,
+            onClick: () => trackPartnerLinkClick("final_cta"),
+          },
+          {
+            title: "補助金解説ページ",
+            body: "省力化・事業承継など、主要な補助金をわかりやすく解説しています。",
+            ctaLabel: "補助金を学ぶ",
+            href: "/subsidies",
+            icon: BookOpen,
+            onClick: () => trackCTAClick("final_cta_subsidies"),
+          },
+        ];
+
+  const headingId =
+    variant === "partner" ? "partner-final-cta-heading" : "home-final-cta-heading";
+  const footerNote =
+    variant === "partner"
+      ? "紹介フィーの詳細・提携条件は個別にご案内します。"
+      : "建設業・運送業の経営者からのご相談、歓迎します。";
 
   return (
-    <section className="section-block section-cta" aria-labelledby="home-final-cta-heading">
+    <section
+      className="section-block section-cta"
+      aria-labelledby={headingId}
+      id={variant === "partner" ? "contact" : undefined}
+    >
       <div className="section-inner px-4 text-center sm:px-6 md:px-8">
         <motion.div
           initial={reduce ? fadeInUpReduced : fadeInUpInitial}
@@ -104,7 +157,7 @@ export default function FinalCtaSection() {
           className="py-8 md:py-12"
         >
           <h2
-            id="home-final-cta-heading"
+            id={headingId}
             className="font-heading text-[1.75rem] font-bold leading-snug text-white md:text-[2.25rem]"
           >
             まず、話を聞かせてください。
@@ -117,13 +170,11 @@ export default function FinalCtaSection() {
 
           <div className="mx-auto mt-10 grid max-w-6xl grid-cols-1 gap-5 sm:grid-cols-2 lg:mt-14 lg:grid-cols-4 lg:gap-6">
             {cards.map((card) => (
-              <FinalCtaCard key={card.title} card={card} />
+              <FinalCtaCard key={card.title + variant} card={card} />
             ))}
           </div>
 
-          <p className="mt-10 text-xs text-white/70 md:mt-12">
-            建設業・運送業の経営者からのご相談、歓迎します。
-          </p>
+          <p className="mt-10 text-xs text-white/70 md:mt-12">{footerNote}</p>
         </motion.div>
       </div>
     </section>

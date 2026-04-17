@@ -8,7 +8,7 @@ import PartnerUseCasesSection from "@/components/gate-lp/partner/PartnerUseCases
 import PartnerSubsidySection from "@/components/gate-lp/partner/PartnerSubsidySection";
 import PartnerFlowSection from "@/components/gate-lp/partner/PartnerFlowSection";
 import PartnerFaqSection from "@/components/gate-lp/partner/PartnerFaqSection";
-import PartnerCtaSection from "@/components/gate-lp/partner/PartnerCtaSection";
+import FinalCtaSection from "@/components/sections/FinalCtaSection";
 import LpFooter from "@/components/gate-lp/LpFooter";
 
 export const metadata: Metadata = {
@@ -52,7 +52,7 @@ export default function PartnerPage() {
         <PartnerSubsidySection />
         <PartnerFlowSection />
         <PartnerFaqSection />
-        <PartnerCtaSection />
+        <FinalCtaSection variant="partner" />
       </main>
 
       <LpFooter />
