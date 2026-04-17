@@ -34,7 +34,11 @@ export type CTALocation =
   /** サイトヘッダー — 補助金照会 */
   | "header_subsidy_lookup"
   /** サイトヘッダー — 補助金プラットフォーム（詳細） */
-  | "header_subsidy_detail";
+  | "header_subsidy_detail"
+  /** トップ LP — 最終CTA（4カード） */
+  | "final_cta_consult"
+  | "final_cta_check"
+  | "final_cta_subsidies";
 
 export function trackCTAClick(location: CTALocation) {
   sendEvent("cta_click", { location });
@@ -46,7 +50,8 @@ type PartnerLinkLocation =
   | "header"
   | "footer"
   | "professional_section"
-  | "header_subsidies";
+  | "header_subsidies"
+  | "final_cta";
 
 export function trackPartnerLinkClick(location: PartnerLinkLocation) {
   sendEvent("partner_link_click", { location });

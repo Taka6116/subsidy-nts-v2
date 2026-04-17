@@ -2,6 +2,10 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
+import type { LucideIcon } from "lucide-react";
+import { BookOpen, Handshake, Mail, Search } from "lucide-react";
+import { trackCTAClick, trackPartnerLinkClick } from "@/lib/analytics";
+import { getPartnerUrl } from "@/lib/partnerUrl";
 import {
   fadeInUpInitial,
   fadeInUpInView,
@@ -10,41 +14,114 @@ import {
   fadeInUpViewport,
 } from "@/components/sections/sectionStyles";
 
+type CtaCard = {
+  title: string;
+  body: string;
+  ctaLabel: string;
+  href: string;
+  icon: LucideIcon;
+  external?: boolean;
+  onClick: () => void;
+};
+
+function FinalCtaCard({ card }: { card: CtaCard }) {
+  const Icon = card.icon;
+  return (
+    <div className="final-cta-card flex flex-col items-center gap-4 rounded-2xl bg-white p-6 text-center shadow-[0_8px_32px_rgba(0,0,0,0.12)] md:p-8">
+      <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-[#EEF6FF]">
+        <Icon className="h-7 w-7 text-[var(--accent-navy)]" aria-hidden />
+      </div>
+      <h3 className="font-heading text-lg font-bold leading-snug !text-[var(--text-primary)] md:text-xl">
+        {card.title}
+      </h3>
+      <p className="min-h-[4.5rem] text-sm leading-relaxed !text-[var(--text-secondary)] md:min-h-[5rem] md:text-[15px]">
+        {card.body}
+      </p>
+      <Link
+        href={card.href}
+        {...(card.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+        onClick={card.onClick}
+        className="mt-auto inline-flex w-full max-w-[240px] items-center justify-center gap-1 rounded-full bg-[var(--accent-gold)] px-5 py-3 text-sm font-bold text-white shadow-sm transition hover:opacity-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+      >
+        {card.ctaLabel}
+        <span className="text-lg leading-none" aria-hidden>
+          ›
+        </span>
+      </Link>
+    </div>
+  );
+}
+
 export default function FinalCtaSection() {
   const reduce = useReducedMotion();
+  const partnerHref = getPartnerUrl();
+  const partnerIsExternal = partnerHref.startsWith("http");
+
+  const cards: CtaCard[] = [
+    {
+      title: "お問い合わせ",
+      body: "補助金に関するご不明点やご相談は、まずお気軽にどうぞ。専門スタッフが丁寧にお聞きします。",
+      ctaLabel: "無料で相談する",
+      href: "/consult",
+      icon: Mail,
+      onClick: () => trackCTAClick("final_cta_consult"),
+    },
+    {
+      title: "対象の補助金チェック",
+      body: "会社名を入力するだけで、御社に合いそうな補助金をすぐに照会できます。",
+      ctaLabel: "対象補助金を確認する",
+      href: "/check",
+      icon: Search,
+      onClick: () => trackCTAClick("final_cta_check"),
+    },
+    {
+      title: "提携先はこちら",
+      body: "御社の顧客に補助金という選択肢を。パートナープログラムの概要はこちらから。",
+      ctaLabel: "パートナーになる",
+      href: partnerHref,
+      icon: Handshake,
+      external: partnerIsExternal,
+      onClick: () => trackPartnerLinkClick("final_cta"),
+    },
+    {
+      title: "補助金解説ページ",
+      body: "省力化・事業承継など、主要な補助金をわかりやすく解説しています。",
+      ctaLabel: "補助金を学ぶ",
+      href: "/subsidies",
+      icon: BookOpen,
+      onClick: () => trackCTAClick("final_cta_subsidies"),
+    },
+  ];
 
   return (
     <section className="section-block section-cta" aria-labelledby="home-final-cta-heading">
-      <div className="section-inner text-center">
+      <div className="section-inner px-4 text-center sm:px-6 md:px-8">
         <motion.div
           initial={reduce ? fadeInUpReduced : fadeInUpInitial}
           whileInView={reduce ? fadeInUpReduced : fadeInUpInView}
           viewport={fadeInUpViewport}
           transition={fadeInUpTransition}
-          className="mx-auto max-w-2xl py-4 md:py-6"
+          className="py-8 md:py-12"
         >
           <h2
             id="home-final-cta-heading"
-            className="font-heading text-[1.75rem] font-bold leading-snug text-[var(--text-primary)] md:text-[2.25rem]"
+            className="font-heading text-[1.75rem] font-bold leading-snug text-white md:text-[2.25rem]"
           >
             まず、話を聞かせてください。
           </h2>
-          <p className="mx-auto mt-6 max-w-lg text-base leading-relaxed text-white/80 md:text-lg">
-            補助金が使えるかどうか、
-            <br />
-            あなたの会社の状況から一緒に確認します。
-            <br />
-            無料相談、30分から。
+          <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-white/85 md:mt-6 md:text-lg">
+            補助金活用の入口はひとつじゃありません。
+            <br className="hidden sm:block" />
+            あなたの状況に合った窓口から、気軽にご連絡ください。
           </p>
-          <div className="mt-10 flex justify-center">
-            <Link
-              href="/consult"
-              className="inline-flex items-center gap-2 rounded-[10px] bg-white px-12 py-[18px] text-base font-bold text-[#1A4C8E] shadow-[0_4px_24px_rgba(0,0,0,0.2)] transition hover:bg-white/95"
-            >
-              無料で相談する
-            </Link>
+
+          <div className="mx-auto mt-10 grid max-w-6xl grid-cols-1 gap-5 sm:grid-cols-2 lg:mt-14 lg:grid-cols-4 lg:gap-6">
+            {cards.map((card) => (
+              <FinalCtaCard key={card.title} card={card} />
+            ))}
           </div>
-          <p className="mt-6 text-xs text-white/70">
+
+          <p className="mt-10 text-xs text-white/70 md:mt-12">
             建設業・運送業の経営者からのご相談、歓迎します。
           </p>
         </motion.div>
