@@ -114,6 +114,7 @@
   .textCol .ctaRow {
     justify-content: flex-start;
     align-self: flex-start;
+    flex-wrap: nowrap;
   }
 }
 
@@ -183,10 +184,10 @@
   word-break: keep-all;
 }
 
-/* CTA 行（2ボタン・折返し可） */
+/* CTA 行（横並び固定） */
 .ctaRow {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   justify-content: center;
   align-items: center;
   gap: 16px;

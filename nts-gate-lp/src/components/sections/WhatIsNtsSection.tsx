@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ArrowLeft } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 import isometric11 from "../../../icon-assets/isometric_11.webp";
 import isometric13 from "../../../icon-assets/isometric_13.webp";
@@ -36,18 +36,18 @@ const FLOW_STEPS = [
     border: "#9FE1CB",
   },
   {
-    title: "書類作成・申請",
-    body: "提携行政書士と連携し、採択率を高める申請書類を一緒に作ります。",
-    image: isometric15,
-    bg: "#EEF6FF",
-    border: "#B5D4F4",
-  },
-  {
     title: "採択・1年間伴走",
     body: "採択後の効果検証・実績報告まで、1年間サポートを継続します。",
     image: isometric14,
     bg: "#E8F9F4",
     border: "#9FE1CB",
+  },
+  {
+    title: "書類作成・申請",
+    body: "提携行政書士と連携し、採択率を高める申請書類を一緒に作ります。",
+    image: isometric15,
+    bg: "#EEF6FF",
+    border: "#B5D4F4",
   },
 ] as const;
 
@@ -87,8 +87,11 @@ export default function WhatIsNtsSection() {
               <div className="grid grid-cols-2 gap-4 md:gap-6">
                 {FLOW_STEPS.map((step, i) => {
                   const stepNo = String(i + 1).padStart(2, "0");
-                  const showRightArrow = i % 2 === 0;
-                  const showDownArrow = i < 2;
+                  // 横矢印: 上段左(i=0)は →、下段左(i=2)は ←
+                  const showRowArrow = i === 0 || i === 2;
+                  const isLeftArrow = i === 2;
+                  // 下矢印: ①(i=0)の下のみ
+                  const showDownArrow = i === 0;
                   return (
                     <div key={step.title} className="relative flex flex-col items-center">
                       {/* ステップカード */}
@@ -103,17 +106,19 @@ export default function WhatIsNtsSection() {
                         />
                       </div>
 
-                      {/* 横矢印（各行の左カード → 右カード） */}
-                      {showRightArrow && (
+                      {/* 横矢印 */}
+                      {showRowArrow && (
                         <span
                           className="absolute right-[-18px] top-[70px] z-10 hidden text-[#1A7B6F] lg:flex"
                           aria-hidden
                         >
-                          <ArrowRight className="h-5 w-5" />
+                          {isLeftArrow
+                            ? <ArrowLeft className="h-5 w-5" />
+                            : <ArrowRight className="h-5 w-5" />}
                         </span>
                       )}
 
-                      {/* 下矢印（上段2枚） */}
+                      {/* 下矢印（①の下のみ） */}
                       {showDownArrow && (
                         <span
                           className="mt-2 hidden text-[#1A7B6F] lg:flex"
@@ -140,33 +145,45 @@ export default function WhatIsNtsSection() {
               </div>
             </div>
 
-            {/* 右カラム: PANA 5枚均一（上3・下2中央） */}
-            <div className="hidden lg:flex lg:w-[42%] lg:flex-col lg:gap-3">
-              {/* 上段: 3枚 */}
-              <div className="grid grid-cols-3 gap-3">
-                {PANA_IMAGES.slice(0, 3).map((img) => (
-                  <div key={img.alt + img.src.src} className="overflow-hidden rounded-xl">
+            {/* 右カラム: PANA 5枚「2・1・2」配置 */}
+            <div className="hidden lg:flex lg:w-[42%] lg:flex-col lg:gap-4">
+              {/* 上段: 2枚 */}
+              <div className="grid grid-cols-2 gap-4">
+                {PANA_IMAGES.slice(0, 2).map((img) => (
+                  <div key={img.src.src} className="overflow-hidden rounded-xl">
                     <Image
                       src={img.src}
                       alt={img.alt}
-                      width={320}
-                      height={420}
+                      width={400}
+                      height={520}
                       className="h-auto w-full object-cover"
                     />
                   </div>
                 ))}
               </div>
 
-              {/* 下段: 2枚（中央寄せ） */}
-              <div className="grid grid-cols-3 gap-3">
-                <div aria-hidden="true" />
+              {/* 中段: 1枚（中央） */}
+              <div className="flex justify-center">
+                <div className="w-[50%] overflow-hidden rounded-xl">
+                  <Image
+                    src={PANA_IMAGES[2].src}
+                    alt={PANA_IMAGES[2].alt}
+                    width={400}
+                    height={520}
+                    className="h-auto w-full object-cover"
+                  />
+                </div>
+              </div>
+
+              {/* 下段: 2枚 */}
+              <div className="grid grid-cols-2 gap-4">
                 {PANA_IMAGES.slice(3, 5).map((img) => (
-                  <div key={img.alt + img.src.src} className="overflow-hidden rounded-xl">
+                  <div key={img.src.src} className="overflow-hidden rounded-xl">
                     <Image
                       src={img.src}
                       alt={img.alt}
-                      width={320}
-                      height={420}
+                      width={400}
+                      height={520}
                       className="h-auto w-full object-cover"
                     />
                   </div>
