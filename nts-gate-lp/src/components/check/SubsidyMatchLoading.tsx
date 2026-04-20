@@ -172,7 +172,7 @@ export default function SubsidyMatchLoading({
                   className={
                     line.large
                       ? "font-heading text-3xl font-bold leading-tight text-[var(--text-primary)] md:text-4xl"
-                      : "text-base leading-relaxed text-[var(--text-secondary)] md:text-lg"
+                      : "text-xl leading-relaxed text-[var(--text-secondary)] md:text-2xl"
                   }
                   initial={
                     shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 14 }

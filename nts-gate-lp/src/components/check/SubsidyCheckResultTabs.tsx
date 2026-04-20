@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useId, useRef, useState } from "react";
 import {
@@ -11,10 +10,7 @@ import {
   FileText,
 } from "lucide-react";
 import type { MatchedSubsidyPreview } from "@/lib/subsidyCheckMocks";
-import {
-  RESULT_DASHBOARD_HERO_IMAGE,
-  eligibilityPair,
-} from "@/lib/subsidyCheckResultHelpers";
+import { eligibilityPair } from "@/lib/subsidyCheckResultHelpers";
 import heroStyles from "@/components/gate-lp/hero-three/HeroSection.module.css";
 
 type TabId = "overview" | "examples" | "checks" | "related";
@@ -165,24 +161,6 @@ export default function SubsidyCheckResultTabs({
               className="overflow-hidden rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-white)]"
               aria-label="制度概要"
             >
-              {/* ヒーロー画像エリア（画像あり） */}
-              <div className="relative h-56 w-full overflow-hidden md:h-64">
-                <Image
-                  src={RESULT_DASHBOARD_HERO_IMAGE}
-                  alt=""
-                  fill
-                  className="object-cover object-top opacity-70"
-                  sizes="(max-width: 768px) 100vw, 896px"
-                  priority
-                />
-                <div
-                  className="absolute inset-0 bg-gradient-to-t from-[var(--accent-navy)]/70 via-[var(--accent-navy)]/30 to-transparent"
-                  aria-hidden
-                />
-                <span className="absolute bottom-4 left-6 inline-block rounded-full border border-white/30 bg-white/20 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-white backdrop-blur-sm">
-                  概要
-                </span>
-              </div>
               {/* テキストエリア */}
               <div className="p-6 md:p-8">
                 {d?.summary ? (
