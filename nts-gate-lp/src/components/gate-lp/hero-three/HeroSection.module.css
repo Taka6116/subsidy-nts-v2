@@ -44,7 +44,8 @@
 }
 
 /* ヒーロー専用：左テキスト / 右ビジュアルを非対称に（グローバル .two-col を上書き） */
-@media (min-width: 1024px) {
+/* 修正D: 1280px 以上のワイドスクリーンのみ2カラム */
+@media (min-width: 1280px) {
   .heroSplit {
     grid-template-columns: minmax(0, 0.48fr) minmax(0, 0.52fr);
     gap: 2.25rem;
@@ -58,7 +59,7 @@
   }
 
   .heroSplit .textCol {
-    max-width: 33rem;
+    max-width: 36rem;
   }
 }
 
@@ -74,14 +75,14 @@
   max-width: 100%;
 }
 
-@media (max-width: 1023px) {
+/* 修正D: 1280px 未満では画像カラムを非表示にしてテキストをフル幅で表示 */
+@media (max-width: 1279px) {
   .heroImgCol {
-    justify-self: center;
-    max-width: min(100%, 36rem);
+    display: none;
   }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1280px) {
   .textCol {
     align-items: flex-start;
     text-align: left;
@@ -111,10 +112,12 @@
     white-space: normal;
   }
 
+  /* 修正C: wrap に変更してボタン内テキスト折り返しを防止 */
   .textCol .ctaRow {
     justify-content: flex-start;
     align-self: flex-start;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
+    gap: 12px;
   }
 }
 
@@ -137,7 +140,8 @@
   padding: 0 0.5rem;
   box-sizing: border-box;
   font-family: var(--font-body);
-  font-size: clamp(2.2rem, 4vw, 3.6rem);
+  /* 修正A: ノートPC帯域で文字が大きくなりすぎないよう係数・上限を縮小 */
+  font-size: clamp(1.75rem, 3.2vw, 3.2rem);
   font-weight: 800;
   color: var(--text-primary);
   line-height: 1.25;
@@ -184,10 +188,10 @@
   word-break: keep-all;
 }
 
-/* CTA 行（横並び固定） */
+/* CTA 行 */
 .ctaRow {
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   gap: 16px;
@@ -198,23 +202,25 @@
 }
 
 /* CTA（照会・ティール） — HeroCheckCtaLink */
+/* 修正B: min-width固定を撤廃し、フォント・パディングを可変に */
 .cta {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
-  padding: 14px 32px;
-  min-width: 220px;
+  gap: 10px;
+  padding: 14px 24px;
+  min-width: 0;
   background: var(--accent-teal);
   border-radius: 8px;
   color: #fff;
   font-family: var(--font-heading);
-  font-size: 18px;
+  font-size: clamp(14px, 1.3vw, 18px);
   font-weight: 700;
   letter-spacing: 0.02em;
   text-decoration: none;
   transition: background 0.25s, transform 0.25s, box-shadow 0.25s;
   width: fit-content;
+  white-space: nowrap;
   outline-offset: 3px;
 }
 .cta:hover {
@@ -227,23 +233,25 @@
 }
 
 /* CTA（無料相談・ネイビー） */
+/* 修正B: min-width固定を撤廃し、フォント・パディングを可変に */
 .ctaConsult {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
-  padding: 14px 32px;
-  min-width: 220px;
+  gap: 10px;
+  padding: 14px 24px;
+  min-width: 0;
   background: var(--accent-navy);
   border-radius: 8px;
   color: #fff;
   font-family: var(--font-heading);
-  font-size: 18px;
+  font-size: clamp(14px, 1.3vw, 18px);
   font-weight: 700;
   letter-spacing: 0.02em;
   text-decoration: none;
   transition: background 0.25s, transform 0.25s, box-shadow 0.25s;
   width: fit-content;
+  white-space: nowrap;
   outline-offset: 3px;
 }
 .ctaConsult:hover {
@@ -383,5 +391,33 @@
 @media (max-width: 520px) {
   .headline {
     max-width: 100%;
+  }
+}
+
+/* 修正E: ノートPC帯域（768px〜1279px）専用スペーシング最適化 */
+@media (min-width: 768px) and (max-width: 1279px) {
+  .headline {
+    font-size: clamp(1.75rem, 3vw, 2.6rem);
+    margin-bottom: 16px;
+  }
+
+  .sub {
+    font-size: 0.95rem;
+    margin-top: 12px;
+  }
+
+  .ctaRow {
+    margin-top: 24px;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .textCol {
+    align-items: center;
+    text-align: center;
+    max-width: 640px;
+    margin-left: auto;
+    margin-right: auto;
   }
 }

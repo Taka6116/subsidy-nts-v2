@@ -519,6 +519,14 @@ header.lp-site-header .header-cta--primary:visited {
   box-shadow: 0 2px 8px rgba(26, 76, 142, 0.2);
 }
 
+/* ヘッダー内の一般リンク色上書きより優先して、主CTAは常に白文字に固定 */
+header.lp-site-header:not([data-hero-transparent]) .header-cta--primary,
+header.lp-site-header:not([data-hero-transparent]) .header-cta--primary:visited,
+header.lp-site-header:not([data-hero-transparent]) .header-cta--primary:hover,
+header.lp-site-header:not([data-hero-transparent]) .header-cta--primary:focus-visible {
+  color: #ffffff;
+}
+
 .header-cta--secondary {
   border: 1.5px solid var(--accent-navy);
   color: var(--accent-navy);
@@ -763,8 +771,15 @@ hr,
   max-width: 1160px;
   margin-left: auto;
   margin-right: auto;
-  padding-left: 48px;
-  padding-right: 48px;
+  padding-left: 32px;
+  padding-right: 32px;
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .section-inner {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
 }
 
 @media (max-width: 768px) {

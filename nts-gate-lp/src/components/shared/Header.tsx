@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { trackCTAClick, trackPartnerLinkClick } from "@/lib/analytics";
@@ -19,14 +18,14 @@ function HeaderCtaGroup() {
       <Link
         href="/check"
         onClick={() => trackCTAClick("header_subsidy_lookup")}
-        className="header-cta header-cta--secondary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent-navy)]"
+        className="header-cta header-cta--secondary min-w-[11rem] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent-navy)]"
       >
         対象補助金を確認する
       </Link>
       <Link
         href="/consult"
         onClick={() => trackCTAClick("header_consult")}
-        className="header-cta header-cta--primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent-navy)]"
+        className="header-cta header-cta--primary min-w-[11rem] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent-navy)]"
       >
         無料相談する
       </Link>
@@ -36,32 +35,15 @@ function HeaderCtaGroup() {
 
 export default function Header() {
   const pathname = usePathname();
-  const isHome = pathname === "/";
   const isPartnerPage = pathname === "/partner";
   const isSubsidies =
     pathname === "/subsidies" || pathname.startsWith("/subsidies/");
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 10);
-    };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  const heroStyle = isHome && !scrolled;
+  const heroStyle = false;
   const partnerHref = getPartnerUrl();
   const partnerNavHref = isPartnerPage ? "/" : partnerHref;
   const partnerNavLabel = isPartnerPage ? "補助金活用ご希望の方" : "パートナー企業の方へ";
-  /** トップ以外は常に視認性のあるヘッダー帯（ロゴ反転のため） */
-  const barClass = heroStyle
-    ? "border-transparent bg-transparent"
-    : !isHome
-      ? "lp-site-header border-b"
-      : scrolled
-        ? "lp-site-header border-b"
-        : "border-transparent bg-transparent";
+  /** エンドユーザー/提携先ともに同一の白背景ヘッダーを常時適用 */
+  const barClass = "lp-site-header border-b";
 
   return (
     <header

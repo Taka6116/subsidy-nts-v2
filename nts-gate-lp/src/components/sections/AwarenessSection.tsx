@@ -116,8 +116,8 @@ export default function AwarenessSection() {
             </div>
           </div>
 
-          <div className="mb-6 grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-6">
-            {CARDS.slice(0, 2).map((card, i) => (
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {CARDS.map((card, i) => (
               <AwarenessCard
                 key={card.label}
                 card={card}
@@ -125,16 +125,6 @@ export default function AwarenessSection() {
                 image={IMAGE_ASSETS[i]}
               />
             ))}
-          </div>
-
-          <div className="flex justify-center">
-            <div className="w-full max-w-[620px]">
-              <AwarenessCard
-                card={CARDS[2]}
-                style={CARD_STYLES[2]}
-                image={IMAGE_ASSETS[2]}
-              />
-            </div>
           </div>
 
         </motion.div>

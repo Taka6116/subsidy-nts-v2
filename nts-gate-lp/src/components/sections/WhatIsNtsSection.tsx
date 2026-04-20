@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { ArrowDown, ArrowRight } from "lucide-react";
+import { ArrowDown, ArrowLeft, ArrowRight } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useEffect, useState } from "react";
 import isometric11 from "../../../icon-assets/isometric_11.webp";
@@ -63,7 +63,7 @@ export default function WhatIsNtsSection() {
   useEffect(() => {
     const id = setInterval(
       () => setOffset((o) => (o + 1) % PANA_ALL.length),
-      3000,
+      5000,
     );
     return () => clearInterval(id);
   }, []);
@@ -98,8 +98,10 @@ export default function WhatIsNtsSection() {
                       : step.title === "書類作成・申請"
                         ? "03"
                         : String(i + 1).padStart(2, "0");
-                  // 01→02（右矢印）、03→04（右矢印）
-                  const showRightArrow = i === 0 || i === 2;
+                  // 01→02（右矢印）のみ
+                  const showRightArrow = i === 0;
+                  // 03→04（左矢印：右下03の左側に配置して左下04へ向かう）
+                  const showLeftArrow = i === 3;
                   // 02の下に↓矢印（行間ギャップの中央）
                   const showDownArrow = i === 1;
                   return (
@@ -135,13 +137,23 @@ export default function WhatIsNtsSection() {
                         </div>
                       </div>
 
-                      {/* → 横矢印（01→02 / 03→04） */}
+                      {/* → 横矢印（01→02） */}
                       {showRightArrow && (
                         <span
                           className={`absolute right-[-14px] top-1/2 z-10 hidden -translate-y-1/2 md:right-[-16px] lg:flex ${styles.flowArrow}`}
                           aria-hidden
                         >
                           <ArrowRight className="h-5 w-5" />
+                        </span>
+                      )}
+
+                      {/* ← 横矢印（03→04：右下から左下へ逆向き） */}
+                      {showLeftArrow && (
+                        <span
+                          className={`absolute left-[-14px] top-1/2 z-10 hidden -translate-y-1/2 md:left-[-16px] lg:flex ${styles.flowArrow}`}
+                          aria-hidden
+                        >
+                          <ArrowLeft className="h-5 w-5" />
                         </span>
                       )}
 
@@ -171,7 +183,7 @@ export default function WhatIsNtsSection() {
                     initial={reduce ? false : { opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={reduce ? undefined : { opacity: 0 }}
-                    transition={{ duration: 0.5 }}
+                    transition={{ duration: 1.0 }}
                   >
                     <Image
                       src={PANA_ALL[offset % PANA_ALL.length]}
@@ -200,7 +212,7 @@ export default function WhatIsNtsSection() {
                           initial={reduce ? false : { opacity: 0 }}
                           animate={{ opacity: 1 }}
                           exit={reduce ? undefined : { opacity: 0 }}
-                          transition={{ duration: 0.5 }}
+                          transition={{ duration: 1.0 }}
                         >
                           <Image
                             src={src}

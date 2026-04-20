@@ -104,7 +104,7 @@ export default function BenefitSection() {
                     <p className="mb-3 font-heading text-[0.7rem] font-bold tracking-[0.12em] text-[var(--accent-teal)]">
                       {num}
                     </p>
-                    <h3 className="mb-4 font-heading text-xl font-extrabold leading-snug text-[var(--text-primary)] md:text-[1.25rem]">
+                    <h3 className="mb-4 min-h-[3.5rem] font-heading text-xl font-extrabold leading-snug text-[var(--text-primary)] md:text-[1.25rem]">
                       {title}
                     </h3>
                     <div
