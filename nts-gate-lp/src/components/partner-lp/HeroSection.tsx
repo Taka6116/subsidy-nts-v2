@@ -56,24 +56,22 @@ export default function HeroSection() {
             PARTNER PROGRAM — NTS
           </p>
           <h1 ref={headlineRef} className={`${styles.headline} font-heading`}>
-            顧客の『できない』を、
+            「補助金が使えますよ」。
             <br />
-            『できる』に変える一言がある。
+            その一言で、営業が変わる。
           </h1>
           <p ref={subRef} className={`${styles.sub} font-body`}>
-            御社の顧客に、補助金という選択肢を渡してください。
+            御社の商材を提案するとき、「補助金の対象です」と添えるだけで顧客の反応が変わります。
             <br />
-            採択後も1年間、NTSがお客様に寄り添います。
-            <br />
-            紹介フィーは成功報酬制です。
+            補助金の知識も、申請の対応も不要。紹介フィーもお支払いします。
           </p>
 
           <div ref={ctRef} className={`${styles.ctas} font-body`}>
             <Link href="/consult" className={styles.btnP}>
-              無料相談する
+              提携について相談する（無料）
             </Link>
             <Link href="/check" className={styles.btnS}>
-              対象補助金を確認する
+              御社の商材が補助金対象か確認する
             </Link>
           </div>
         </div>

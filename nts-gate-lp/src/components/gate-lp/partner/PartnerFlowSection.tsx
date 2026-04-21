@@ -10,29 +10,29 @@ import isometric14 from "../../../../icon-assets/isometric_14.webp";
 const steps = [
   {
     number: "01",
-    title: "顧客を紹介",
-    body: "御社 → NTS。1分で完了",
+    title: "顧客をご紹介",
+    body: "「補助金が使えるか相談してみては」と一言お伝えください。それだけで構いません。",
     image: isometric16,
     bg: "#EEF6FF",
   },
   {
     number: "02",
-    title: "補助金マッチング",
-    body: "NTSが戦略設計・最適制度を選定",
+    title: "補助金活用戦略の設計",
+    body: "NTSが顧客にヒアリングを行い、課題に合った補助金と活用戦略をご提案します。",
     image: isometric13,
     bg: "#E8F9F4",
   },
   {
     number: "03",
-    title: "申請〜採択後1年間",
-    body: "全てNTSが一貫対応",
+    title: "申請・採択のサポート",
+    body: "提携行政書士と連携しながら申請プロセスをサポート。採択まで責任を持って動きます。",
     image: isometric21,
     bg: "#EEF6FF",
   },
   {
     number: "04",
-    title: "紹介フィー受取",
-    body: "採択額の一定割合をお支払い",
+    title: "採択後の伴走＋紹介フィーのお支払い",
+    body: "採択後も1年間、顧客の経営に伴走し続けます。紹介フィーは採択確定後にお支払いします。",
     image: isometric14,
     bg: "#E8F9F4",
   },
@@ -61,6 +61,11 @@ export default function PartnerFlowSection() {
             <br />
             あとはNTSが動きます。
           </h2>
+          <p className="mt-6 text-base leading-relaxed text-[var(--text-secondary)] md:text-lg">
+            ご紹介からヒアリング・補助金申請・採択後の伴走まで、
+            <br className="hidden md:inline" />
+            すべてNTSが対応します。御社の手間は最初の一言だけです。
+          </p>
         </motion.div>
 
         <div>
@@ -104,20 +109,26 @@ export default function PartnerFlowSection() {
           </div>
 
           <motion.div
-            className="mt-10 rounded-xl bg-[#E8F9F4] px-6 py-4"
+            className="mt-10 rounded-xl bg-[#E8F9F4] px-6 py-5"
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.15 }}
             transition={{ duration: 0.5, ease: EASE_OUT, delay: 0.12 }}
           >
-            <div className="flex flex-wrap items-baseline gap-3">
-              <span className="text-[11px] font-bold uppercase tracking-wider text-[#085041]">
-                活用例
-              </span>
-              <span className="text-[32px] font-bold leading-none text-[#0F6E56]">60万円</span>
-              <span className="text-[11px] leading-relaxed text-[#085041]">
-                省力化補助金で600万円の設備投資が採択された場合の紹介フィー（採択額600万円の10%）
-              </span>
+            <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between md:gap-6">
+              <div>
+                <p className="text-[11px] font-bold uppercase tracking-wider text-[#085041]">
+                  Referral Fee
+                </p>
+                <p className="mt-2 font-heading text-xl font-bold text-[#0F6E56] md:text-2xl">
+                  紹介フィーあり ／ 詳細はお問い合わせください
+                </p>
+              </div>
+              <p className="text-[13px] leading-relaxed text-[#085041]">
+                採択確定後にお支払い。採択後1年間はNTSが顧客に伴走するため、
+                <br className="hidden md:inline" />
+                御社は安心してご紹介いただけます。
+              </p>
             </div>
           </motion.div>
         </div>

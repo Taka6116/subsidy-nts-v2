@@ -40,7 +40,9 @@ export type CTALocation =
   | "final_cta_check"
   | "final_cta_subsidies"
   /** 提携LP最終CTA — エンドユーザー向けサイトへ */
-  | "partner_final_cta_home";
+  | "partner_final_cta_home"
+  /** 提携LP最終CTA — 資料請求 */
+  | "partner_final_cta_document";
 
 export function trackCTAClick(location: CTALocation) {
   sendEvent("cta_click", { location });

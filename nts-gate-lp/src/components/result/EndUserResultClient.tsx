@@ -211,7 +211,7 @@ function Inner() {
           <div className="mx-auto max-w-[1536px] px-6 md:px-8">
             <div className="mx-auto max-w-3xl text-center">
               <p className="font-heading text-h2 font-bold italic leading-snug text-[#0f2027]">
-                「ただの申請代行ではありません。
+                「書類を作って終わり、ではありません。
                 <br />
                 <span className="inline-block whitespace-nowrap">
                   経営課題から一緒に考えます。」
@@ -220,7 +220,7 @@ function Inner() {
               <p className="mt-8 text-base leading-[1.75] text-slate-600 md:text-lg">
                 補助金はゴールではなく、経営課題を前進させるための手段です。
                 どの制度を、いつ、どう使うか——御社の状況を一緒に整理し、
-                申請から採択後の実行まで、伴走パートナーとして支援します。
+                提携行政書士と連携して申請を進め、採択後の実行まで伴走パートナーとして支援します。
               </p>
             </div>
           </div>

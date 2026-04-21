@@ -3,7 +3,7 @@
 import { motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
 import type { LucideIcon } from "lucide-react";
-import { BookOpen, Handshake, House, Mail, Search } from "lucide-react";
+import { BookOpen, FileText, Handshake, Mail, Search } from "lucide-react";
 import { trackCTAClick, trackPartnerLinkClick } from "@/lib/analytics";
 import { getPartnerUrl } from "@/lib/partnerUrl";
 import {
@@ -67,33 +67,33 @@ export default function FinalCtaSection({ variant = "home" }: FinalCtaSectionPro
     variant === "partner"
       ? [
           {
-            title: "お問い合わせ",
-            body: "補助金に関するご不明点やご相談は、まずお気軽にどうぞ。専門スタッフが丁寧にお聞きします。",
-            ctaLabel: "無料で相談する",
+            title: "無料相談",
+            body: "提携の詳細や条件について、まずお話しします。",
+            ctaLabel: "相談を申し込む",
             href: "/consult",
             icon: Mail,
             onClick: () => trackCTAClick("final_cta_consult"),
           },
           {
-            title: "対象の補助金チェック",
-            body: "会社名を入力するだけで、御社に合いそうな補助金をすぐに照会できます。",
-            ctaLabel: "対象補助金を確認する",
+            title: "商材の補助金適性を確認",
+            body: "御社の商材・サービスが補助金の対象になるか確認します。",
+            ctaLabel: "対象か確認する（無料）",
             href: "/check",
             icon: Search,
             onClick: () => trackCTAClick("final_cta_check"),
           },
           {
-            title: "補助金を使用したい方はこちら",
-            body: "補助金の照会や無料相談は、エンドユーザー向けサイトからご利用いただけます。お客様へのご案内にもご活用ください。",
-            ctaLabel: "サービスを見る",
-            href: "/",
-            icon: House,
-            onClick: () => trackCTAClick("partner_final_cta_home"),
+            title: "提携プログラムの詳細を受け取る",
+            body: "提携プログラムの詳細・対象補助金・紹介フローを個別にご案内します。まずはお問い合わせください。",
+            ctaLabel: "資料を請求する",
+            href: "/consult?intent=partner_document",
+            icon: FileText,
+            onClick: () => trackCTAClick("partner_final_cta_document"),
           },
           {
-            title: "補助金解説ページ",
-            body: "省力化・事業承継など、主要な補助金をわかりやすく解説しています。",
-            ctaLabel: "補助金を学ぶ",
+            title: "補助金情報を見る",
+            body: "現在公募中の補助金一覧を確認できます。",
+            ctaLabel: "補助金一覧を見る",
             href: "/subsidies",
             icon: BookOpen,
             onClick: () => trackCTAClick("final_cta_subsidies"),
@@ -141,6 +141,10 @@ export default function FinalCtaSection({ variant = "home" }: FinalCtaSectionPro
     variant === "partner"
       ? "紹介フィーの詳細・提携条件は個別にご案内します。"
       : "建設業・運送業の経営者からのご相談、歓迎します。";
+  const subCopy =
+    variant === "partner"
+      ? "「うちの商材は対象になりますか？」だけでも構いません。提携の可能性についてお気軽にご相談ください。"
+      : "補助金のことを相談したい。自社が対象かどうか知りたい。それだけで構いません。";
 
   return (
     <section
@@ -163,7 +167,7 @@ export default function FinalCtaSection({ variant = "home" }: FinalCtaSectionPro
             まず、話を聞かせてください。
           </h2>
           <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-white/85 md:mt-6 md:text-lg">
-            補助金のことを相談したい。自社が対象かどうか知りたい。それだけで構いません。
+            {subCopy}
           </p>
 
           <div className="mx-auto mt-10 grid max-w-6xl grid-cols-1 gap-5 sm:grid-cols-2 lg:mt-14 lg:grid-cols-4 lg:gap-6">

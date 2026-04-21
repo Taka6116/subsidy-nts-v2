@@ -19,39 +19,31 @@ const CARDS: {
   placeholder: string;
 }[] = [
   {
-    situation: "顧客に提案しても",
-    pain: "「費用が\nネックで…」",
+    situation: "提案したとき",
+    pain: "「費用が\nネック…」",
     note: (
       <>
-        省力化補助金を活用すれば、自己負担が半額以下になるケースがあります。
-        <br />
-        「高くて無理」が「補助金があるなら動ける」に変わります。
-        <br />
-        NTSが採択後も1年間伴走するので、紹介した後も顧客に責任を果たせます。
+        設備投資に二の足を踏む顧客に「補助金が使えます」と伝えられたら、商談の結末が変わります。
       </>
     ),
     placeholder: "awareness-card-1",
   },
   {
     situation: "せっかく興味を持ってもらっても",
-    pain: "「今期の\n予算がない」",
+    pain: "「今期の\n予算が…」",
     note: (
       <>
-        補助金の公募スケジュールに合わせれば、「来期でいい」を「今動く」に変えられます。
-        <br />
-        NTSが採択後も継続的に関わるので、紹介した後のフォローも安心です。
+        予算不足を理由に見送った顧客が、補助金を知っていれば発注できたケースがあります。
       </>
     ),
     placeholder: "awareness-card-2",
   },
   {
-    situation: "検討が長引いて",
-    pain: "「やっぱり\n見送ります」",
+    situation: "判断を保留されて",
+    pain: "「少し\n考えます…」",
     note: (
       <>
-        「補助金が使える」という一言が、止まっていた意思決定を動かします。
-        <br />
-        採択後も1年間伴走する体制があることが、顧客の背中を押す武器になります。
+        判断を保留した顧客の背景に、資金調達の不安があることは珍しくありません。
       </>
     ),
     placeholder: "awareness-card-3",
@@ -71,20 +63,18 @@ export default function PartnerAgitationSection() {
             className="font-heading text-3xl font-bold leading-tight text-[var(--text-primary)] md:text-4xl lg:text-5xl"
             {...fadeUp(0)}
           >
-            その「見送ります」の裏に、
+            その「見送り」の裏に、
             <br />
-            使えるはずの補助金があります。
+            使えるはずの補助金がありました。
           </motion.h2>
 
           <motion.p
             className="mt-8 text-lg leading-relaxed text-[var(--text-secondary)] md:text-xl"
             {...fadeUp(0.15)}
           >
-            「費用がネックで…」「今期は予算がなくて…」——
-            <br className="hidden sm:block" />
-            その言葉が出るたびに、商談を諦めてきませんでしたか。
+            顧客が「予算がネックで…」と言うとき、その決断の前に補助金という選択肢を提示できていたでしょうか。
             <br />
-            実は、補助金を知らないだけのケースがほとんどです。
+            知らないまま逃している案件が、あるかもしれません。
           </motion.p>
         </div>
 
@@ -116,16 +106,19 @@ export default function PartnerAgitationSection() {
           ))}
         </div>
 
-        <motion.div
-          className="mt-16 rounded-2xl border border-[var(--accent-gold)]/25 bg-[var(--accent-gold)]/10 p-8 text-center"
+        <motion.a
+          href="#merit"
+          className="mt-16 block rounded-2xl border border-[var(--accent-gold)]/25 bg-[var(--accent-gold)]/10 p-8 text-center transition hover:bg-[var(--accent-gold)]/15"
           {...fadeUp(0.3)}
         >
           <p className="font-heading text-xl font-bold text-[var(--text-primary)] md:text-2xl">
-            「補助金が使えます」——
-            <br />
-            <span className="text-highlight-gold">その一言の先に、NTSの1年間の伴走があります。</span>
+            「補助金が使えます」——その一言が、
+            <span className="text-highlight-gold">御社の武器になります。</span>
           </p>
-        </motion.div>
+          <p className="mt-3 text-sm font-semibold text-[var(--accent-teal)]">
+            提携プログラムの詳細を見る →
+          </p>
+        </motion.a>
       </div>
     </section>
   );

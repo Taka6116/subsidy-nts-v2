@@ -25,9 +25,9 @@ export default function PartnerMeritSection() {
         <motion.div className="mb-20 text-center" {...fadeUp(0)}>
           <p className="label-section mb-4">Partner Benefits</p>
           <h2 className="font-heading text-3xl font-bold leading-tight text-[var(--text-primary)] md:text-4xl lg:text-5xl">
-            あなたの営業が、
+            御社の営業に、
             <br />
-            補助金で変わります。
+            補助金という選択肢を加えてください。
           </h2>
         </motion.div>
 
@@ -54,18 +54,17 @@ export default function PartnerMeritSection() {
                 成約率が上がる
               </h3>
               <p className="mt-4 text-base leading-relaxed text-[var(--text-secondary)]">
-                「補助金が使えるので、自己負担を抑えて導入できます」——この一言が、価格交渉を不要にします。
-                値下げではなく、制度の活用として話が進むため、あなたの提案の質が根本から変わります。
-                NTSが採択後も1年間伴走するので、顧客への責任も果たせます。
+                「補助金が使えます」と添えるだけで、価格交渉の土俵が変わります。顧客が「やれるかもしれない」と感じるきっかけになります。
+                補助金に関する知識は不要です。NTSが必要な情報をすべて提供します。
               </p>
               <div className="mt-6 rounded-lg bg-[#F5F8FF] px-4 py-3">
                 <p className="mb-2 text-[11px] font-bold uppercase tracking-wider text-[var(--text-muted)]">
-                  活用例
+                  こんな場面で効きます
                 </p>
                 <p className="text-sm leading-relaxed text-[var(--text-secondary)]">
-                  600万円の省力化設備 → 補助金で最大300万円をカバー。
+                  「費用がネックで…」で止まっていた商談に、「この設備、補助金の対象です」と一言。
                   <br />
-                  顧客の自己負担は半額以下に。「費用がネック」で止まっていた商談が動き始めます。
+                  値下げ交渉ではなく、制度活用として話が進みます。
                 </p>
               </div>
             </div>
@@ -117,18 +116,18 @@ export default function PartnerMeritSection() {
                 新しい収益が生まれる
               </h3>
               <p className="mt-4 text-base leading-relaxed text-[var(--text-secondary)]">
-                紹介いただいた案件が採択された場合、NTSから紹介フィーをお支払いします。
-                申請サポートから採択後の1年間の伴走まで、すべてNTSが担当します。
-                御社の工数はほぼゼロ。「紹介するだけ」で、新しい収益の柱が生まれます。
+                顧客を紹介いただいた場合、紹介フィーをお支払いします。
+                ヒアリングから採択後の対応まで、すべてNTSが担当します。
+                御社の手間はご紹介の一言だけです。
               </p>
               <div className="mt-6 rounded-lg bg-[#F5F8FF] px-4 py-3">
                 <p className="mb-2 text-[11px] font-bold uppercase tracking-wider text-[var(--text-muted)]">
-                  フィーの仕組み
+                  御社の動きはこれだけ
                 </p>
                 <p className="text-sm leading-relaxed text-[var(--text-secondary)]">
-                  顧客を紹介 → NTSが戦略設計・申請サポート・採択後1年伴走 → 採択で紹介フィーをお支払い。
+                  「補助金が使えるか相談してみては」と一言お伝えいただくだけ。
                   <br />
-                  申請から効果検証まですべてNTSが担当するため、御社の工数はほぼゼロです。
+                  ヒアリング・申請・採択後の伴走まで、すべてNTSが対応します。
                 </p>
               </div>
             </div>

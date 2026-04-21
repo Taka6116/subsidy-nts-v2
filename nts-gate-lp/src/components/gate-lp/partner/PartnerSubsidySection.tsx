@@ -7,22 +7,22 @@ const subsidies = [
     category: "省力化・DX",
     name: "中小企業省力化投資補助金",
     max: "最大1,500万円",
-    body: "人手不足に悩む企業が、IoT機器・ロボットなどの省力化製品を導入する際の費用を支援します。建設業・運送業の顧客に特に刺さる補助金です。",
+    body: "人手不足に悩む中小企業の省力化・自動化投資を支援。デジタコや業務システム、省人化機器の導入に活用できます。",
     fit: "IT・機械・設備ベンダー向け",
   },
   {
     category: "事業承継・引継ぎ",
     name: "事業承継・引継ぎ補助金",
     max: "最大600万円",
-    body: "代替わりやM&Aをきっかけとした設備投資・専門家費用を支援します。後継者問題を抱える経営者への提案で力を発揮します。",
+    body: "後継者への事業承継や、M&Aを活用した事業引継ぎに伴う費用を補助。経営課題として事業承継を抱える顧客に適しています。",
     fit: "士業・コンサル向け",
   },
   {
-    category: "IT導入",
-    name: "IT導入補助金",
-    max: "最大450万円",
-    body: "業務効率化を目的としたITツール・システムの導入費用を支援します。DX推進を検討している顧客へのきっかけとして活用できます。",
-    fit: "SaaS・ITサービスベンダー向け",
+    category: "販路開拓・業務改善",
+    name: "小規模事業者持続化補助金",
+    max: "最大200万円",
+    body: "販路開拓や業務効率化の取り組みを支援。小規模な顧客にも提案できる補助金です。",
+    fit: "小規模事業者と取引のある企業向け",
   },
 ];
 
@@ -45,12 +45,12 @@ export default function PartnerSubsidySection() {
         <motion.div className="mb-16 text-center" {...fadeUp(0)}>
           <p className="label-section mb-4">Target Subsidies</p>
           <h2 className="font-heading text-3xl font-bold leading-tight text-[var(--text-primary)] md:text-4xl">
-            提携先に使える補助金、3種。
+            紹介先の顧客に使える補助金、代表的な3つ。
           </h2>
           <p className="mt-4 text-base text-[var(--text-secondary)]">
-            NTSが現在サポートしている補助金です。
+            顧客の課題に応じて、活用できる補助金をNTSが選定します。
             <br />
-            御社の顧客の業種・課題に合わせて、最適な制度をNTSが選定します。
+            御社は「補助金の対象かもしれません」とお伝えいただくだけで構いません。
           </p>
         </motion.div>
 
