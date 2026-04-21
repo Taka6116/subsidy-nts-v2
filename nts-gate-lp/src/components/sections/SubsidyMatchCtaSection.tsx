@@ -49,7 +49,7 @@ export default function SubsidyMatchCtaSection() {
             </p>
           </div>
 
-          <div className="col-img w-full max-w-md justify-self-center lg:max-w-lg">
+          <div className="col-img w-full max-w-[32.2rem] justify-self-center lg:max-w-[36.8rem]">
             <div className="relative overflow-hidden rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-section-alt)] shadow-[0_12px_40px_rgba(10,34,64,0.12)]">
               <video
                 className="block h-auto w-full"
@@ -62,9 +62,6 @@ export default function SubsidyMatchCtaSection() {
                 aria-label="補助金照会の操作デモ動画"
               />
             </div>
-            <p className="mt-3 text-center text-xs text-[var(--text-muted)] lg:text-left">
-              実際の照会画面のデモ。会社名を入力するだけで、対象となる補助金が表示されます。
-            </p>
           </div>
         </motion.div>
       </div>
