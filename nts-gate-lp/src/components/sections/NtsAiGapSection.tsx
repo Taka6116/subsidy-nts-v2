@@ -16,8 +16,9 @@ import {
 
 type Pitfall = {
   num: string;
-  textLead: string;
-  textHighlight: string;
+  line1: string;
+  line2: string;
+  line3: string;
   image: StaticImageData;
   alt: string;
 };
@@ -25,22 +26,25 @@ type Pitfall = {
 const PITFALLS: readonly Pitfall[] = [
   {
     num: "01",
-    textLead: "AIで書類は作れても、",
-    textHighlight: "通過率は下がる時代。",
+    line1: "AIで書類は作れても、",
+    line2: "テンプレ生成では",
+    line3: "通過率が下がります。",
     image: imgPit01,
     alt: "AI生成の書類で通過率が下がるイメージ",
   },
   {
     num: "02",
-    textLead: "審査視点を知らないと、",
-    textHighlight: "対策は徒労に終わる。",
+    line1: "審査側の視点がないと、",
+    line2: "設計が甘くなり",
+    line3: "対策は徒労に終わります。",
     image: imgPit02,
     alt: "審査側の視点が抜けて書類づくりが徒労に終わるイメージ",
   },
   {
     num: "03",
-    textLead: "書類が出来ても、",
-    textHighlight: "事務局対応で時間が削られる。",
+    line1: "書類ができても、",
+    line2: "事務局対応が残り",
+    line3: "社長の時間が削られます。",
     image: imgPit03,
     alt: "事務局対応で社長の時間が削られるイメージ",
   },
@@ -86,8 +90,29 @@ export default function NtsAiGapSection() {
           </p>
         </motion.div>
 
-        {/* ===== 3 pitfall cards (illustration-led pastel style) ===== */}
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-7 pt-5">
+        {/* ===== Mini heading with slash ornaments ===== */}
+        <motion.div
+          className="mb-10 mt-4 flex items-center justify-center gap-3 md:mb-14 md:mt-8 md:gap-5"
+          initial={reduce ? fadeInUpReduced : fadeInUpInitial}
+          whileInView={reduce ? fadeInUpReduced : fadeInUpInView}
+          viewport={fadeInUpViewport}
+          transition={{ ...fadeInUpTransition, delay: 0.05 }}
+        >
+          <span
+            aria-hidden
+            className="inline-block h-[1.5px] w-10 rotate-[65deg] bg-[var(--text-primary)] md:w-16"
+          />
+          <h3 className="font-heading text-[1.1rem] font-bold tracking-[0.02em] text-[var(--text-primary)] md:text-[1.4rem]">
+            こんな落とし穴、思い当たりませんか？
+          </h3>
+          <span
+            aria-hidden
+            className="inline-block h-[1.5px] w-10 -rotate-[65deg] bg-[var(--text-primary)] md:w-16"
+          />
+        </motion.div>
+
+        {/* ===== 3 pitfall cards (ProfitOps-style: inner pill, 3-line title, large illustration with ground shadow) ===== */}
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-7">
           {PITFALLS.map((p, i) => (
             <motion.article
               key={p.num}
@@ -98,30 +123,39 @@ export default function NtsAiGapSection() {
                 ...fadeInUpTransition,
                 delay: 0.06 + i * 0.06,
               }}
-              className="relative flex flex-col items-center rounded-[28px] bg-[#e4ecf5] px-5 pb-6 pt-10 shadow-[0_4px_18px_rgba(26,76,142,0.05)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_14px_34px_rgba(26,76,142,0.10)] md:px-6 md:pb-7 md:pt-11"
+              className="relative flex flex-col items-center overflow-hidden rounded-[24px] bg-[#eef1f7] px-5 pb-10 pt-6 shadow-[0_4px_18px_rgba(26,76,142,0.05)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_14px_34px_rgba(26,76,142,0.10)] md:px-6 md:pb-12 md:pt-7"
             >
-              {/* Pill label */}
-              <span className="absolute -top-4 left-1/2 inline-flex -translate-x-1/2 items-center rounded-full bg-[var(--text-primary)] px-4 py-1.5 font-heading text-[0.78rem] font-bold tracking-[0.06em] text-white shadow-[0_6px_16px_rgba(26,43,60,0.25)] md:text-[0.82rem]">
-                落とし穴 {p.num}
-              </span>
-
-              {/* Title with highlight */}
-              <h3 className="mt-1 mb-5 text-center font-heading text-[1.02rem] font-bold leading-[1.7] text-[var(--text-primary)] md:mb-6 md:text-[1.08rem] md:leading-[1.75]">
-                {p.textLead}
-                <br />
-                <span className="text-[var(--accent-teal)]">
-                  {p.textHighlight}
+              {/* Pill label (inside card, top center) */}
+              <div className="mb-5 md:mb-6">
+                <span className="inline-flex items-center rounded-full bg-[var(--text-primary)] px-4 py-1.5 font-heading text-[0.78rem] font-bold tracking-[0.06em] text-white md:text-[0.82rem]">
+                  例 {p.num}
                 </span>
+              </div>
+
+              {/* 3-line title with teal highlight on last line */}
+              <h3 className="mb-6 text-center font-heading text-[1.05rem] font-bold leading-[1.85] text-[var(--text-primary)] md:mb-7 md:text-[1.15rem]">
+                {p.line1}
+                <br />
+                {p.line2}
+                <br />
+                <span className="text-[var(--accent-teal)]">{p.line3}</span>
               </h3>
 
-              {/* Illustration */}
-              <div className="relative mt-auto aspect-[4/3] w-full max-w-[280px]">
-                <Image
-                  src={p.image}
-                  alt={p.alt}
-                  fill
-                  sizes="(max-width: 768px) 80vw, 280px"
-                  className="object-contain"
+              {/* Large illustration with ground ellipse shadow */}
+              <div className="relative mx-auto mt-auto w-full max-w-[300px] md:max-w-[340px]">
+                <div className="relative aspect-square w-full">
+                  <Image
+                    src={p.image}
+                    alt={p.alt}
+                    fill
+                    sizes="(max-width: 768px) 85vw, 340px"
+                    className="object-contain"
+                  />
+                </div>
+                {/* Ground shadow (ellipse) */}
+                <span
+                  aria-hidden
+                  className="absolute -bottom-2 left-1/2 h-3 w-[68%] -translate-x-1/2 rounded-[50%] bg-[rgba(26,43,60,0.18)] blur-[10px]"
                 />
               </div>
             </motion.article>
