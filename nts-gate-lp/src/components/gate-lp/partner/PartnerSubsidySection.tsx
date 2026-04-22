@@ -1,14 +1,33 @@
 "use client";
 
+import Image, { type StaticImageData } from "next/image";
 import { motion } from "framer-motion";
 
-const subsidies = [
+import isometric15 from "../../../../icon-assets/isometric_15.webp";
+import isometric07 from "../../../../icon-assets/isometric_07.png";
+import isometric06 from "../../../../icon-assets/isometric_06.png";
+
+type Subsidy = {
+  category: string;
+  name: string;
+  max: string;
+  body: string;
+  fit: string;
+  image: StaticImageData;
+  imageAlt: string;
+  bgClass: string;
+};
+
+const subsidies: Subsidy[] = [
   {
     category: "省力化・DX",
     name: "中小企業省力化投資補助金",
     max: "最大1,500万円",
     body: "人手不足に悩む中小企業の省力化・自動化投資を支援。デジタコや業務システム、省人化機器の導入に活用できます。",
     fit: "IT・機械・設備ベンダー向け",
+    image: isometric15,
+    imageAlt: "省力化・DXをイメージしたイラスト",
+    bgClass: "bg-[#EEF6FF]",
   },
   {
     category: "事業承継・引継ぎ",
@@ -16,6 +35,9 @@ const subsidies = [
     max: "最大600万円",
     body: "後継者への事業承継や、M&Aを活用した事業引継ぎに伴う費用を補助。経営課題として事業承継を抱える顧客に適しています。",
     fit: "士業・コンサル向け",
+    image: isometric07,
+    imageAlt: "事業承継・引継ぎをイメージしたイラスト",
+    bgClass: "bg-[#E8F9F4]",
   },
   {
     category: "販路開拓・業務改善",
@@ -23,6 +45,9 @@ const subsidies = [
     max: "最大200万円",
     body: "販路開拓や業務効率化の取り組みを支援。小規模な顧客にも提案できる補助金です。",
     fit: "小規模事業者と取引のある企業向け",
+    image: isometric06,
+    imageAlt: "販路開拓・業務改善をイメージしたイラスト",
+    bgClass: "bg-[#FFF4E8]",
   },
 ];
 
@@ -59,26 +84,37 @@ export default function PartnerSubsidySection() {
             <motion.div
               key={s.name}
               {...fadeUp(i * 0.1)}
-              className="card group relative flex flex-col p-7 transition-all duration-300"
+              className="card group relative flex flex-col overflow-hidden p-0 transition-all duration-300"
             >
+              {/* 上段：isometricビジュアル */}
               <div
-                className={`absolute right-4 top-4 h-20 w-20 rounded-lg ${
-                  i === 0 ? "bg-[#EEF6FF]" : i === 1 ? "bg-[#E8F9F4]" : "bg-[#FFF4E8]"
-                }`}
-                data-placeholder={`subsidy-icon-${i + 1}`}
-              />
-              <p className="mb-2 text-[10px] font-bold uppercase tracking-wider text-[var(--text-muted)]">
-                {s.category}
-              </p>
-              <h3 className="mb-1 pr-24 text-lg font-bold leading-snug text-[var(--text-primary)]">{s.name}</h3>
-              <p className="text-highlight-gold mb-4 text-2xl font-bold">
-                {s.max}
-              </p>
-              <p className="mb-5 flex-1 text-sm leading-relaxed text-[var(--text-secondary)]">
-                {s.body}
-              </p>
-              <div className="rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-section-alt)] px-4 py-2.5">
-                <p className="text-[11px] text-[var(--text-muted)]">{s.fit}</p>
+                className={`relative flex h-[160px] w-full items-center justify-center ${s.bgClass}`}
+              >
+                <Image
+                  src={s.image}
+                  alt={s.imageAlt}
+                  className="h-[130px] w-auto object-contain"
+                  sizes="(min-width: 768px) 280px, 100vw"
+                />
+              </div>
+
+              {/* 下段：コンテンツ */}
+              <div className="flex flex-1 flex-col p-7">
+                <p className="mb-2 text-[10px] font-bold uppercase tracking-wider text-[var(--text-muted)]">
+                  {s.category}
+                </p>
+                <h3 className="mb-1 text-lg font-bold leading-snug text-[var(--text-primary)]">
+                  {s.name}
+                </h3>
+                <p className="text-highlight-gold mb-4 text-2xl font-bold">
+                  {s.max}
+                </p>
+                <p className="mb-5 flex-1 text-sm leading-relaxed text-[var(--text-secondary)]">
+                  {s.body}
+                </p>
+                <div className="rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-section-alt)] px-4 py-2.5">
+                  <p className="text-[11px] text-[var(--text-muted)]">{s.fit}</p>
+                </div>
               </div>
             </motion.div>
           ))}

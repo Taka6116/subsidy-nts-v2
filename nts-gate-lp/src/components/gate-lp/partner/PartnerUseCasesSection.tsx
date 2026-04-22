@@ -1,6 +1,11 @@
 "use client";
 
+import type { StaticImageData } from "next/image";
+import Image from "next/image";
 import { motion } from "framer-motion";
+import isometric10 from "../../../../icon-assets/isometric_10.webp";
+import isometric11 from "../../../../icon-assets/isometric_11.webp";
+import isometric20 from "../../../../icon-assets/isometric_20.webp";
 
 const EASE_OUT = [0.22, 1, 0.36, 1] as const;
 
@@ -11,24 +16,32 @@ const fadeUp = (delay: number) => ({
   transition: { duration: 0.6, ease: EASE_OUT, delay },
 });
 
-const CARDS = [
+const CARDS: {
+  tag: string;
+  title: string;
+  body: string;
+  image: StaticImageData;
+}[] = [
   {
     tag: "IT・省力化機器",
     title: "IT・省力化機器メーカー・販売会社",
     body:
       "デジタコ、業務ソフト、省力化機器などの提案時に「補助金が使えます」と添えることで、導入の壁を下げられます。",
+    image: isometric10,
   },
   {
     tag: "士業・コンサル",
     title: "士業・中小企業診断士・コンサル",
     body:
       "顧問先から補助金の相談を受けたとき、信頼できる紹介先があれば顧客との関係がさらに深まります。",
+    image: isometric11,
   },
   {
     tag: "設備投資に関わる企業",
     title: "補助金対象設備に関わるすべての企業",
     body:
       "建設・運送・製造・介護など、設備投資や人材採用が発生する業界の顧客をお持ちの方はどなたでも対象です。",
+    image: isometric20,
   },
 ];
 
@@ -72,9 +85,17 @@ export default function PartnerUseCasesSection() {
               className="card overflow-hidden p-0"
             >
               <div
-                className="h-[120px] rounded-t-[12px] bg-[#F5F8FF]"
+                className="relative h-[160px] overflow-hidden rounded-t-[12px] bg-[#F5F8FF]"
                 data-placeholder={`target-card-${i + 1}`}
-              />
+              >
+                <Image
+                  src={card.image}
+                  alt=""
+                  aria-hidden="true"
+                  className="h-full w-full object-contain object-center p-3"
+                  sizes="(min-width: 768px) 33vw, 100vw"
+                />
+              </div>
               <div className="p-7">
                 <p className="mb-3 text-xs text-[var(--text-muted)]">{card.tag}</p>
                 <h3 className="mb-5 font-heading text-xl font-bold leading-snug text-[var(--text-primary)] md:text-2xl">
