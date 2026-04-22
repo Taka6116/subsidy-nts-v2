@@ -88,7 +88,7 @@ export default function FinalCtaSection({ variant = "home" }: FinalCtaSectionPro
             ctaLabel: "エンドユーザー向けLPを見る",
             href: "/",
             icon: Home,
-            onClick: () => trackCTAClick("partner_final_cta_end_user_lp"),
+            onClick: () => trackCTAClick("partner_final_cta_home"),
           },
           {
             title: "補助金情報",
