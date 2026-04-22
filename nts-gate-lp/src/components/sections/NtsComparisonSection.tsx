@@ -4,7 +4,7 @@ import Image from "next/image";
 import { CheckCircle2, XCircle } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 import imgOther from "../../../icon-assets/isometric_12.webp";
-import imgNts from "../../../icon-assets/isometric_14.webp";
+import imgNts from "../../../icon-assets/isometric23.webp";
 import {
   fadeInUpInitial,
   fadeInUpInView,
