@@ -15,7 +15,7 @@ const STEPS = [
     step: "STEP 1",
     timing: "ご契約時",
     amount: "着手金 15万円",
-    body: "初回ヒアリング・補助金活用戦略の設計",
+    body: "補助金活用戦略の設計（初回ヒアリングは無料）",
   },
   {
     step: "STEP 2",

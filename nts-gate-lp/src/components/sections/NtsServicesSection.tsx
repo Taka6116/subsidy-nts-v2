@@ -123,15 +123,24 @@ export default function NtsServicesSection() {
             aria-labelledby={`nts-service-tab-${active}`}
             className="bg-white px-6 py-8 md:px-10 md:py-12"
           >
+            {/* タブ3枚分の画像を事前ロードしてクロスフェードで切替 */}
             <div className="relative mb-6 aspect-video w-full overflow-hidden rounded-xl">
-              <Image
-                src={current.imageSrc}
-                alt={current.imageAlt}
-                fill
-                className="object-cover object-center"
-                sizes="(max-width: 1024px) 100vw, 58vw"
-                priority={active === 0}
-              />
+              {SERVICES.map((s, i) => (
+                <Image
+                  key={s.number}
+                  src={s.imageSrc}
+                  alt={s.imageAlt}
+                  fill
+                  className="object-cover object-center transition-opacity duration-300 ease-out"
+                  style={{
+                    opacity: active === i ? 1 : 0,
+                    zIndex: active === i ? 1 : 0,
+                  }}
+                  sizes="(max-width: 1024px) 100vw, 58vw"
+                  priority={i === 0}
+                  aria-hidden={active !== i}
+                />
+              ))}
             </div>
             <h3 className="mb-4 font-heading text-[1.3rem] font-bold text-[var(--text-primary)] md:text-xl">
               {current.label}

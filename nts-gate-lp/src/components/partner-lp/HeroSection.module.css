@@ -97,6 +97,15 @@
   box-sizing: border-box;
 }
 
+@media (min-width: 1024px) {
+  .imgPlaceholder {
+    /* 画像を 1.2倍拡大した上で、やや右に寄せる */
+    justify-content: flex-end;
+    padding-right: 32px;
+    padding-left: 8px;
+  }
+}
+
 .heroImageLeft,
 .heroImageRight {
   width: 50%;
@@ -104,6 +113,16 @@
   max-height: 300px;
   object-fit: contain;
   flex-shrink: 0;
+}
+
+@media (min-width: 1024px) {
+  .heroImageLeft,
+  .heroImageRight {
+    /* 見た目 1.2 倍に。bottom 原点でスケールして底辺を揃える */
+    max-height: 360px;
+    transform: scale(1.2);
+    transform-origin: bottom center;
+  }
 }
 
 /* ── テキスト要素 ────────────────────────────────────────── */
