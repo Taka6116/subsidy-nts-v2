@@ -63,7 +63,7 @@ export default function NtsAiGapSection() {
       <div className="section-inner">
         {/* ===== Header ===== */}
         <motion.div
-          className="mb-10 text-center md:mb-14"
+          className="mb-12 text-center md:mb-16"
           initial={reduce ? fadeInUpReduced : fadeInUpInitial}
           whileInView={reduce ? fadeInUpReduced : fadeInUpInView}
           viewport={fadeInUpViewport}
@@ -85,7 +85,7 @@ export default function NtsAiGapSection() {
           </p>
         </motion.div>
 
-        {/* ===== 3 pitfall cards ===== */}
+        {/* ===== 3 pitfall cards (editorial-refined) ===== */}
         <div className="grid grid-cols-1 gap-5 md:grid-cols-3 md:gap-6">
           {PITFALLS.map((p, i) => {
             const Icon = p.Icon;
@@ -93,28 +93,38 @@ export default function NtsAiGapSection() {
               <motion.article
                 key={p.num}
                 initial={reduce ? fadeInUpReduced : fadeInUpInitial}
-                whileInView={
-                  reduce ? fadeInUpReduced : fadeInUpInView
-                }
+                whileInView={reduce ? fadeInUpReduced : fadeInUpInView}
                 viewport={fadeInUpViewport}
                 transition={{
                   ...fadeInUpTransition,
                   delay: 0.06 + i * 0.06,
                 }}
-                className="relative flex flex-col rounded-2xl border border-[var(--border-subtle)] bg-white p-6 shadow-[0_6px_22px_rgba(26,76,142,0.06)] md:p-7"
+                className="group relative flex flex-col overflow-hidden rounded-2xl border border-[var(--border-subtle)] bg-white p-7 shadow-[0_6px_22px_rgba(26,76,142,0.06)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_14px_36px_rgba(26,76,142,0.12)] md:p-8"
               >
-                <div className="mb-5 flex items-center justify-between">
-                  <span className="font-heading text-[0.78rem] font-bold uppercase tracking-[0.14em] text-[var(--text-muted)]">
-                    PITFALL {p.num}
-                  </span>
-                  <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#f4f6fa] text-[#7d8a9a]">
-                    <Icon className="h-5 w-5" aria-hidden />
-                  </span>
+                {/* Watermark number */}
+                <span
+                  aria-hidden
+                  className="pointer-events-none absolute -right-2 -top-6 select-none font-heading text-[7.5rem] font-black leading-none text-[#eef2f7] md:text-[8.5rem]"
+                >
+                  {p.num}
+                </span>
+
+                {/* Icon badge */}
+                <div className="relative mb-5 inline-flex h-14 w-14 items-center justify-center rounded-2xl border border-[var(--border-subtle)] bg-[linear-gradient(135deg,#f4f7fb_0%,#ffffff_100%)] shadow-[inset_0_1px_0_rgba(255,255,255,0.9)]">
+                  <Icon
+                    className="h-7 w-7 text-[#5a6b7e]"
+                    strokeWidth={1.75}
+                    aria-hidden
+                  />
                 </div>
-                <h3 className="mb-3 font-heading text-[1.1rem] font-bold leading-snug text-[var(--text-primary)] md:text-[1.18rem]">
+
+                <span className="relative font-heading text-[0.7rem] font-bold uppercase tracking-[0.18em] text-[var(--accent-teal)]">
+                  Pitfall {p.num}
+                </span>
+                <h3 className="relative mb-3 mt-2 font-heading text-[1.18rem] font-bold leading-snug text-[var(--text-primary)] md:text-[1.22rem]">
                   {p.title}
                 </h3>
-                <p className="text-[0.92rem] leading-[1.9] text-[var(--text-secondary)] md:text-[0.95rem]">
+                <p className="relative text-[0.93rem] leading-[1.95] text-[var(--text-secondary)] md:text-[0.95rem]">
                   {p.body}
                 </p>
               </motion.article>
@@ -122,35 +132,85 @@ export default function NtsAiGapSection() {
           })}
         </div>
 
+        {/* ===== Bridge: pattern interrupt "so, NTS handles it" ===== */}
+        <motion.div
+          initial={reduce ? fadeInUpReduced : fadeInUpInitial}
+          whileInView={reduce ? fadeInUpReduced : fadeInUpInView}
+          viewport={fadeInUpViewport}
+          transition={{ ...fadeInUpTransition, delay: 0.15 }}
+          className="relative flex flex-col items-center py-10 md:py-14"
+          aria-hidden={false}
+        >
+          <span
+            aria-hidden
+            className="h-10 w-px bg-[var(--border-subtle)] md:h-14"
+          />
+          <span className="my-3 inline-flex items-center gap-2 rounded-full border border-[rgba(0,184,148,0.35)] bg-white px-4 py-1.5 font-heading text-[0.78rem] font-bold tracking-[0.04em] text-[var(--accent-teal)] shadow-[0_4px_14px_rgba(0,184,148,0.12)] md:text-[0.82rem]">
+            <span
+              aria-hidden
+              className="inline-block h-1.5 w-1.5 rounded-full bg-[var(--accent-teal)]"
+            />
+            だから、NTSが担います
+          </span>
+          <span
+            aria-hidden
+            className="h-10 w-px bg-gradient-to-b from-[var(--accent-teal)] to-transparent md:h-14"
+          />
+        </motion.div>
+
         {/* ===== NTS closing block ===== */}
         <motion.div
           initial={reduce ? fadeInUpReduced : fadeInUpInitial}
           whileInView={reduce ? fadeInUpReduced : fadeInUpInView}
           viewport={fadeInUpViewport}
-          transition={{ ...fadeInUpTransition, delay: 0.2 }}
-          className="relative mt-10 overflow-hidden rounded-[24px] border border-[rgba(0,184,148,0.25)] bg-[linear-gradient(135deg,rgba(0,184,148,0.10)_0%,rgba(26,76,142,0.06)_100%)] shadow-[0_12px_40px_rgba(26,76,142,0.08)] md:mt-14"
+          transition={{ ...fadeInUpTransition, delay: 0.22 }}
+          className="relative overflow-hidden rounded-[28px] border border-[rgba(0,184,148,0.28)] bg-[linear-gradient(135deg,rgba(0,184,148,0.12)_0%,rgba(26,76,142,0.07)_100%)] shadow-[0_16px_48px_rgba(26,76,142,0.10)]"
         >
-          <span className="absolute left-0 top-0 h-full w-[4px] bg-[var(--accent-teal)]" />
-          <div className="grid grid-cols-1 items-center gap-6 p-6 md:grid-cols-[1.15fr_1fr] md:gap-10 md:p-10 lg:p-12">
+          {/* Decorative radial blob */}
+          <span
+            aria-hidden
+            className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-[radial-gradient(closest-side,rgba(0,184,148,0.22),transparent_70%)]"
+          />
+          <span
+            aria-hidden
+            className="pointer-events-none absolute -left-20 bottom-0 h-56 w-56 rounded-full bg-[radial-gradient(closest-side,rgba(26,76,142,0.10),transparent_70%)]"
+          />
+          <span
+            aria-hidden
+            className="absolute left-0 top-0 h-full w-[5px] bg-[var(--accent-teal)]"
+          />
+
+          <div className="relative grid grid-cols-1 items-center gap-8 p-7 md:grid-cols-[1.1fr_1fr] md:gap-12 md:p-12 lg:p-14">
             {/* Text */}
             <div>
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-[var(--accent-teal)] px-3 py-1 font-heading text-[0.68rem] font-bold uppercase tracking-[0.14em] text-white shadow-[0_2px_8px_rgba(0,184,148,0.35)]">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-[var(--accent-teal)] px-3 py-1 font-heading text-[0.7rem] font-bold uppercase tracking-[0.14em] text-white shadow-[0_2px_10px_rgba(0,184,148,0.4)]">
                 NTS DOES
               </span>
-              <h3 className="mt-4 font-heading text-[1.4rem] font-bold leading-snug text-[var(--text-primary)] md:text-[1.7rem] lg:text-[1.85rem]">
-                社長の時間を使わずに、
-                <br className="sm:hidden" />
-                “採択”まで。
+              <h3 className="mt-5 font-heading text-[1.6rem] font-bold leading-[1.25] text-[var(--text-primary)] md:text-[2rem] lg:text-[2.2rem]">
+                社長の時間を使わず、
+                <br />
+                <span className="text-[var(--accent-teal)]">採択まで</span>
+                届ける。
               </h3>
-              <p className="mt-4 text-[0.95rem] leading-[1.95] text-[var(--text-secondary)] md:text-base">
-                AIに任せられる領域はAIに。でも、人と会社が動いて初めて成り立つ領域があります。
-                <br className="hidden md:inline" />
-                審査側の視点での設計、事務局対応、採択後1年間の伴走——AIでは出来ないサポートで、社長の時間を守ります。
+              <p className="mt-5 text-[0.95rem] leading-[1.95] text-[var(--text-secondary)] md:text-base">
+                AIに任せられる領域はAIに。でも、
+                <strong className="font-bold text-[var(--text-primary)]">
+                  人と会社が動いて初めて成り立つ領域
+                </strong>
+                があります。審査側の視点での設計、事務局対応、採択後1年間の伴走——
+                <strong className="font-bold text-[var(--text-primary)]">
+                  AIでは出来ないサポート
+                </strong>
+                で、社長の時間を守ります。
               </p>
-              <ul className="mt-5 flex flex-wrap gap-2">
+              <ul className="mt-6 flex flex-wrap gap-2">
                 {NTS_CHIPS.map((chip) => (
                   <li key={chip}>
-                    <span className="inline-flex items-center rounded-full border border-[var(--accent-teal)] bg-white px-3 py-1 font-heading text-[0.78rem] font-bold text-[var(--accent-teal)] md:text-[0.82rem]">
+                    <span className="inline-flex items-center gap-1.5 rounded-full border border-[var(--accent-teal)] bg-white px-3.5 py-1.5 font-heading text-[0.78rem] font-bold text-[var(--accent-teal)] shadow-[0_2px_8px_rgba(0,184,148,0.08)] md:text-[0.82rem]">
+                      <span
+                        aria-hidden
+                        className="inline-block h-1.5 w-1.5 rounded-full bg-[var(--accent-teal)]"
+                      />
                       {chip}
                     </span>
                   </li>
@@ -158,15 +218,22 @@ export default function NtsAiGapSection() {
               </ul>
             </div>
 
-            {/* Image */}
-            <div className="relative mx-auto aspect-[4/3] w-full max-w-[360px] md:max-w-none">
-              <Image
-                src={imgNtsGap}
-                alt="社長の時間を守り、採択まで伴走するNTSのイメージ"
-                fill
-                sizes="(max-width: 768px) 80vw, 420px"
-                className="object-contain"
+            {/* Image with soft frame */}
+            <div className="relative mx-auto w-full max-w-[420px] md:max-w-none">
+              {/* Shadow card (offset) */}
+              <span
+                aria-hidden
+                className="absolute inset-0 translate-x-3 translate-y-3 rounded-[24px] bg-white/50"
               />
+              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-[24px] border border-white/60 bg-white/70 p-3 shadow-[0_10px_30px_rgba(26,76,142,0.08)] backdrop-blur-[2px] md:p-5">
+                <Image
+                  src={imgNtsGap}
+                  alt="社長の時間を守り、採択まで伴走するNTSのイメージ"
+                  fill
+                  sizes="(max-width: 768px) 80vw, 460px"
+                  className="object-contain"
+                />
+              </div>
             </div>
           </div>
         </motion.div>
