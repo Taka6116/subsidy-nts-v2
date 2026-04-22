@@ -37,19 +37,6 @@ export default function SubsidyResultCard({ item, selected = false }: Props) {
           {blurb}
         </p>
       ) : null}
-      {item.detailUrl ? (
-        <p className="mt-auto pt-4 text-[11px] leading-relaxed text-portal-on-surface-card-sub">
-          <a
-            href={item.detailUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="break-all text-portal-primary underline-offset-2 hover:underline"
-            onClick={(e) => e.stopPropagation()}
-          >
-            {item.detailUrl}
-          </a>
-        </p>
-      ) : null}
     </article>
   );
 }

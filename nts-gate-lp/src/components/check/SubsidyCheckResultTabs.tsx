@@ -6,7 +6,6 @@ import {
   AlertTriangle,
   CheckCircle2,
   ChevronRight,
-  ExternalLink,
   FileText,
 } from "lucide-react";
 import type { MatchedSubsidyPreview } from "@/lib/subsidyCheckMocks";
@@ -210,17 +209,6 @@ export default function SubsidyCheckResultTabs({
                       →
                     </span>
                   </Link>
-                  {item.detailUrl?.trim() ? (
-                    <a
-                      href={item.detailUrl.trim()}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={heroStyles.ctaSecondary}
-                    >
-                      公式の詳細を見る
-                      <ExternalLink className="h-4 w-4 shrink-0" aria-hidden />
-                    </a>
-                  ) : null}
                 </div>
               </div>
             </section>

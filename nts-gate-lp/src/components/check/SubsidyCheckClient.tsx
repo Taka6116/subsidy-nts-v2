@@ -8,7 +8,10 @@ import type { MatchedSubsidyPreview } from "@/lib/subsidyCheckMocks";
 import type { CorporateCandidate } from "@/types/corporateSearch";
 import SubsidyMatchLoading from "@/components/check/SubsidyMatchLoading";
 import SubsidyCheckResultTabs from "@/components/check/SubsidyCheckResultTabs";
-import { cleanSubsidyName } from "@/lib/subsidyCheckResultHelpers";
+import {
+  cleanSubsidyDescription,
+  cleanSubsidyName,
+} from "@/lib/subsidyCheckResultHelpers";
 import heroStyles from "@/components/gate-lp/hero-three/HeroSection.module.css";
 
 const EMPLOYEE_OPTIONS: { id: string; label: string }[] = [
@@ -57,7 +60,13 @@ function parseMatchApiResults(payload: unknown): MatchedSubsidyPreview[] {
       const rawName = typeof row.name === "string" ? row.name : "名称未設定";
       /** 末尾の「（21次締切）」等、一般ユーザーに意味不明な公募回数表記を落として表示 */
       const name = cleanSubsidyName(rawName) || rawName;
-      const description = typeof row.description === "string" ? row.description : "";
+      /**
+       * jGrants 原文の description には「■問合せ先」「■参照URL」等が含まれ、
+       * 放置するとユーザーが NTS を介さず事務局へ直接連絡してしまうため必ず除去する。
+       */
+      const description = cleanSubsidyDescription(
+        typeof row.description === "string" ? row.description : "",
+      );
       const maxAmountLabel = typeof row.maxAmountLabel === "string" ? row.maxAmountLabel : "—";
       const deadlineLabel = typeof row.deadlineLabel === "string" ? row.deadlineLabel : "—";
       const targetIndustries = parseStringArray(row.targetIndustries);
@@ -69,7 +78,9 @@ function parseMatchApiResults(payload: unknown): MatchedSubsidyPreview[] {
       const matchScoreRaw = row.matchScore;
       const matchScore =
         typeof matchScoreRaw === "number" && Number.isFinite(matchScoreRaw) ? matchScoreRaw : 0;
-      const decisionSummary = typeof row.summary === "string" ? row.summary : "";
+      const decisionSummary = cleanSubsidyDescription(
+        typeof row.summary === "string" ? row.summary : "",
+      );
       const matchReason = parseStringArray(row.matchReason);
       const riskFlags = parseStringArray(row.riskFlags);
       const insightCards = parseInsightCardsFromApi(row.insightCards);

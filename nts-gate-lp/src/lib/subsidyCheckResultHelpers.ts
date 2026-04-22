@@ -19,6 +19,68 @@ export function cleanSubsidyName(name: string): string {
 }
 
 /**
+ * 制度 description から、ユーザーが NTS を介さず事務局へ直接連絡してしまう
+ * リスクのある「問合せ先」「参照URL」「電話番号」「メールアドレス」等の
+ * 外部コンタクト情報ブロックを丸ごと除去する。
+ *
+ * - jGrants 原文には末尾に「■問合せ先 …」「■参照URL …」が含まれることが多い
+ * - 「■」記号を見出しに使う形式 / プレーン行で続く形式の両方に対応
+ * - 電話・メール・裸 URL も個別に除去（事務局連絡手段の露出を防ぐ）
+ */
+export function cleanSubsidyDescription(text: string | null | undefined): string {
+  if (!text) return "";
+  let out = String(text);
+
+  // 見出し記号つきの連絡先ブロックは、次の「■」見出しまで / 末尾まで丸ごと落とす
+  const sectionHeaders = [
+    "問合せ先",
+    "問い合わせ先",
+    "お問合せ先",
+    "お問い合わせ先",
+    "お問合せ",
+    "お問い合わせ",
+    "参照URL",
+    "参照ＵＲＬ",
+    "参考URL",
+    "参考ＵＲＬ",
+    "関連URL",
+    "関連ＵＲＬ",
+    "公式サイト",
+    "問合せ窓口",
+    "連絡先",
+  ];
+  for (const h of sectionHeaders) {
+    const re = new RegExp(
+      `[■◆●▼\\[【]\\s*${h}[^\\n]*[\\s\\S]*?(?=(?:[■◆●▼\\[【]\\s*\\S)|$)`,
+      "g",
+    );
+    out = out.replace(re, "");
+  }
+
+  // 行単位で残留しがちな連絡先要素を削除
+  const linePatterns: RegExp[] = [
+    /^.*(?:電話番号|TEL|Tel|ＴＥＬ)\s*[:：].*$/gm,
+    /^.*(?:メール\s*アドレス|メールアドレス|E-?mail|ＥーＭＡＩＬ|e-?mail)\s*[:：].*$/gm,
+    /^.*受付時間\s*[:：].*$/gm,
+    /^.*FAX\s*[:：].*$/gmi,
+    // 独立行として置かれた裸 URL
+    /^\s*https?:\/\/\S+\s*$/gm,
+    // メールアドレス単体（@ を含む）
+    /^\s*\S+@\S+\.[\w.-]+\s*$/gm,
+  ];
+  for (const re of linePatterns) {
+    out = out.replace(re, "");
+  }
+
+  // 文中に紛れるメールアドレスも伏せる
+  out = out.replace(/\b[\w.+-]+@[\w.-]+\.[\w.-]+\b/g, "");
+  // 文中 URL も落とす（公募要領配布先などへの直接誘導を避ける）
+  out = out.replace(/https?:\/\/\S+/g, "");
+
+  return out.replace(/\n{3,}/g, "\n\n").trim();
+}
+
+/**
  * 公募期限のラベルが表示に値する実データかどうかを判定する。
  * 「—」「要確認」「未定」「TBD」「不明」「null」は無効扱い。
  */

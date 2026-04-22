@@ -27,6 +27,7 @@ import {
   staticSubsidyDeadlineLabel,
   toBedrockInput,
 } from "@/lib/staticSubsidies";
+import { cleanSubsidyDescription } from "@/lib/subsidyCheckResultHelpers";
 
 const LIST_LIMIT = 40;
 const DETAIL_POOL = 20;
@@ -369,7 +370,9 @@ export async function POST(req: Request) {
 
     // Phase B: 候補に対するスコア・要約（既存 Bedrock マッチ）
     const jgrantsNormalizedForBedrock: NormalizedSubsidyForMatch[] = top.map(({ summary, detail }) => {
-      const rawDetailText = stripAdminPreamble(stripHtml(detail?.detail ?? ""));
+      const rawDetailText = cleanSubsidyDescription(
+        stripAdminPreamble(stripHtml(detail?.detail ?? "")),
+      );
       const catchPhrase = detail?.subsidy_catch_phrase?.trim() ?? "";
       const descParts = [catchPhrase, rawDetailText].filter(Boolean);
       const cleanDesc = descParts.join("\n").slice(0, 800);
@@ -424,7 +427,8 @@ export async function POST(req: Request) {
 
     const jgrantsResults = top.map(({ summary, detail }) => {
       const rawDesc = detail?.detail ?? detail?.subsidy_catch_phrase ?? "";
-      const cleanDesc = stripHtml(rawDesc);
+      // jGrants原文の「■問合せ先」「■参照URL」等を必ず除去してからUIに渡す
+      const cleanDesc = cleanSubsidyDescription(stripHtml(rawDesc));
       const br = brMap.get(summary.id);
 
       return {

@@ -15,7 +15,7 @@ export default function SubsidyResultHero({ item }: Props) {
   const insightCards = d?.insightCards ?? [];
   const hasInsightCards = insightCards.length > 0;
 
-  const detailUrl = item.detailUrl?.trim();
+  // 事務局への直接連絡導線を避けるため、外部詳細サイトへのリンクは掲載しない。
   const resultCtaBlock = (
     <div className="w-full space-y-4">
       <Link
@@ -24,25 +24,6 @@ export default function SubsidyResultHero({ item }: Props) {
       >
         無料相談を申し込む
       </Link>
-      {detailUrl ? (
-        <a
-          href={detailUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex w-full items-center justify-center rounded-full border-2 border-[#00c6ff] bg-transparent px-5 py-3 text-center text-sm font-semibold text-[#00c6ff] transition-colors hover:bg-[#00c6ff]/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#00c6ff]"
-        >
-          この補助金の詳細を見る（外部サイト）
-        </a>
-      ) : (
-        <>
-          <span className="inline-flex w-full cursor-not-allowed items-center justify-center rounded-full border-2 border-[#00c6ff]/40 bg-transparent px-5 py-3 text-center text-sm font-semibold text-[#00c6ff]/60">
-            この補助金の詳細を見る
-          </span>
-          <p className="text-center text-xs leading-snug text-[#00c6ff]/80">
-            ※公式詳細URLが取得できませんでした。jGrants 等で制度名を検索してください。
-          </p>
-        </>
-      )}
     </div>
   );
 
