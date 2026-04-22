@@ -97,10 +97,10 @@ export default function NtsComparisonSection() {
               {/* axis gutter (empty) */}
               <div className="bg-[var(--bg-section-alt)]" aria-hidden />
 
-              {/* 他社 visual */}
-              <div className="relative border-l border-[var(--border-subtle)] bg-[#f4f6fa] px-6 pt-8 pb-7">
+              {/* 他社 visual (dimmed) */}
+              <div className="relative border-l border-[var(--border-subtle)] bg-[#dfe3ea] px-6 pt-8 pb-7">
                 <div className="mb-3 text-center">
-                  <span className="inline-block rounded-full bg-white px-4 py-1 font-heading text-[0.78rem] font-bold uppercase tracking-[0.14em] text-[var(--text-muted)] shadow-[0_2px_6px_rgba(26,76,142,0.06)]">
+                  <span className="inline-block rounded-full bg-white/70 px-4 py-1 font-heading text-[0.78rem] font-bold uppercase tracking-[0.14em] text-[#7a8392]">
                     他社
                   </span>
                 </div>
@@ -110,11 +110,11 @@ export default function NtsComparisonSection() {
                     alt="他社の支援イメージ：書類作成で関係が終わる"
                     fill
                     sizes="220px"
-                    className="object-contain opacity-90"
-                    style={{ filter: "grayscale(0.45) saturate(0.85)" }}
+                    className="object-contain opacity-70"
+                    style={{ filter: "grayscale(0.85) saturate(0.6) brightness(0.95)" }}
                   />
                 </div>
-                <p className="mt-4 text-center font-heading text-[1.05rem] font-bold leading-snug text-[var(--text-secondary)] lg:text-[1.125rem]">
+                <p className="mt-4 text-center font-heading text-[1.05rem] font-bold leading-snug text-[#7a8392] lg:text-[1.125rem]">
                   {OTHER_TAGLINE}
                 </p>
               </div>
@@ -122,9 +122,6 @@ export default function NtsComparisonSection() {
               {/* NTS visual (highlighted) */}
               <div className="relative border-l border-[var(--border-subtle)] bg-[linear-gradient(180deg,rgba(0,184,148,0.12)_0%,rgba(0,184,148,0.06)_100%)] px-6 pt-8 pb-7">
                 <span className="absolute left-0 top-0 h-full w-[4px] bg-[var(--accent-teal)]" />
-                <span className="absolute right-4 top-4 inline-flex items-center gap-1 rounded-full bg-[var(--accent-teal)] px-2.5 py-1 text-[0.68rem] font-bold uppercase tracking-[0.1em] text-white shadow-[0_2px_8px_rgba(0,184,148,0.35)]">
-                  RECOMMEND
-                </span>
                 <div className="mb-3 text-center">
                   <span className="inline-block rounded-full bg-[var(--accent-teal)] px-4 py-1 font-heading text-[0.78rem] font-bold uppercase tracking-[0.14em] text-white shadow-[0_2px_8px_rgba(0,184,148,0.35)]">
                     NTS
@@ -159,14 +156,14 @@ export default function NtsComparisonSection() {
                   {row.axis}
                 </div>
                 <div
-                  className="flex items-start gap-3 border-l border-[var(--border-subtle)] px-6 py-6"
+                  className="flex items-start gap-3 border-l border-[var(--border-subtle)] bg-[#eef1f5] px-6 py-6"
                   role="cell"
                 >
                   <XCircle
                     className="mt-0.5 h-5 w-5 shrink-0 text-[#9aa5b3]"
                     aria-hidden
                   />
-                  <p className="text-[0.95rem] leading-[1.85] text-[var(--text-secondary)] lg:text-base">
+                  <p className="text-[0.95rem] leading-[1.85] text-[#8a94a3] lg:text-base">
                     {row.other}
                   </p>
                 </div>
@@ -198,9 +195,9 @@ export default function NtsComparisonSection() {
             viewport={fadeInUpViewport}
             transition={{ ...fadeInUpTransition, delay: 0.05 }}
           >
-            <div className="rounded-2xl border border-[var(--border-subtle)] bg-[#f4f6fa] p-3 pb-4">
+            <div className="rounded-2xl border border-[var(--border-subtle)] bg-[#dfe3ea] p-3 pb-4">
               <div className="mb-2 text-center">
-                <span className="inline-block rounded-full bg-white px-3 py-0.5 font-heading text-[0.65rem] font-bold uppercase tracking-[0.12em] text-[var(--text-muted)]">
+                <span className="inline-block rounded-full bg-white/70 px-3 py-0.5 font-heading text-[0.65rem] font-bold uppercase tracking-[0.12em] text-[#7a8392]">
                   他社
                 </span>
               </div>
@@ -210,11 +207,11 @@ export default function NtsComparisonSection() {
                   alt="他社の支援イメージ"
                   fill
                   sizes="140px"
-                  className="object-contain opacity-90"
-                  style={{ filter: "grayscale(0.45) saturate(0.85)" }}
+                  className="object-contain opacity-70"
+                  style={{ filter: "grayscale(0.85) saturate(0.6) brightness(0.95)" }}
                 />
               </div>
-              <p className="mt-2 text-center font-heading text-[0.82rem] font-bold leading-snug text-[var(--text-secondary)]">
+              <p className="mt-2 text-center font-heading text-[0.82rem] font-bold leading-snug text-[#7a8392]">
                 {OTHER_TAGLINE}
               </p>
             </div>
@@ -258,14 +255,14 @@ export default function NtsComparisonSection() {
                   </h3>
                 </div>
 
-                <div className="rounded-xl border border-[var(--border-subtle)] bg-[#f7f9fc] p-3">
+                <div className="rounded-xl border border-[#d4d9e1] bg-[#eef1f5] p-3">
                   <div className="mb-1.5 flex items-center gap-1.5">
                     <XCircle className="h-4 w-4 text-[#9aa5b3]" aria-hidden />
-                    <span className="font-heading text-[0.7rem] font-bold uppercase tracking-[0.1em] text-[var(--text-muted)]">
+                    <span className="font-heading text-[0.7rem] font-bold uppercase tracking-[0.1em] text-[#7a8392]">
                       他社
                     </span>
                   </div>
-                  <p className="text-[0.88rem] leading-[1.8] text-[var(--text-secondary)]">
+                  <p className="text-[0.88rem] leading-[1.8] text-[#8a94a3]">
                     {row.other}
                   </p>
                 </div>

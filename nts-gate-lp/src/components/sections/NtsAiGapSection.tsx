@@ -205,10 +205,6 @@ export default function NtsAiGapSection() {
             aria-hidden
             className="pointer-events-none absolute -left-20 bottom-0 h-56 w-56 rounded-full bg-[radial-gradient(closest-side,rgba(26,76,142,0.10),transparent_70%)]"
           />
-          <span
-            aria-hidden
-            className="absolute left-0 top-0 h-full w-[5px] bg-[var(--accent-teal)]"
-          />
 
           <div className="relative grid grid-cols-1 items-center gap-8 p-7 md:grid-cols-[1.1fr_1fr] md:gap-12 md:p-12 lg:p-14">
             {/* Text */}
