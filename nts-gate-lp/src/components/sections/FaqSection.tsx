@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useId, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
@@ -25,7 +25,7 @@ const FAQ_ITEMS = [
   {
     id: "fee",
     q: "費用はいつ発生しますか？",
-    a: "着手金15万円のみ最初にいただきます。その後は採択時・実績報告完了時・1年後の効果検証時の3回、それぞれ補助額の5%を成果報酬としていただきます。採択されなかった場合、成果報酬は発生しません。",
+    a: "着手金15万円のみ最初にいただきます。その後は採択時・実績報告完了時・1年後の効果検証時の3回、それぞれ補助額の5%を成功報酬としていただきます。採択されなかった場合、成功報酬は発生しません。",
   },
   {
     id: "industry",
@@ -116,3 +116,4 @@ export default function FaqSection() {
     </section>
   );
 }
+

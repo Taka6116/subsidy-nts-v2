@@ -91,7 +91,7 @@ export default function NtsComparisonSection() {
           >
             {/* ---- Visual header row ---- */}
             <div
-              className="grid grid-cols-[minmax(140px,200px)_1fr_1fr]"
+              className="grid grid-cols-[minmax(140px,200px)_1fr_1fr_minmax(140px,200px)]"
               role="row"
             >
               {/* axis gutter (empty) */}
@@ -140,13 +140,16 @@ export default function NtsComparisonSection() {
                   {NTS_TAGLINE}
                 </p>
               </div>
+
+              {/* Right mirror spacer (aligns divider to page center) */}
+              <div aria-hidden />
             </div>
 
             {/* ---- Body rows ---- */}
             {AXES.map((row) => (
               <div
                 key={row.axis}
-                className="grid grid-cols-[minmax(140px,200px)_1fr_1fr] border-t border-[var(--border-subtle)]"
+                className="grid grid-cols-[minmax(140px,200px)_1fr_1fr_minmax(140px,200px)] border-t border-[var(--border-subtle)]"
                 role="row"
               >
                 <div
@@ -180,6 +183,8 @@ export default function NtsComparisonSection() {
                     {row.nts}
                   </p>
                 </div>
+                {/* Right mirror spacer (aligns divider to page center) */}
+                <div aria-hidden />
               </div>
             ))}
           </div>

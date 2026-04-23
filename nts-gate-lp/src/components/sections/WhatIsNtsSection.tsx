@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Image from "next/image";
 import { ArrowDown, ArrowLeft, ArrowRight } from "lucide-react";
@@ -46,7 +46,7 @@ const FLOW_STEPS = [
   },
   {
     title: "採択に向けた準備・申請",
-    body: "提携行政書士と連携しながら申請を進めます。採択が決まった時点で、補助額の5%を成果報酬としていただきます。",
+    body: "提携行政書士と連携しながら申請を進めます。採択が決まった時点で、補助額の5%を成功報酬としていただきます。",
     image: isometric15,
     bg: "#EEF6FF",
     border: "#B5D4F4",
@@ -236,3 +236,4 @@ export default function WhatIsNtsSection() {
     </section>
   );
 }
+

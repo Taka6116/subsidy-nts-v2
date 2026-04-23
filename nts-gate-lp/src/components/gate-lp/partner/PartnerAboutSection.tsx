@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Image from "next/image";
 import { motion } from "framer-motion";
@@ -22,7 +22,7 @@ const STATS = [
     body: "申請プロセスは提携行政書士と共に進めます。",
   },
   {
-    title: "完全成果報酬",
+    title: "完全成功報酬",
     body: "採択されなければ紹介フィーは発生しません。",
   },
 ];
@@ -106,3 +106,4 @@ export default function PartnerAboutSection() {
     </section>
   );
 }
+
