@@ -173,7 +173,7 @@ export default async function SubsidyDetailPage({ params }: DetailPageProps) {
       where: { subsidyId: id, contentType: "article", status: "published" },
       orderBy: { createdAt: "desc" },
       take: 3,
-      select: { id: true, title: true, status: true, publishedAt: true },
+      select: { id: true, title: true, status: true, publishedAt: true, slug: true },
     }),
   ]);
 
@@ -359,7 +359,11 @@ export default async function SubsidyDetailPage({ params }: DetailPageProps) {
                       {relatedArticles.map((article) => (
                         <li key={article.id}>
                           <Link
-                            href={`/subsidies/articles`}
+                            href={
+                              article.slug
+                                ? `/subsidies/articles/${article.slug}`
+                                : `/subsidies/articles`
+                            }
                             className="block rounded-lg border border-neutral-200 bg-[#faf9f6] px-4 py-3 text-sm transition hover:border-[#cfd6d3]"
                           >
                             <p className="font-medium text-[#2f2e2b]">{article.title ?? "無題の記事"}</p>
