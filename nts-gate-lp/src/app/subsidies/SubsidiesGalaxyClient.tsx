@@ -2,7 +2,7 @@
 
 import { useState, useCallback, useEffect } from "react";
 import Link from "next/link";
-import { ArrowUpRight, BookOpen, FileSearch, PlaySquare, Sparkles } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { getPartnerUrl } from "@/lib/partnerUrl";
 import IntroOverlay from "@/components/subsidies/IntroOverlay";
 import SubsidyHeroV3 from "@/components/subsidies/SubsidyHeroV3";
@@ -17,9 +17,6 @@ const CATEGORY_CARDS = [
     desc: "省庁・jGrantsから自動収集した最新補助金を検索。締切・上限額・対象業種を一目で確認。",
     badge: "最速更新",
     badgeClass: "bg-amber-50 text-amber-700 ring-amber-200",
-    icon: FileSearch,
-    iconClass: "bg-blue-600 text-white",
-    accentClass: "from-blue-600 to-cyan-500",
   },
   {
     href: "/subsidies/articles",
@@ -27,9 +24,6 @@ const CATEGORY_CARDS = [
     desc: "補助金ごとの詳しい解説・申請ポイントをまとめた専門記事。",
     badge: "補助金記事",
     badgeClass: "bg-blue-50 text-blue-700 ring-blue-200",
-    icon: BookOpen,
-    iconClass: "bg-indigo-600 text-white",
-    accentClass: "from-indigo-600 to-violet-500",
   },
   {
     href: "/subsidies/lp",
@@ -37,9 +31,6 @@ const CATEGORY_CARDS = [
     desc: "制度ごとの対象課題・活用例・申請の流れをLP形式で整理。",
     badge: "webページ",
     badgeClass: "bg-teal-50 text-teal-700 ring-teal-200",
-    icon: Sparkles,
-    iconClass: "bg-teal-600 text-white",
-    accentClass: "from-teal-600 to-emerald-500",
   },
   {
     href: "/subsidies/videos",
@@ -47,9 +38,6 @@ const CATEGORY_CARDS = [
     desc: "音声ナレーション付きの動画で補助金の概要を手軽に理解。通勤中にも。",
     badge: "補助金解説動画",
     badgeClass: "bg-emerald-50 text-emerald-700 ring-emerald-200",
-    icon: PlaySquare,
-    iconClass: "bg-sky-600 text-white",
-    accentClass: "from-sky-600 to-blue-500",
   },
 ] as const;
 
@@ -93,8 +81,7 @@ export default function SubsidiesGalaxyClient({ content }: Props) {
         <section className="mx-auto w-full max-w-[1400px] px-6 pb-16 pt-6">
           <div className="mb-7 flex items-end justify-between">
             <div>
-              <p className="text-xs font-black tracking-[0.18em] text-[#1d5fe8]">EXPLORE</p>
-              <h2 className="mt-1 font-heading text-2xl font-black text-[#10294a]">
+              <h2 className="font-heading text-2xl font-black text-[#10294a]">
                 補助金情報を、目的から探す
               </h2>
             </div>
@@ -104,23 +91,15 @@ export default function SubsidiesGalaxyClient({ content }: Props) {
           </div>
 
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {CATEGORY_CARDS.map((card) => {
-              const Icon = card.icon;
-              return (
+            {CATEGORY_CARDS.map((card) => (
               <Link
                 key={card.href}
                 href={card.href}
                 className="group relative flex min-h-[230px] flex-col overflow-hidden rounded-2xl border border-[#dbe4f0] bg-white p-6 shadow-[0_10px_28px_rgba(30,66,110,0.07)] transition-all duration-200 hover:-translate-y-1.5 hover:border-blue-200 hover:shadow-[0_18px_36px_rgba(30,66,110,0.15)]"
               >
-                <div className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${card.accentClass}`} />
-                <div className="mb-5 flex items-center justify-between">
-                  <span className={`rounded-full px-2.5 py-0.5 text-[10px] font-bold ring-1 ${card.badgeClass}`}>
-                    {card.badge}
-                  </span>
-                  <span className={`grid h-11 w-11 place-items-center rounded-xl shadow-sm ${card.iconClass}`}>
-                    <Icon className="h-5 w-5" />
-                  </span>
-                </div>
+                <span className={`mb-5 inline-flex w-fit rounded-full px-2.5 py-0.5 text-[10px] font-bold ring-1 ${card.badgeClass}`}>
+                  {card.badge}
+                </span>
                 <h2 className="font-heading text-lg font-semibold text-[#0f172a]">{card.label}</h2>
                 <p className="mt-3 flex-1 text-sm leading-relaxed text-[#475569]">{card.desc}</p>
                 <div className="mt-5 flex items-center gap-1.5 text-xs font-bold text-[#2563eb]">
@@ -128,8 +107,7 @@ export default function SubsidiesGalaxyClient({ content }: Props) {
                   <ArrowUpRight aria-hidden="true" className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </div>
               </Link>
-              );
-            })}
+            ))}
           </div>
         </section>
 
