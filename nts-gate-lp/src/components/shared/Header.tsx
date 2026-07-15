@@ -1,7 +1,9 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Menu, X } from "lucide-react";
 import { trackCTAClick, trackPartnerLinkClick } from "@/lib/analytics";
 import { getPartnerUrl } from "@/lib/partnerUrl";
 import { CTA } from "@/lib/constants";
@@ -39,6 +41,13 @@ export default function Header() {
   /** エンドユーザー/提携先ともに同一の白背景ヘッダーを常時適用 */
   const barClass = "lp-site-header";
 
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  // ルート遷移でメニューを閉じる
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [pathname]);
+
   return (
     <header
       className={`
@@ -49,21 +58,21 @@ export default function Header() {
       `}
       data-hero-transparent={heroStyle ? "true" : undefined}
     >
-      <Link
-        href="/"
-        className="flex shrink-0 items-center justify-center rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent-navy)] sm:justify-start"
-      >
-        <img
-          src="/nts-logo.svg"
-          alt="日本提携支援"
-          className="h-8 w-auto sm:h-9"
-          width={200}
-          height={29}
-        />
-      </Link>
-
       {isSubsidies ? (
         <>
+          <Link
+            href="/"
+            className="flex shrink-0 items-center justify-center rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent-navy)] sm:justify-start"
+          >
+            <img
+              src="/nts-logo.svg"
+              alt="日本提携支援"
+              className="h-8 w-auto sm:h-9"
+              width={200}
+              height={29}
+            />
+          </Link>
+
           {/* ナビリンク：CTA除外・フォント小さめで1段に収める */}
           <nav
             className="flex min-w-0 flex-1 items-center justify-end gap-x-3 overflow-hidden sm:ml-2 lg:ml-6 lg:gap-x-5"
@@ -111,25 +120,73 @@ export default function Header() {
           </div>
         </>
       ) : (
-        <div className="flex min-w-0 flex-1 flex-col gap-2.5 sm:flex-row sm:items-center sm:justify-end sm:gap-4 md:gap-5">
-          <div className="order-1 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 sm:justify-end sm:gap-x-5">
+        <>
+          {/* モバイル: ロゴ + 主CTA + ハンバーガーを1段に。sm以上では sm:contents で従来レイアウトに戻す */}
+          <div className="flex items-center justify-between gap-2 sm:contents">
             <Link
-              href={partnerNavHref}
-              onClick={() => trackPartnerLinkClick("header")}
-              className={`${navLinkClass(heroStyle)} shrink-0`}
+              href="/"
+              className="flex shrink-0 items-center justify-center rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent-navy)] sm:justify-start"
             >
-              {partnerNavLabel}
+              <img
+                src="/nts-logo.svg"
+                alt="日本提携支援"
+                className="h-8 w-auto sm:h-9"
+                width={200}
+                height={29}
+              />
             </Link>
-            <Link
-              href="/subsidies"
-              onClick={() => trackCTAClick("header_subsidy_detail")}
-              className={`${navLinkClass(heroStyle)} shrink-0`}
-            >
-              補助金詳細
-            </Link>
-            <HeaderCtaGroup />
+
+            {/* モバイル専用の右側クラスタ（PCでは非表示） */}
+            <div className="flex shrink-0 items-center gap-2 sm:hidden">
+              <Link
+                href="/consult"
+                onClick={() => trackCTAClick("header_consult")}
+                className="header-cta header-cta--primary shrink-0 !min-h-9 !px-3 !py-2 !text-[0.8125rem]"
+              >
+                無料相談
+              </Link>
+              <button
+                type="button"
+                onClick={() => setMobileMenuOpen((v) => !v)}
+                aria-expanded={mobileMenuOpen}
+                aria-controls="mobile-nav-menu"
+                aria-label={mobileMenuOpen ? "メニューを閉じる" : "メニューを開く"}
+                className="grid h-9 w-9 shrink-0 place-items-center rounded-lg border border-[rgba(26,76,142,0.18)] bg-white/70 text-[var(--accent-navy)] transition hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent-navy)]"
+              >
+                {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              </button>
+            </div>
           </div>
-        </div>
+
+          {/* ナビ + CTA群: モバイルは開閉するドロップダウン、sm以上は従来の横並び */}
+          <div
+            id="mobile-nav-menu"
+            className={`${
+              mobileMenuOpen ? "flex" : "hidden"
+            } -mx-4 flex-col gap-2.5 border-t border-[rgba(26,76,142,0.1)] bg-white/95 px-4 pb-1 pt-2.5 min-w-0 sm:mx-0 sm:flex sm:flex-1 sm:flex-row sm:items-center sm:justify-end sm:gap-4 sm:border-0 sm:bg-transparent sm:px-0 sm:pb-0 sm:pt-0 md:gap-5`}
+          >
+            <div className="order-1 flex flex-col items-stretch gap-1 sm:flex-row sm:flex-wrap sm:items-center sm:justify-end sm:gap-x-5 sm:gap-y-2">
+              <Link
+                href={partnerNavHref}
+                onClick={() => trackPartnerLinkClick("header")}
+                className={`${navLinkClass(heroStyle)} shrink-0 rounded-lg px-2 py-2 hover:bg-[rgba(26,76,142,0.05)] sm:rounded-sm sm:px-0 sm:py-0 sm:hover:bg-transparent`}
+              >
+                {partnerNavLabel}
+              </Link>
+              <Link
+                href="/subsidies"
+                onClick={() => trackCTAClick("header_subsidy_detail")}
+                className={`${navLinkClass(heroStyle)} shrink-0 rounded-lg px-2 py-2 hover:bg-[rgba(26,76,142,0.05)] sm:rounded-sm sm:px-0 sm:py-0 sm:hover:bg-transparent`}
+              >
+                補助金詳細
+              </Link>
+              {/* 主CTA: PCではここに表示。モバイルは上部バーに表示するため隠す */}
+              <div className="hidden sm:flex">
+                <HeaderCtaGroup />
+              </div>
+            </div>
+          </div>
+        </>
       )}
     </header>
   );
