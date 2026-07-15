@@ -564,7 +564,7 @@ export default function RootIssueCaseSection({
 
                 {/* SP: サイクル図 */}
                 <div className="mt-2">
-                  <CycleDiagram />
+                  <CycleDiagramMobile />
                 </div>
               </div>
             </div>
@@ -1155,6 +1155,91 @@ function CycleDiagram() {
         }}
       >
         補助金獲得後も継続的に伴走し、次の課題を特定し、最適な支援提案へとつなげます。
+      </p>
+    </div>
+  );
+}
+
+/**
+ * スマホは横長の楕円SVGをそのまま縮小せず、読みやすい2×2の循環図に切り替える。
+ * PC版の図解は CycleDiagram のまま維持する。
+ */
+function CycleDiagramMobile() {
+  const nodes = [
+    { label: "補助金制度\n提案", Icon: ClipboardList, tone: "blue" },
+    { label: "実行支援", Icon: Handshake, tone: "teal" },
+    { label: "実行\nフォロー", Icon: TrendingUp, tone: "blue" },
+    { label: "次の課題\n発見", Icon: Lightbulb, tone: "teal" },
+  ] as const;
+
+  return (
+    <div
+      className="rounded-[18px] px-4 pb-5 pt-5"
+      style={{
+        background: NAVY_GRADIENT_CARD_EMPHASIZED,
+        border: "1.5px solid #B5D4F4",
+        boxShadow: "0 8px 28px rgba(26,76,142,0.12)",
+      }}
+    >
+      <p
+        className="font-heading text-center"
+        style={{
+          fontSize: "1rem",
+          fontWeight: 700,
+          color: "#1e3a6e",
+          letterSpacing: "0.04em",
+        }}
+      >
+        中長期伴走サイクル
+      </p>
+
+      <div className="mt-4 grid grid-cols-2 gap-3">
+        {nodes.map(({ label, Icon, tone }, index) => (
+          <div
+            key={label}
+            className="relative flex min-h-[106px] flex-col items-center justify-center rounded-2xl bg-white px-2 py-3 text-center"
+            style={{
+              border: `1.5px solid ${tone === "blue" ? "#bdd6f1" : "#b7e3d5"}`,
+              boxShadow: "0 3px 10px rgba(26,76,142,0.08)",
+            }}
+          >
+            <span
+              className="absolute left-2 top-2 grid h-5 w-5 place-items-center rounded-full text-[10px] font-bold text-white"
+              style={{ background: tone === "blue" ? "#2f63bd" : "#129d87" }}
+            >
+              {index + 1}
+            </span>
+            <Icon
+              size={22}
+              strokeWidth={1.8}
+              style={{ color: tone === "blue" ? "#2f63bd" : "#129d87" }}
+              aria-hidden
+            />
+            <p
+              className="font-heading mt-1 whitespace-pre-line"
+              style={{
+                fontSize: "0.78rem",
+                fontWeight: 700,
+                color: "#1e3a6e",
+                lineHeight: 1.4,
+              }}
+            >
+              {label}
+            </p>
+          </div>
+        ))}
+      </div>
+
+      <p
+        className="font-body mx-auto mt-4 text-center"
+        style={{
+          fontSize: "0.78rem",
+          lineHeight: 1.7,
+          color: "#4b6585",
+          maxWidth: "320px",
+        }}
+      >
+        補助金獲得後も継続的に伴走し、次の課題を特定して最適な支援提案へとつなげます。
       </p>
     </div>
   );

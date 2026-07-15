@@ -380,7 +380,28 @@
 
 @media (max-width: 767px) {
   .imgCol {
+    display: block;
+    width: 100%;
+    max-width: 560px;
+    margin-top: -12px;
+  }
+
+  /* スマホでも診断フォームを実際の入力導線として表示する。
+     デモ動画・補足の3ステップは縦長化を避けるため省略する。 */
+  .partnerVideoCard {
     display: none;
+  }
+
+  .endUserPreview {
+    background: transparent;
+  }
+
+  .partnerFormVideoUnit {
+    gap: 0;
+  }
+
+  .partnerFormCard {
+    box-shadow: 0 12px 30px rgba(26, 76, 142, 0.12);
   }
 }
 
