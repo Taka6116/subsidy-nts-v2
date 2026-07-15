@@ -53,14 +53,14 @@ function CardHeader({
   href: string;
 }) {
   return (
-    <div className="flex items-center justify-between">
-      <div className="flex items-center gap-2 text-[15px] font-black text-[#12233d]">
+    <div className="flex min-w-0 items-center justify-between gap-3">
+      <div className="flex min-w-0 items-center gap-2 text-[15px] font-black text-[#12233d]">
         <span className="text-[#1d5fe8]">{icon}</span>
-        {title}
+        <span className="truncate">{title}</span>
       </div>
       <Link
         href={href}
-        className="inline-flex items-center gap-0.5 text-xs font-bold text-[#1d5fe8] hover:underline"
+        className="inline-flex shrink-0 items-center gap-0.5 text-xs font-bold text-[#1d5fe8] hover:underline"
       >
         すべて見る
         <ChevronRight className="h-3.5 w-3.5" />
@@ -106,7 +106,7 @@ export default function SubsidyHeroV3({
       }}
     >
       <section
-        className="relative z-10 mx-auto w-full max-w-[1560px] px-5 pb-5 pt-36 sm:px-8 sm:pt-24 lg:px-10 lg:pt-24"
+        className="relative z-10 mx-auto w-full max-w-[1560px] px-4 pb-5 pt-20 sm:px-8 sm:pt-24 lg:px-10 lg:pt-24"
         aria-labelledby="hero-title"
       >
         {/* ── 上段: コピー + チーム写真 ── */}
@@ -224,20 +224,20 @@ export default function SubsidyHeroV3({
         </motion.div>
 
         {/* ── 下段: 3カード ── */}
-        <div className="mt-5 grid gap-5 md:grid-cols-2 xl:grid-cols-[1fr_1.08fr_1.08fr]">
+        <div className="mt-5 grid min-w-0 grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-[minmax(0,1fr)_minmax(0,1.08fr)_minmax(0,1.08fr)]">
           {/* 新着記事 */}
           <motion.article
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55, ease: EASE, delay: 0.18 }}
-            className="flex flex-col rounded-[18px] border border-[#dbe7f5] bg-white/92 p-5 shadow-[0_14px_34px_rgba(15,49,96,0.09)] backdrop-blur-sm"
+            className="flex min-w-0 flex-col rounded-[18px] border border-[#dbe7f5] bg-white/92 p-4 shadow-[0_14px_34px_rgba(15,49,96,0.09)] backdrop-blur-sm sm:p-5"
           >
             <CardHeader
               icon={<Newspaper className="h-[18px] w-[18px]" />}
               title="新着記事"
               href="/subsidies/articles"
             />
-            <div className="mt-4 grid grid-cols-2 gap-x-4 gap-y-4">
+            <div className="mt-4 grid min-w-0 grid-cols-1 gap-x-4 gap-y-4 sm:grid-cols-2">
               {articles.map((a) => (
                 <Link
                   key={a.slug}
@@ -277,7 +277,7 @@ export default function SubsidyHeroV3({
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55, ease: EASE, delay: 0.24 }}
-            className="flex flex-col rounded-[18px] border border-[#dbe7f5] bg-white/92 p-5 shadow-[0_14px_34px_rgba(15,49,96,0.09)] backdrop-blur-sm"
+            className="flex min-w-0 flex-col rounded-[18px] border border-[#dbe7f5] bg-white/92 p-4 shadow-[0_14px_34px_rgba(15,49,96,0.09)] backdrop-blur-sm sm:p-5"
           >
             <CardHeader
               icon={<PlaySquare className="h-[18px] w-[18px]" />}
@@ -352,7 +352,7 @@ export default function SubsidyHeroV3({
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55, ease: EASE, delay: 0.3 }}
-            className="flex flex-col rounded-[18px] border border-[#dbe7f5] bg-white/92 p-5 shadow-[0_14px_34px_rgba(15,49,96,0.09)] backdrop-blur-sm md:col-span-2 xl:col-span-1"
+            className="flex min-w-0 flex-col rounded-[18px] border border-[#dbe7f5] bg-white/92 p-4 shadow-[0_14px_34px_rgba(15,49,96,0.09)] backdrop-blur-sm sm:p-5 md:col-span-2 xl:col-span-1"
           >
             <CardHeader
               icon={<BookOpen className="h-[18px] w-[18px]" />}
