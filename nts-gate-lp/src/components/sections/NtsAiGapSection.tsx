@@ -127,7 +127,10 @@ export default function NtsAiGapSection({ homeDepth = false }: { homeDepth?: boo
               <h3 className="mb-6 text-center font-heading text-[1.05rem] font-bold leading-[1.85] text-[var(--text-primary)] md:mb-7 md:text-[1.15rem]">
                 {p.line1}
                 <br />
-                <span className="text-[0.88em] text-[var(--accent-teal)]">{p.bridge}</span>
+                {/* 因果を示す装飾。見出しの読み上げ・インデックス対象からは除外する */}
+                <span aria-hidden className="text-[0.88em] text-[var(--accent-teal)]">
+                  {p.bridge}
+                </span>
                 <br />
                 <span className="text-[var(--accent-teal)]">{p.line2}</span>
                 <br />

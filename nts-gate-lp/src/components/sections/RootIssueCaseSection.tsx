@@ -98,6 +98,55 @@ const CASE_CARDS = [
 // 線の共通色
 const LINE_COLOR = "rgba(11,79,138,0.4)";
 
+// ============================================================
+// PC / SP で重複表示するテキストは必ずここを唯一の出典にする。
+// レイアウトはPCとSPで別マークアップだが、文言を二重管理すると
+// 片方だけ更新されて表示が食い違うため、文字列は共有する。
+// ============================================================
+const CONSULT_NODE = {
+  label: "相談内容",
+  body: "設備を更新したい",
+} as const;
+
+const COMPARE_LABELS = {
+  left: "制度単体で進めた場合",
+  right: "NTSに相談した場合",
+} as const;
+
+const GAP_CARD = {
+  label: "活用余地の差",
+  lead: "追加で獲得できた可能性",
+  amount: "+50万円規模",
+  note: "※条件により異なります",
+} as const;
+
+const ACTIVATION_CARDS = {
+  left: {
+    amount: "100",
+    amountUnit: "万円規模",
+    caption: "制度単体で確認した場合の目安",
+  },
+  right: {
+    amount: "150",
+    amountUnit: "万円規模",
+    caption: "条件が合えば、追加の活用余地が見つかる場合があります",
+  },
+} as const;
+
+const BRIDGE_LABEL = "ここから中長期伴走へ";
+
+const CYCLE_TITLE = "中長期伴走サイクル";
+const CYCLE_DESCRIPTION =
+  "補助金獲得後も継続的に伴走し、次の課題を特定し、最適な支援提案へとつなげます。";
+
+/** サイクル図のノード。PC（楕円配置）とSP（2×2グリッド）で共有する */
+const CYCLE_NODES = [
+  { lines: ["補助金制度", "提案"], Icon: ClipboardList },
+  { lines: ["実行支援"], Icon: Handshake },
+  { lines: ["実行フォロー"], Icon: TrendingUp },
+  { lines: ["次の課題", "発見"], Icon: Lightbulb },
+] as const;
+
 export default function RootIssueCaseSection({
   heading,
   homeDepth = false,
@@ -162,7 +211,7 @@ export default function RootIssueCaseSection({
                     boxShadow: "0 2px 6px rgba(0,0,0,0.04)",
                   }}
                 >
-                  制度単体で進めた場合
+                  {COMPARE_LABELS.left}
                 </span>
                 <span
                   aria-hidden
@@ -190,7 +239,7 @@ export default function RootIssueCaseSection({
                       letterSpacing: "0.06em",
                     }}
                   >
-                    相談内容
+                    {CONSULT_NODE.label}
                   </p>
                   <p
                     className="font-body mt-0.5"
@@ -199,7 +248,7 @@ export default function RootIssueCaseSection({
                       color: "var(--text-secondary)",
                     }}
                   >
-                    設備を更新したい
+                    {CONSULT_NODE.body}
                   </p>
                 </div>
               </div>
@@ -221,7 +270,7 @@ export default function RootIssueCaseSection({
                     boxShadow: "0 6px 18px rgba(26,76,142,0.22)",
                   }}
                 >
-                  NTSに相談した場合
+                  {COMPARE_LABELS.right}
                 </span>
               </div>
             </div>
@@ -243,7 +292,7 @@ export default function RootIssueCaseSection({
                     color: "var(--accent-navy)",
                   }}
                 >
-                  相談内容
+                  {CONSULT_NODE.label}
                 </p>
                 <p
                   className="font-body mt-0.5"
@@ -252,7 +301,7 @@ export default function RootIssueCaseSection({
                     color: "var(--text-secondary)",
                   }}
                 >
-                  設備を更新したい
+                  {CONSULT_NODE.body}
                 </p>
               </div>
             </div>
@@ -300,76 +349,13 @@ export default function RootIssueCaseSection({
 
                 {/* row 4 — 100万 / 差分 / 150万 */}
                 <BadgeColumn side="left" slot="end">
-                  <ActivationCard
-                    amount="100"
-                    amountUnit="万円規模"
-                    caption="制度単体で確認した場合の目安"
-                    tone="left"
-                  />
+                  <ActivationCard side="left" />
                 </BadgeColumn>
                 <div className="relative flex items-center justify-center" style={{ alignSelf: "center" }}>
-                  <div
-                    className="font-body relative z-[2] flex max-w-[200px] flex-col items-center rounded-[14px] bg-white px-4 py-3.5 sm:px-5 sm:py-4"
-                    style={{
-                      border: `1.5px dashed ${LINE_COLOR}`,
-                      boxShadow: "0 8px 22px rgba(26,76,142,0.12)",
-                      minWidth: "148px",
-                    }}
-                  >
-                    <p
-                      className="font-heading text-center"
-                      style={{
-                        fontSize: "0.68rem",
-                        fontWeight: 700,
-                        letterSpacing: "0.06em",
-                        color: "var(--text-muted)",
-                        lineHeight: 1.35,
-                      }}
-                    >
-                      活用余地の差
-                    </p>
-                    <p
-                      className="font-body mt-1 text-center"
-                      style={{
-                        fontSize: "0.72rem",
-                        fontWeight: 600,
-                        color: "var(--text-secondary)",
-                        lineHeight: 1.45,
-                      }}
-                    >
-                      追加で獲得できた可能性
-                    </p>
-                    <p
-                      className="font-heading mt-2 text-center"
-                      style={{
-                        fontSize: "1.15rem",
-                        fontWeight: 800,
-                        color: "var(--accent-navy)",
-                        lineHeight: 1.25,
-                      }}
-                    >
-                      +50万円規模
-                    </p>
-                    <p
-                      className="font-body mt-2 text-center"
-                      style={{
-                        fontSize: "0.68rem",
-                        lineHeight: 1.5,
-                        color: "var(--text-muted)",
-                      }}
-                    >
-                      ※条件により異なります
-                    </p>
-                  </div>
+                  <GapCard />
                 </div>
                 <BadgeColumn side="right" slot="between">
-                  <ActivationCard
-                    amount="150"
-                    amountUnit="万円規模"
-                    caption="条件が合えば、追加の活用余地が見つかる場合があります"
-                    tone="right"
-                    emphasized
-                  />
+                  <ActivationCard side="right" emphasized />
                 </BadgeColumn>
 
                 {/* row 5 — 右のみ04 */}
@@ -393,7 +379,7 @@ export default function RootIssueCaseSection({
                       marginBottom: "6px",
                     }}
                   >
-                    ここから中長期伴走へ
+                    {BRIDGE_LABEL}
                   </span>
                   {/* 縦線 */}
                   <div
@@ -437,7 +423,7 @@ export default function RootIssueCaseSection({
                     border: "1px solid var(--border-subtle)",
                   }}
                 >
-                  制度単体で進めた場合
+                  {COMPARE_LABELS.left}
                 </span>
               </div>
               {LEFT_STEPS.map((step) => (
@@ -446,59 +432,12 @@ export default function RootIssueCaseSection({
                 </div>
               ))}
               <div className="relative pl-5">
-                <ActivationCard
-                  amount="100"
-                  amountUnit="万円規模"
-                  caption="制度単体で確認した場合の目安"
-                  tone="left"
-                />
+                <ActivationCard side="left" />
               </div>
 
               {/* 差額 */}
               <div className="flex justify-center">
-                <div
-                  className="font-body flex max-w-[280px] flex-col items-center rounded-[14px] bg-white px-4 py-3.5"
-                  style={{ border: `1.5px dashed ${LINE_COLOR}` }}
-                >
-                  <p
-                    className="font-heading text-center"
-                    style={{
-                      fontSize: "0.68rem",
-                      fontWeight: 700,
-                      letterSpacing: "0.06em",
-                      color: "var(--text-muted)",
-                    }}
-                  >
-                    活用余地の差
-                  </p>
-                  <p
-                    className="font-body mt-1 text-center"
-                    style={{
-                      fontSize: "0.72rem",
-                      fontWeight: 600,
-                      color: "var(--text-secondary)",
-                      lineHeight: 1.45,
-                    }}
-                  >
-                    追加で獲得できた可能性
-                  </p>
-                  <p
-                    className="font-heading mt-2 text-center"
-                    style={{
-                      fontSize: "1.1rem",
-                      fontWeight: 800,
-                      color: "var(--accent-navy)",
-                    }}
-                  >
-                    +50万円規模
-                  </p>
-                  <p
-                    className="font-body mt-2 text-center"
-                    style={{ fontSize: "0.68rem", color: "var(--text-muted)", lineHeight: 1.5 }}
-                  >
-                    ※条件により異なります
-                  </p>
-                </div>
+                <GapCard variant="mobile" />
               </div>
 
               {/* 右ブロック（NTSに相談した場合） */}
@@ -520,7 +459,7 @@ export default function RootIssueCaseSection({
                       boxShadow: "0 4px 14px rgba(26,76,142,0.2)",
                     }}
                   >
-                    NTSに相談した場合
+                    {COMPARE_LABELS.right}
                   </span>
                 </div>
                 {RIGHT_STEPS.slice(0, 3).map((step) => (
@@ -529,13 +468,7 @@ export default function RootIssueCaseSection({
                   </div>
                 ))}
                 <div className="relative mt-4 pl-5">
-                  <ActivationCard
-                    amount="150"
-                    amountUnit="万円規模"
-                    caption="条件が合えば、追加の活用余地が見つかる場合があります"
-                    tone="right"
-                    emphasized
-                  />
+                  <ActivationCard side="right" emphasized />
                 </div>
                 <div className="relative mt-4 pl-5">
                   <StepCard step={RIGHT_STEPS[3]} tone="right" />
@@ -558,7 +491,7 @@ export default function RootIssueCaseSection({
                       letterSpacing: "0.04em",
                     }}
                   >
-                    ここから中長期伴走へ
+                    {BRIDGE_LABEL}
                   </span>
                 </div>
 
@@ -853,22 +786,87 @@ function StepCard({
 }
 
 // ============================================================
+// GapCard — 「活用余地の差」カード（PC / SP 共用）
+// ============================================================
+function GapCard({ variant = "desktop" }: { variant?: "desktop" | "mobile" } = {}) {
+  const isMobile = variant === "mobile";
+  return (
+    <div
+      className={
+        isMobile
+          ? "font-body flex max-w-[280px] flex-col items-center rounded-[14px] bg-white px-4 py-3.5"
+          : "font-body relative z-[2] flex max-w-[200px] flex-col items-center rounded-[14px] bg-white px-4 py-3.5 sm:px-5 sm:py-4"
+      }
+      style={{
+        border: `1.5px dashed ${LINE_COLOR}`,
+        ...(isMobile
+          ? {}
+          : {
+              boxShadow: "0 8px 22px rgba(26,76,142,0.12)",
+              minWidth: "148px",
+            }),
+      }}
+    >
+      <p
+        className="font-heading text-center"
+        style={{
+          fontSize: "0.68rem",
+          fontWeight: 700,
+          letterSpacing: "0.06em",
+          color: "var(--text-muted)",
+          lineHeight: 1.35,
+        }}
+      >
+        {GAP_CARD.label}
+      </p>
+      <p
+        className="font-body mt-1 text-center"
+        style={{
+          fontSize: "0.72rem",
+          fontWeight: 600,
+          color: "var(--text-secondary)",
+          lineHeight: 1.45,
+        }}
+      >
+        {GAP_CARD.lead}
+      </p>
+      <p
+        className="font-heading mt-2 text-center"
+        style={{
+          fontSize: isMobile ? "1.1rem" : "1.15rem",
+          fontWeight: 800,
+          color: "var(--accent-navy)",
+          lineHeight: 1.25,
+        }}
+      >
+        {GAP_CARD.amount}
+      </p>
+      <p
+        className="font-body mt-2 text-center"
+        style={{
+          fontSize: "0.68rem",
+          lineHeight: 1.5,
+          color: "var(--text-muted)",
+        }}
+      >
+        {GAP_CARD.note}
+      </p>
+    </div>
+  );
+}
+
+// ============================================================
 // ActivationCard — 100/150 万円規模カード
 // ============================================================
 function ActivationCard({
-  amount,
-  amountUnit,
-  caption,
-  tone,
+  side,
   emphasized = false,
 }: {
-  amount: string;
-  amountUnit: string;
-  caption: string;
-  tone: "left" | "right";
+  side: "left" | "right";
   emphasized?: boolean;
 }) {
-  const isRight = tone === "right";
+  const { amount, amountUnit, caption } = ACTIVATION_CARDS[side];
+  const isRight = side === "right";
   return (
     <div
       className="relative z-[2] flex flex-col justify-center rounded-[14px] p-5 md:p-6"
@@ -991,12 +989,18 @@ function ellipseArrowHead(toDeg: number, halfW: number, tipLen: number) {
 }
 
 // ノード位置（楕円の top/right/bottom/left, % 表記）
-const CYCLE_NODES_H = [
-  { lines: ["補助金制度", "提案"], Icon: ClipboardList, left: "50%",                              top: `${((CY - RY_E) / VBH * 100).toFixed(1)}%` },
-  { lines: ["実行支援"],           Icon: Handshake,     left: `${((CX + RX_E) / VBW * 100).toFixed(1)}%`, top: "50%" },
-  { lines: ["実行フォロー"],       Icon: TrendingUp,    left: "50%",                              top: `${((CY + RY_E) / VBH * 100).toFixed(1)}%` },
-  { lines: ["次の課題", "発見"],   Icon: Lightbulb,     left: `${((CX - RX_E) / VBW * 100).toFixed(1)}%`, top: "50%" },
+// ラベル・アイコンは CYCLE_NODES（SP版と共通）を出典に、座標だけをここで与える
+const CYCLE_NODE_POSITIONS = [
+  { left: "50%", top: `${((CY - RY_E) / VBH * 100).toFixed(1)}%` },
+  { left: `${((CX + RX_E) / VBW * 100).toFixed(1)}%`, top: "50%" },
+  { left: "50%", top: `${((CY + RY_E) / VBH * 100).toFixed(1)}%` },
+  { left: `${((CX - RX_E) / VBW * 100).toFixed(1)}%`, top: "50%" },
 ] as const;
+
+const CYCLE_NODES_H = CYCLE_NODES.map((node, index) => ({
+  ...node,
+  ...CYCLE_NODE_POSITIONS[index],
+}));
 
 // 4本の弧（ノード 0/90/180/270°。縦ノードは±28°, 横ノードは±40° 空けて
 // 矢じり先端が円の手前 20px 程度で止まり、進行方向が明確に見えるようにする）
@@ -1030,7 +1034,7 @@ function CycleDiagram() {
           marginBottom: "20px",
         }}
       >
-        中長期伴走サイクル
+        {CYCLE_TITLE}
       </p>
 
       {/* ─── 図解本体（楕円リング領域） ─── */}
@@ -1154,7 +1158,7 @@ function CycleDiagram() {
           paddingRight: "24px",
         }}
       >
-        補助金獲得後も継続的に伴走し、次の課題を特定し、最適な支援提案へとつなげます。
+        {CYCLE_DESCRIPTION}
       </p>
     </div>
   );
@@ -1165,12 +1169,12 @@ function CycleDiagram() {
  * PC版の図解は CycleDiagram のまま維持する。
  */
 function CycleDiagramMobile() {
-  const nodes = [
-    { label: "補助金制度\n提案", Icon: ClipboardList, tone: "blue" },
-    { label: "実行支援", Icon: Handshake, tone: "teal" },
-    { label: "実行\nフォロー", Icon: TrendingUp, tone: "blue" },
-    { label: "次の課題\n発見", Icon: Lightbulb, tone: "teal" },
-  ] as const;
+  // ラベル・アイコンはPC版と同じ CYCLE_NODES を出典にする（配色のみSP固有）
+  const nodes = CYCLE_NODES.map((node, index) => ({
+    label: node.lines.join("\n"),
+    Icon: node.Icon,
+    tone: index % 2 === 0 ? ("blue" as const) : ("teal" as const),
+  }));
 
   return (
     <div
@@ -1190,7 +1194,7 @@ function CycleDiagramMobile() {
           letterSpacing: "0.04em",
         }}
       >
-        中長期伴走サイクル
+        {CYCLE_TITLE}
       </p>
 
       <div className="mt-4 grid grid-cols-2 gap-3">
@@ -1239,7 +1243,7 @@ function CycleDiagramMobile() {
           maxWidth: "320px",
         }}
       >
-        補助金獲得後も継続的に伴走し、次の課題を特定して最適な支援提案へとつなげます。
+        {CYCLE_DESCRIPTION}
       </p>
     </div>
   );

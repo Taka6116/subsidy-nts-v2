@@ -119,12 +119,17 @@ const STATS = [
 const CARD_W = 320;
 const CARD_GAP = 20;
 const STRIDE = CARD_W + CARD_GAP;
-// 前後に2セットずつコピー（合計5セット）— DOM枚数を最小化
-const COPIES_EACH = 2;
+// 前後に1セットずつのバッファ（合計3セット）。
+// スクロール位置を中央セット [ONE_SET, ONE_SET*2) に丸め続けることで、
+// 左右どちらへ動いても常に1セット分の描画余地が残る。
+// 1セット = 12枚 × 340px = 4,080px あり、ビューポート幅より十分広いため
+// 5セット（60枚）を出力する必要はない。
+const COPIES_EACH = 1;
 const TOTAL_COPIES = COPIES_EACH * 2 + 1;
 const ONE_SET = CASES.length * STRIDE;
-// 本体開始位置 = 前コピー2セット分
-const BODY_START = COPIES_EACH * ONE_SET;
+// 本体（実体として読ませるセット）は中央 = 前バッファ1セット分
+const BODY_INDEX = COPIES_EACH;
+const BODY_START = BODY_INDEX * ONE_SET;
 
 // 自動スクロール速度 (px/frame @60fps ≈ 36px/s)
 const AUTO_SPEED = 0.6;
@@ -153,22 +158,21 @@ export default function SubsidyCaseStudySection({ homeDepth = false }: { homeDep
   }, []);
 
   // ── ループ補正 ──────────────────────────────────────────────────────
+  // スクロール位置を中央セットの範囲 [BODY_START, BODY_START + ONE_SET) に保つ。
+  // 1セット分ずらすだけなので、見た目は同じ位置のまま無限にループする。
   const correctLoop = useCallback((el: HTMLDivElement) => {
     if (isJumping.current) return;
     const sl = el.scrollLeft;
-    if (sl < BODY_START - ONE_SET) {
-      isJumping.current = true;
-      const next = sl + ONE_SET * 2;
-      el.scrollLeft = next;
-      scrollPos.current = next;
-      requestAnimationFrame(() => { isJumping.current = false; });
-    } else if (sl >= BODY_START + ONE_SET * 2) {
-      isJumping.current = true;
-      const next = sl - ONE_SET * 2;
-      el.scrollLeft = next;
-      scrollPos.current = next;
-      requestAnimationFrame(() => { isJumping.current = false; });
-    }
+    const shift =
+      sl < BODY_START ? ONE_SET : sl >= BODY_START + ONE_SET ? -ONE_SET : 0;
+    if (shift === 0) return;
+    isJumping.current = true;
+    const next = sl + shift;
+    el.scrollLeft = next;
+    scrollPos.current = next;
+    requestAnimationFrame(() => {
+      isJumping.current = false;
+    });
   }, []);
 
   // ── rAFループ ──────────────────────────────────────────────────────
@@ -282,9 +286,14 @@ export default function SubsidyCaseStudySection({ homeDepth = false }: { homeDep
     correctLoop(el);
   }, [correctLoop]);
 
-  // 表示カードリスト（5セット）
+  // 表示カードリスト（3セット）。中央セットだけを実体として支援技術に読ませ、
+  // 前後のループ用バッファは aria-hidden にして同じ事例の重複読み上げを防ぐ。
   const displayCards = Array.from({ length: TOTAL_COPIES }, (_, setIdx) =>
-    CASES.map((c) => ({ ...c, _key: `${setIdx}-${c.id}` }))
+    CASES.map((c) => ({
+      ...c,
+      _key: `${setIdx}-${c.id}`,
+      _duplicate: setIdx !== BODY_INDEX,
+    }))
   ).flat();
 
   return (
@@ -392,6 +401,7 @@ export default function SubsidyCaseStudySection({ homeDepth = false }: { homeDep
               c={c}
               // 最初の1セット（12枚）は eager、それ以降は lazy
               priority={idx < CASES.length}
+              duplicate={c._duplicate}
             />
           ))}
         </div>
@@ -410,12 +420,21 @@ export default function SubsidyCaseStudySection({ homeDepth = false }: { homeDep
 // ============================================================
 // CaseCard — ミニ事例レポート風
 // ============================================================
-function CaseCard({ c, priority = false }: { c: CaseData; priority?: boolean }) {
+function CaseCard({
+  c,
+  priority = false,
+  duplicate = false,
+}: {
+  c: CaseData;
+  priority?: boolean;
+  duplicate?: boolean;
+}) {
   const [imgLoaded, setImgLoaded] = useState(priority);
 
   return (
     <article
       data-case-card
+      aria-hidden={duplicate || undefined}
       className="flex shrink-0 flex-col overflow-hidden rounded-2xl bg-white"
       style={{
         width: `${CARD_W}px`,

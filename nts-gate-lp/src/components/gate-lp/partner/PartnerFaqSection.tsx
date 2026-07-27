@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import ScrollTextReveal from "@/components/shared/ScrollTextReveal";
 import { ChevronDown } from "lucide-react";
 
@@ -53,47 +53,57 @@ export default function PartnerFaqSection() {
         </div>
 
         <div className="flex flex-col gap-4">
-          {FAQ_ITEMS.map((item, i) => (
-            <motion.div
-              key={item.q}
-              {...fadeUp(0.08 + i * 0.06)}
-              className="card overflow-hidden"
-            >
-              <button
-                type="button"
-                onClick={() => setOpenIndex(openIndex === i ? null : i)}
-                aria-expanded={openIndex === i}
-                className="flex w-full items-start justify-between gap-4 px-6 py-6 text-left md:px-8 md:py-7"
+          {FAQ_ITEMS.map((item, i) => {
+            const isOpen = openIndex === i;
+            const buttonId = `partner-faq-trigger-${i}`;
+            const panelId = `partner-faq-panel-${i}`;
+            return (
+              <motion.div
+                key={item.q}
+                {...fadeUp(0.08 + i * 0.06)}
+                className="card overflow-hidden"
               >
-                <p className="font-heading text-lg font-bold leading-snug text-[var(--text-primary)] md:text-xl">
-                  Q. {item.q}
-                </p>
-                <ChevronDown
-                  className={`mt-1 h-5 w-5 shrink-0 text-[var(--text-muted)] transition-transform duration-200 ${
-                    openIndex === i ? "rotate-180" : ""
-                  }`}
-                  aria-hidden
-                />
-              </button>
-              <AnimatePresence initial={false}>
-                {openIndex === i ? (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: "auto", opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.24, ease: EASE_OUT }}
-                    className="overflow-hidden"
-                  >
-                    <div className="border-t border-[var(--border-subtle)] px-6 pb-6 pt-4 md:px-8 md:pb-8">
-                      <p className="text-sm leading-relaxed text-[var(--text-secondary)] md:text-base">
-                        A. {item.a}
-                      </p>
-                    </div>
-                  </motion.div>
-                ) : null}
-              </AnimatePresence>
-            </motion.div>
-          ))}
+                <button
+                  type="button"
+                  id={buttonId}
+                  onClick={() => setOpenIndex(isOpen ? null : i)}
+                  aria-expanded={isOpen}
+                  aria-controls={panelId}
+                  className="flex w-full items-start justify-between gap-4 px-6 py-6 text-left md:px-8 md:py-7"
+                >
+                  <p className="font-heading text-lg font-bold leading-snug text-[var(--text-primary)] md:text-xl">
+                    Q. {item.q}
+                  </p>
+                  <ChevronDown
+                    className={`mt-1 h-5 w-5 shrink-0 text-[var(--text-muted)] transition-transform duration-200 ${
+                      isOpen ? "rotate-180" : ""
+                    }`}
+                    aria-hidden
+                  />
+                </button>
+                {/*
+                  回答は常にDOMへ出力し、開閉は高さのアニメーションだけで表現する。
+                  条件付きレンダリングにすると閉じた回答が初期HTMLに含まれず、
+                  検索エンジンとページ内検索から回答が失われる。
+                */}
+                <motion.div
+                  id={panelId}
+                  aria-labelledby={buttonId}
+                  aria-hidden={!isOpen}
+                  initial={false}
+                  animate={{ height: isOpen ? "auto" : 0, opacity: isOpen ? 1 : 0 }}
+                  transition={{ duration: 0.24, ease: EASE_OUT }}
+                  className="overflow-hidden"
+                >
+                  <div className="border-t border-[var(--border-subtle)] px-6 pb-6 pt-4 md:px-8 md:pb-8">
+                    <p className="text-sm leading-relaxed text-[var(--text-secondary)] md:text-base">
+                      A. {item.a}
+                    </p>
+                  </div>
+                </motion.div>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>

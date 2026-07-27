@@ -261,11 +261,12 @@ function StepCard({ step }: { step: Step }) {
 }
 
 // ─────────────────────────────────────────────────────────────
-// ステップ間の矢印（PC: 横向き）
+// ステップ間の矢印（PC: 右向き / SP: 下向き）
 // ─────────────────────────────────────────────────────────────
 function ArrowDivider() {
   return (
-    <div className="flex items-center justify-center" aria-hidden>
+    // SP は下向き（90度回転）、PC は右向き
+    <div className="flex rotate-90 items-center justify-center md:rotate-0" aria-hidden>
       <svg width="34" height="34" viewBox="0 0 34 34" fill="none">
         <path
           d="M6 17h18M18 9l9 8-9 8"
@@ -293,64 +294,32 @@ export default function PartnerJointFlowDiagram() {
   const reveal = (delay: number) => (reduceMotion ? {} : fadeUp(delay));
 
   return (
-    <>
-      {/* ═══════════════════════ PC (md以上) 横並び ═══════════════════════ */}
-      <div className="relative mt-10 hidden md:block">
-        <div
-          className="items-stretch"
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr auto 1fr auto 1fr",
-            gap: "clamp(8px, 1vw, 18px)",
-            alignItems: "stretch",
-          }}
-        >
-          {STEPS.map((step, i) => (
-            <div key={step.number} className="contents">
-              <motion.div {...reveal(0.08 + i * 0.12)} className="relative self-stretch pt-6">
-                <StepCard step={step} />
+    /*
+      SP は縦積み、PC は横並び。以前は同じカードをPC用とSP用に2回出力していたため
+      DOM上でステップ本文が二重になっていた。1カラム → 5カラムのグリッド切り替えと
+      矢印の回転だけで両レイアウトを表現し、出力は1組に統一する。
+    */
+    <div className="relative mt-8 md:mt-10">
+      <div className="grid grid-cols-1 items-stretch gap-2 px-1 md:grid-cols-[1fr_auto_1fr_auto_1fr] md:gap-4 md:px-0">
+        {STEPS.map((step, i) => (
+          <div key={step.number} className="contents">
+            <motion.div
+              {...reveal(0.08 + i * 0.12)}
+              className="relative self-stretch pt-6"
+            >
+              <StepCard step={step} />
+            </motion.div>
+            {i < STEPS.length - 1 && (
+              <motion.div
+                {...reveal(0.16 + i * 0.12)}
+                className="flex justify-center self-center pt-2 md:pt-6"
+              >
+                <ArrowDivider />
               </motion.div>
-              {i < STEPS.length - 1 && (
-                <motion.div {...reveal(0.16 + i * 0.12)} className="self-center pt-6">
-                  <ArrowDivider />
-                </motion.div>
-              )}
-            </div>
-          ))}
-        </div>
+            )}
+          </div>
+        ))}
       </div>
-
-      {/* ═══════════════════════ Mobile (md未満) 縦積み ═══════════════════════ */}
-      <div className="mt-8 md:hidden">
-        <div className="relative space-y-2 px-1">
-          {STEPS.map((step, i) => (
-            <div key={step.number}>
-              <motion.div {...reveal(0.08 + i * 0.08)} className="pt-6">
-                <StepCard step={step} />
-              </motion.div>
-              {i < STEPS.length - 1 && (
-                <div className="flex justify-center pt-2" aria-hidden>
-                  <svg width="26" height="30" viewBox="0 0 26 30" fill="none">
-                    <path
-                      d="M13 4v18M5 14l8 8 8-8"
-                      stroke="url(#flowArrowV)"
-                      strokeWidth="3"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                    <defs>
-                      <linearGradient id="flowArrowV" x1="13" y1="4" x2="13" y2="22" gradientUnits="userSpaceOnUse">
-                        <stop stopColor="#14b8a6" />
-                        <stop offset="1" stopColor="#2563eb" />
-                      </linearGradient>
-                    </defs>
-                  </svg>
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
-      </div>
-    </>
+    </div>
   );
 }
